@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Colaborador</title>
+    <link rel="stylesheet" href="../../css/common/global.css">
+    <link rel="stylesheet" href="../../css/supervisor/sup_perfil.css"> 
+    <link rel="stylesheet" href="../../css/supervisor/sup_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container mobile-view">
+        <header class="header">
+            <a href="javascript:history.back()" class="header-back-button">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#fff" d="m12 15.289l.689-.689l-2.1-2.1H15.5v-1h-4.911l2.1-2.1L12 8.711L8.711 12zM12.003 21q-1.867 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709M12 20q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></svg>
+            </a>
+            <img src="../../img/seg_icone.png" alt="Logo SIGO" class="logo-img">
+            <div class="header-placeholder-right"></div>
+        </header>
+
+        <main class="content-area profile-page">
+            <div class="profile-header">
+                <h1 class="profile-title">Perfil do Colaborador</h1>
+                <p class="profile-subtitle" id="prof-cargo">Carregando...</p>
+            </div>
+
+            <div class="profile-picture-container">
+                <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+            </div>
+
+            <form class="profile-form">
+                <div class="form-group"><label for="prof-unidade">Unidade Responsável</label><input type="text" id="prof-unidade" class="input-field" value="..." disabled /></div>
+                <div class="form-row">
+                    <div class="form-group"><label for="prof-id">ID</label><input type="text" id="prof-id" class="input-field" value="..." disabled /></div>
+                    <div class="form-group"><label for="prof-periodo">Período</label><input type="text" id="prof-periodo" class="input-field" value="..." disabled /></div>
+                </div>
+
+                 <h3 class="section-divider">Dados Pessoais</h3>
+                <div class="form-group"><label for="prof-nome">Nome Completo</label><input type="text" id="prof-nome" class="input-field" value="..." disabled /></div>
+                <div class="form-group"><label for="prof-nome-social">Nome Social</label><input type="text" id="prof-nome-social" class="input-field" value="..." disabled /></div>
+                <div class="form-row">
+                    <div class="form-group"><label for="prof-rg">RG+Dígito</label><input type="text" id="prof-rg" class="input-field" value="..." disabled /></div>
+                    <div class="form-group"><label for="prof-cpf">CPF</label><input type="text" id="prof-cpf" class="input-field" value="..." disabled /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label for="prof-data-nascimento">Data de Nascimento</label><input type="text" id="prof-data-nascimento" class="input-field" value="..." disabled /></div>
+                    <div class="form-group"><label for="prof-telefone">Telefone</label><input type="text" id="prof-telefone" class="input-field" value="..." disabled /></div>
+                </div>
+                 <div class="form-group"><label for="prof-email">Email</label><input type="email" id="prof-email" class="input-field" value="..." disabled /></div>
+
+                <h3 class="section-divider">Endereço</h3>
+                <div class="form-row">
+                    <div class="form-group"><label for="prof-cep">CEP</label><input type="text" id="prof-cep" class="input-field" value="..." disabled /></div>
+                    <div class="form-group"><label for="prof-bairro">Bairro</label><input type="text" id="prof-bairro" class="input-field" value="..." disabled /></div>
+                </div>
+                <div class="form-group"><label for="prof-logradouro">Logradouro</label><input type="text" id="prof-logradouro" class="input-field" value="..." disabled /></div>
+                <div class="form-row">
+                    <div class="form-group complement"><label for="prof-complemento">Complemento</label><input type="text" id="prof-complemento" class="input-field" value="..." disabled /></div>
+                    <div class="form-group number"><label for="prof-numero">Nº</label><input type="text" id="prof-numero" class="input-field" value="..." disabled /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group complement"><label for="prof-complemento">Complemento</label><input type="text" id="prof-complemento" class="input-field" value="..." disabled /></div>
+                    <div class="form-group number"><label for="prof-numero">Nº</label><input type="text" id="prof-numero" class="input-field" value="..." disabled /></div>
+                </div>
+
+                <h3 class="section-divider">Dados Bancários</h3>
+                <div class="form-row">
+                    <div class="form-group"><label for="prof-banco">Banco</label><input type="text" id="prof-banco" class="input-field" value="..." disabled /></div>
+                    <div class="form-group"><label for="prof-agencia">Nº Agência</label><input type="text" id="prof-agencia" class="input-field" value="..." disabled /></div>
+                </div>
+                <div class="form-row">
+                     <div class="form-group"><label for="prof-conta">Nº Conta</label><input type="text" id="prof-conta" class="input-field" value="..." disabled /></div>
+                     <div class="form-group"><label for="prof-tipo-conta">Tipo</label><input type="text" id="prof-tipo-conta" class="input-field" value="..." disabled /></div>
+                </div>
+                <div class="form-group"><label for="prof-chave-pix">Chave PIX</label><input type="text" id="prof-chave-pix" class="input-field" value="..." disabled /></div>
+            
+            </form>
+        </main>
+             
+    
+    <script src="../../js/common/perfil-colaborador.js" defer></script>
+</body>
+</html>

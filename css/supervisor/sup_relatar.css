@@ -1,0 +1,222 @@
+
+/* Herdar estilos de Solicitar para Abas, Formulário base, Modal, Toast */
+@import url('sup_solicitar.css'); 
+
+
+
+/* --- Estilos Específicos para Relatar Preleção --- */
+
+.content-area.relatorio-content {
+    padding: 15px;
+    background-color: var(--card-background);
+}
+
+.page-category { /* Estilo similar a solicitar.css */
+    font-size: 0.9em;
+    color: var(--label-color);
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+.page-title { /* Estilo similar a solicitar.css */
+    font-size: 1.8em;
+    color: var(--text-color-dark);
+    font-weight: 700;
+    margin-bottom: 20px; /* Espaço antes do form */
+}
+
+/* Formulário e Seções */
+.form-card {
+     margin-bottom: 20px;
+}
+
+/* Indicador de campo obrigatório */
+.label .required {
+    color: var(--danger-color); /* Vermelho */
+    margin-left: 4px;
+    font-weight: bold;
+}
+
+/* Estilo do Select (herdado de form-control, mas pode precisar de ajustes) */
+.select-field {
+    appearance: none; /* Remover seta padrão */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E"); /* Adicionar seta personalizada */
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    padding-right: 2.5rem; /* Espaço para a seta */
+}
+
+/* Botões de Função (Toggle) */
+.function-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaço entre botões */
+    margin-top: 5px; /* Espaço após o label */
+    margin-bottom: 5px; /* Espaço antes do hint */
+}
+
+.function-button {
+    width: 100%;
+    padding: 10px 15px; /* Padding interno */
+    border: 1px solid var(--border-color); /* Borda padrão */
+    border-radius: 6px;
+    background-color: var(--card-background); /* Fundo branco */
+    color: var(--text-color-dark);
+    font-weight: 400; /* Normal */
+    font-size: 0.95em;
+    text-align: left; /* Alinhar texto à esquerda */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    line-height: 1.4; /* Melhorar leitura */
+}
+
+.function-button:hover {
+    background-color: #f8f9fa; /* Fundo cinza claro no hover */
+    border-color: #ced4da;
+}
+
+.function-button.selected { /* Estilo quando selecionado */
+    border-color: var(--primary-blue);
+    background-color: #e7f1ff; /* Azul bem claro */
+    color: var(--primary-blue);
+    font-weight: 500; /* Levemente mais forte */
+    /* box-shadow: 0 0 0 1px var(--primary-blue); Opcional: sombra interna */
+}
+
+/* Dica abaixo dos botões */
+.field-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+
+/* Botão Enviar */
+.btn-enviar {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--sigo-blue);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px; /* Espaço acima do botão */
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 3px 8px rgba(0, 36, 66, 0.3);
+}
+.btn-enviar:hover {
+    background-color: #001a2f;
+}
+.btn-enviar:active {
+    transform: translateY(1px);
+}
+
+/* Mensagem Temporária (Topo) */
+.toast-message.top { /* Estilo já definido em solicitar.css, ajustar se necessário */
+     /* Garante que fique visível */
+     z-index: 110;
+}
+/* Adicionar no fim do arquivo */
+
+/* Footer de Navegação */
+.footer-nav {
+    position: fixed; /* Fixo na base */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    height: var(--footer-height);
+    display: flex;
+    justify-content: center; /* Centralizar itens dentro */
+}
+
+.nav-items {
+    display: flex;
+    justify-content: space-around; /* Distribuir espaço igualmente */
+    align-items: stretch; /* Esticar itens verticalmente */
+    width: 100%;
+    max-width: 500px; /* Limitar largura no centro */
+    height: 100%;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* Ocupar espaço igual */
+    padding: 5px 0; /* Padding vertical */
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--nav-text-inactive, #6b7280);
+    transition: color 0.2s ease;
+}
+
+.nav-icon-wrapper {
+    margin-bottom: 3px; /* Espaço entre ícone e texto */
+    color: var(--nav-icon-inactive, #6b7280); /* Cor do ícone */
+    font-size: 1.5rem; /* Tamanho do ícone */
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+.nav-icon-wrapper svg {
+    display: block; /* Remover espaço extra abaixo do SVG */
+    width: 28px; /* Tamanho SVG */
+    height: 28px;
+}
+
+.nav-text {
+    font-size: 0.7rem; /* Texto pequeno */
+    font-weight: 500;
+}
+
+/* Estilo do Item Ativo */
+.nav-item.active .nav-icon-wrapper {
+    color: var(--nav-icon-active, #2563eb);
+}
+.nav-item.active .nav-icon-wrapper svg path {
+    fill: var(--nav-icon-active, #2563eb); /* Mudar fill do SVG */
+}
+.nav-item.active .nav-text {
+    color: var(--nav-text-active, #2563eb);
+}
+
+/* Efeito Hover (opcional) */
+.nav-item:hover .nav-icon-wrapper {
+    color: var(--nav-icon-active, #2563eb);
+}
+.nav-item:hover .nav-icon-wrapper svg path {
+    fill: var(--nav-icon-active, #2563eb);
+}
+.nav-item:hover .nav-text {
+    color: var(--nav-text-active, #2563eb);
+}
+
+
+/* Media Query para telas maiores */
+@media (min-width: 500px) { /* A partir da largura máxima */
+     body {
+         padding-bottom: 0; /* Remover padding se não for mobile */
+     }
+    .container.mobile-view {
+         margin: 20px auto; /* Centralizar container */
+         min-height: calc(100vh - 40px);
+         border-radius: 10px; /* Borda arredondada */
+    }
+     .footer-nav {
+         position: static; /* Footer deixa de ser fixo */
+         box-shadow: none;
+         height: auto;
+         max-width: none;
+         margin: 0 auto;
+         padding: 10px 0;
+         border-top: 1px solid var(--border-color, #ddd);
+     }
+      .nav-items { max-width: 600px; } /* Limitar largura do nav */
+}
+/* Fim do bloco final */

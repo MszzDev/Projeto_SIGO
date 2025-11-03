@@ -1,0 +1,58 @@
+/* units.css - Estilos específicos para a tela de Unidades */
+
+/* Estilos para os cards de unidade */
+.unit-card {
+    display: flex; /* Usar flex para alinhar itens */
+    flex-direction: column; /* Empilhar título e código */
+    justify-content: center; /* Centralizar verticalmente */
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.35rem;
+    padding: var(--spacing-lg); /* Mais padding */
+    text-align: center;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    height: 100%; /* Ocupar altura do col-card */
+    color: var(--text-color); /* Cor de texto padrão */
+    min-height: 100px; /* Altura mínima */
+    border-left: 4px solid var(--primary-color); /* Borda lateral padrão */
+}
+
+.unit-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    border-left-color: #0056b3; /* Escurecer borda no hover */
+}
+
+.unit-card-title {
+    font-size: 1.1rem; /* Tamanho ajustado */
+    font-weight: 600;
+    color: var(--dark-color); /* Cor escura para título */
+    margin-bottom: 0.25rem; /* Menos espaço */
+}
+
+.unit-card-code {
+    font-size: 0.85rem;
+    color: var(--text-muted); /* Cinza para o código */
+}
+
+/* Cores das bordas laterais (exemplo) */
+.col-card:nth-child(7n+1) .unit-card { border-left-color: #00265e; } /* Azul */
+.col-card:nth-child(7n+2) .unit-card { border-left-color: #00265e; } /* Verde */
+.col-card:nth-child(7n+3) .unit-card { border-left-color: #00265e; } /* Amarelo */
+.col-card:nth-child(7n+4) .unit-card { border-left-color: #00265e; } /* Vermelho */
+.col-card:nth-child(7n+5) .unit-card { border-left-color: #00265e; } /* Ciano */
+.col-card:nth-child(7n+6) .unit-card { border-left-color: #00265e; } /* Roxo */
+.col-card:nth-child(7n+0) .unit-card { border-left-color: #00265e; } /* Laranja */
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .unit-card {
+        padding: var(--spacing-md);
+        min-height: 80px;
+    }
+    .unit-card-title {
+        font-size: 1rem;
+    }
+}

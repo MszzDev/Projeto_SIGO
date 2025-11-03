@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGO - Login</title>
+    <link rel="stylesheet" href="css/common/global.css">
+    <link rel="stylesheet" href="css/common/login.css">
+    </head>
+<body>
+    <div class="login-screen">
+        <div class="login-container">
+            <img src="img/princ_icone.png" alt="Logo SIGO" class="sigo-logo-login"> <p class="login-subtitle">Sistema Integrado de Gerenciamento Operacional</p>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">ID do Usuário</label>
+                    <input type="text" id="username" name="username" placeholder="Informe seu ID (Ex: C123 ou S123)" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" placeholder="Senha (Ex: 123)" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-login">Entrar</button> <p id="error-message" class="error-text">ID ou Senha inválidos.</p>
+            </form>
+        </div>
+    </div>
+</body>
+
+    <script src="js/login.js"></script>
+
+    <script src="js/login.js"></script>
+    <script src="js/common/transitions.js" defer></script> </body>
+</html>

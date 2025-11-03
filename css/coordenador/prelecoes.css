@@ -1,0 +1,181 @@
+/* Conteúdo de: css/coordenador/prelecoes.css */
+/* prelecoes.css - Estilos específicos para a tela de Preleções */
+
+.unit-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.filter-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    color: var(--text-color);
+    background-color: var(--light-color);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.filter-button:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+}
+
+.filter-button.active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Seção de pesquisa e data */
+.search-date-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    align-items: center;
+}
+
+.search-input-group {
+    flex-grow: 1;
+    position: relative;
+    min-width: 200px;
+}
+
+.search-input-group .form-control {
+    padding-left: 2.5rem;
+}
+
+.search-input-group .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.date-input-group {
+    flex-shrink: 0;
+}
+
+.date-input-group .form-control {
+    min-width: 150px;
+}
+
+/* Estilos para a tabela de preleções */
+.table td span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.table td .d-block {
+    display: block;
+    font-size: 0.8em;
+    line-height: 1.2;
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .search-date-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-input-group,
+    .date-input-group {
+        width: 100%;
+    }
+    .unit-filters {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 10px;
+    }
+}
+/* ===========================
+   MODAL DE DETALHES
+   =========================== */
+.modal {
+    display: none; /* Começa escondido */
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeIn 0.3s ease; /* Animação de entrada */
+}
+
+/* Classe que o JS vai usar para mostrar */
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transform: scale(1);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes modalSlideIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 1.5rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+.modal-content h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--primary-color, #1a3a52);
+}
+
+.modal-content p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+}
+
+.modal-content strong {
+    color: var(--primary-color, #1a3a52);
+}
+
+.btn-fechar {
+    display: block;
+    margin: 15px auto 0;
+    background: var(--primary-color, #1a3a52);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-fechar:hover {
+    background: #163144;
+}

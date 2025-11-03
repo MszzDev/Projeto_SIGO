@@ -1,0 +1,107 @@
+/* solicitacoes-pendentes.css - Estilos específicos para a tela de Solicitações Pendentes */
+
+/* Container da lista de solicitações pendentes */
+.pending-requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md); /* Espaço entre os cards */
+}
+
+/* Item individual (Card) de solicitação pendente */
+.pending-request-item {
+    display: flex;
+    flex-wrap: wrap; /* Permitir quebra de linha em telas pequenas */
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg); /* Padding interno */
+    margin-bottom: 0; /* Remover margem padrão do card */
+}
+
+.pending-request-item:hover {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* Sombra no hover */
+    transform: translateY(-2px); /* Leve elevação */
+}
+
+/* Informações da solicitação (lado esquerdo) */
+.request-info {
+    flex-grow: 1; /* Ocupa espaço disponível */
+    margin-right: var(--spacing-md); /* Espaço até os botões */
+    min-width: 250px; /* Largura mínima */
+}
+
+.request-header {
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.8rem; /* Menor */
+    color: var(--text-muted);
+}
+.request-header .request-unit {
+    font-weight: 500;
+}
+
+.request-content {
+    display: flex;
+    flex-wrap: wrap; /* Permitir quebra */
+    align-items: center;
+    gap: 0.5rem; /* Espaço entre elementos */
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.request-avatar {
+    width: 28px; /* Avatar um pouco menor */
+    height: 28px;
+    flex-shrink: 0; /* Não encolher */
+}
+
+.requester-name {
+    color: var(--dark-color); /* Nome mais escuro */
+    font-weight: 500;
+}
+
+.request-action {
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+
+.request-count {
+    color: var(--primary-color); /* Destacar a quantidade */
+    font-weight: 600;
+}
+.request-details {
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+
+/* Ações da solicitação (lado direito) */
+.request-actions {
+    flex-shrink: 0; /* Não encolher */
+    margin-left: auto; /* Empurrar para a direita (funciona com wrap) */
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+    .pending-request-item {
+        padding: var(--spacing-md); /* Menos padding */
+        flex-direction: column; /* Empilhar tudo */
+        align-items: flex-start; /* Alinhar à esquerda */
+    }
+
+    .request-info {
+        margin-right: 0;
+        margin-bottom: var(--spacing-md); /* Espaço abaixo das infos */
+        width: 100%; /* Ocupar largura total */
+    }
+
+    .request-content {
+        gap: 0.25rem; /* Menos espaço */
+    }
+
+    .request-actions {
+        margin-left: 0;
+        width: 100%; /* Botão ocupa largura total */
+    }
+    .request-actions .btn {
+        width: 100%; /* Botão ocupa largura total */
+        text-align: center;
+    }
+}

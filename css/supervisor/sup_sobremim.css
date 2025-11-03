@@ -1,0 +1,330 @@
+/* Adicionar no início do arquivo */
+:root {
+   /* ... (variáveis existentes) ... */
+   --footer-height: 72px; /* Altura do footer */
+}
+
+/* Estrutura Básica */
+body {
+    background-color: var(--background-grey, #f0f2f5);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Roboto', Arial, sans-serif;
+    padding-bottom: var(--footer-height); /* Espaço para footer fixo */
+    margin: 0;
+}
+
+.container.mobile-view {
+    width: 100%;
+    max-width: 500px; /* Limite de largura */
+    background-color: var(--card-background, #fff);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupar altura total */
+    position: relative; /* Para footer fixo */
+}
+
+/* Variáveis */
+:root {
+    --button-sair-red: #dc3545; /* Vermelho perigo */
+    --button-sair-hover: #bb2d3b; /* Vermelho mais escuro */
+    --link-card-hover-bg: #f8f9fa; /* Fundo cinza claro */
+    --modal-overlay-bg: rgba(0, 0, 0, 0.5);
+    --toast-success-bg: #198754; /* Verde sucesso */
+}
+
+/* Conteúdo da página */
+.content-area.sobremim-content {
+    padding: 20px 15px;
+    background-color: var(--card-background); /* Fundo branco */
+    flex-grow: 1;
+}
+
+.content-header {
+    margin-bottom: 25px;
+}
+
+.page-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.page-subtitle {
+    font-size: 0.9em;
+    color: var(--text-color-light);
+}
+
+/* Card Link para Perfil */
+.profile-link-card {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-color-dark);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.profile-link-card:hover {
+    background-color: var(--link-card-hover-bg);
+}
+.profile-link-card:active {
+    transform: scale(0.99);
+}
+
+.profile-link-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 1px solid var(--border-color);
+}
+
+.profile-link-text {
+    flex-grow: 1; /* Ocupa espaço */
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.profile-link-arrow {
+    color: var(--text-color-light);
+    font-size: 0.9rem;
+}
+
+/* Botão Sair */
+.btn-logout-action {
+    display: flex; /* Alinhar ícone e texto */
+    align-items: center;
+    justify-content: center; /* Centralizar conteúdo */
+    gap: 8px; /* Espaço entre ícone e texto */
+    width: 100%;
+    padding: 12px;
+    background-color: var(--button-sair-red);
+    color: #fff;
+    font-size: 1rem; /* Tamanho ajustado */
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+.btn-logout-action:hover {
+    background-color: var(--button-sair-hover);
+}
+.btn-logout-action:active {
+    transform: translateY(1px); /* Efeito de clique */
+}
+.btn-logout-action i {
+    font-size: 1.1em; /* Tamanho do ícone */
+}
+
+
+/* --- Modal de Confirmação --- */
+.modal-overlay {
+    display: flex; /* Usar flex para centralizar */
+    position: fixed;
+    inset: 0; /* top, right, bottom, left = 0 */
+    background-color: var(--modal-overlay-bg);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.modal-overlay.hidden { /* Classe para esconder */
+    opacity: 0;
+    pointer-events: none; /* Não interagir quando escondido */
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%; /* Responsivo */
+    max-width: 350px; /* Largura máxima */
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+.modal-overlay.hidden .modal-content { /* Animação ao esconder */
+    transform: scale(0.95);
+}
+
+.modal-title {
+    font-size: 1.25em;
+    margin-bottom: 15px;
+    color: var(--text-color-dark);
+    font-weight: 600;
+}
+
+.modal-text {
+    margin-bottom: 20px;
+    color: var(--text-color-light);
+    font-size: 0.95rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between; /* Botões nas pontas */
+    gap: 10px; /* Espaço entre botões */
+}
+
+.btn-modal { /* Estilo base para botões do modal */
+    flex-grow: 1; /* Ocupar espaço igual */
+    padding: 10px 15px; /* Padding interno */
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn-cancel {
+    background-color: #e2e8f0; /* Cinza claro */
+    color: var(--text-color-dark);
+}
+.btn-cancel:hover {
+    background-color: #cbd5e1; /* Cinza mais escuro */
+}
+
+.btn-confirm {
+    background-color: var(--button-sair-red);
+    color: #fff;
+}
+.btn-confirm:hover {
+    background-color: var(--button-sair-hover);
+}
+
+
+/* --- Toast/Snackbar de Sucesso --- */
+.toast-message {
+    visibility: hidden; /* Controlado pelo JS */
+    min-width: 250px;
+    background-color: var(--toast-success-bg);
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 16px;
+    position: fixed; /* Fixo na tela */
+    z-index: 110; /* Acima do overlay */
+    left: 50%;
+    bottom: calc(var(--footer-height) + 20px); /* Acima do footer */
+    transform: translateX(-50%) translateY(20px); /* Começa abaixo */
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.toast-message.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* Sobe para a posição */
+}
+/* Adicionar no fim do arquivo */
+
+/* Footer de Navegação */
+.footer-nav {
+    position: fixed; /* Fixo na base */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    height: var(--footer-height);
+    display: flex;
+    justify-content: center; /* Centralizar itens dentro */
+}
+
+.nav-items {
+    display: flex;
+    justify-content: space-around; /* Distribuir espaço igualmente */
+    align-items: stretch; /* Esticar itens verticalmente */
+    width: 100%;
+    max-width: 500px; /* Limitar largura no centro */
+    height: 100%;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* Ocupar espaço igual */
+    padding: 5px 0; /* Padding vertical */
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--nav-text-inactive, #6b7280);
+    transition: color 0.2s ease;
+}
+
+.nav-icon-wrapper {
+    margin-bottom: 3px; /* Espaço entre ícone e texto */
+    color: var(--nav-icon-inactive, #6b7280); /* Cor do ícone */
+    font-size: 1.5rem; /* Tamanho do ícone */
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+.nav-icon-wrapper svg {
+    display: block; /* Remover espaço extra abaixo do SVG */
+    width: 28px; /* Tamanho SVG */
+    height: 28px;
+}
+
+.nav-text {
+    font-size: 0.7rem; /* Texto pequeno */
+    font-weight: 500;
+}
+
+/* Estilo do Item Ativo */
+.nav-item.active .nav-icon-wrapper {
+    color: var(--nav-icon-active, #2563eb);
+}
+.nav-item.active .nav-icon-wrapper svg path {
+    fill: var(--nav-icon-active, #2563eb); /* Mudar fill do SVG */
+}
+.nav-item.active .nav-text {
+    color: var(--nav-text-active, #2563eb);
+}
+
+/* Efeito Hover (opcional) */
+.nav-item:hover .nav-icon-wrapper {
+    color: var(--nav-icon-active, #2563eb);
+}
+.nav-item:hover .nav-icon-wrapper svg path {
+    fill: var(--nav-icon-active, #2563eb);
+}
+.nav-item:hover .nav-text {
+    color: var(--nav-text-active, #2563eb);
+}
+
+
+/* Media Query para telas maiores */
+@media (min-width: 500px) { /* A partir da largura máxima */
+     body {
+         padding-bottom: 0; /* Remover padding se não for mobile */
+     }
+    .container.mobile-view {
+         margin: 20px auto; /* Centralizar container */
+         min-height: calc(100vh - 40px);
+         border-radius: 10px; /* Borda arredondada */
+    }
+     .footer-nav {
+         position: static; /* Footer deixa de ser fixo */
+         box-shadow: none;
+         height: auto;
+         max-width: none;
+         margin: 0 auto;
+         padding: 10px 0;
+         border-top: 1px solid var(--border-color, #ddd);
+     }
+      .nav-items { max-width: 600px; } /* Limitar largura do nav */
+}
+/* Fim do bloco final */

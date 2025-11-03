@@ -1,0 +1,151 @@
+/* aprovar-solicitacao.css - Estilos específicos para a tela de Aprovação de Solicitação */
+
+/* Card principal de aprovação */
+.approval-card {
+    max-width: 800px; /* Largura máxima */
+    margin: 0 auto; /* Centralizar */
+}
+
+/* Seções */
+.unit-info-section,
+.request-section,
+.reason-section {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+/* Remover borda da última seção */
+.reason-section {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+
+/* Títulos */
+.unit-title {
+    font-size: 1.3rem; /* Menor */
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.section-title {
+    font-size: 1.1rem; /* Menor */
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Detalhes */
+.unit-details,
+.request-details {
+    display: flex;
+    flex-wrap: wrap; /* Quebrar linha se necessário */
+    gap: var(--spacing-lg); /* Espaço entre itens */
+}
+
+.detail-item,
+.request-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Tentar distribuir igualmente */
+    min-width: 150px; /* Largura mínima */
+}
+
+.detail-label,
+.request-label {
+    font-size: 0.8rem; /* Menor */
+    color: var(--text-muted);
+    margin-bottom: 4px; /* Menos espaço */
+    font-weight: 500;
+    text-transform: uppercase; /* Caixa alta */
+    letter-spacing: 0.5px;
+}
+
+.detail-value,
+.request-value {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/* Motivo */
+.reason-content {
+    background-color: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    padding: var(--spacing-md);
+    min-height: 80px;
+}
+.reason-content p {
+    margin: 0;
+    color: var(--text-color); /* Usar cor de texto padrão */
+    font-style: normal; /* Remover itálico */
+    line-height: 1.5;
+}
+
+/* Ações de aprovação */
+.approval-actions {
+    text-align: right; /* Alinhar botões à direita */
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-color); /* Linha separadora */
+}
+
+.approval-actions .btn {
+    padding: 0.6rem 1.5rem; /* Padding ajustado */
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+.approval-actions .btn-secondary { /* Estilo para botão Recusar */
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--white-color);
+}
+.approval-actions .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .unit-details,
+    .request-details {
+        gap: var(--spacing-md); /* Menos espaço */
+    }
+
+    .approval-actions {
+        text-align: center; /* Centralizar botões */
+    }
+    .approval-actions .btn {
+        width: 48%; /* Quase metade da largura */
+        margin-bottom: 10px; /* Espaço se empilhar */
+    }
+     .approval-actions .btn:last-child {
+         margin-bottom: 0;
+     }
+}
+
+@media (max-width: 576px) {
+    .unit-details,
+    .request-details {
+        flex-direction: column; /* Empilhar itens */
+        gap: var(--spacing-sm);
+    }
+     .detail-item,
+    .request-item {
+        min-width: unset; /* Remover largura mínima */
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .approval-actions {
+        display: flex; /* Flex para botões */
+        flex-direction: column-reverse; /* Aprovar em cima */
+        gap: var(--spacing-sm);
+    }
+    .approval-actions .btn {
+        width: 100%; /* Largura total */
+        margin-right: 0;
+    }
+}

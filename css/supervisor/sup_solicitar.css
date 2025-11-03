@@ -1,0 +1,499 @@
+/* Adicionar no início do arquivo */
+:root {
+   /* ... (variáveis existentes) ... */
+   --footer-height: 72px; /* Altura do footer */
+}
+
+/* Estrutura Básica */
+body {
+    background-color: var(--background-grey, #f0f2f5);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Roboto', Arial, sans-serif;
+    padding-bottom: var(--footer-height); /* Espaço para footer fixo */
+    margin: 0;
+}
+
+.container.mobile-view {
+    width: 100%;
+    max-width: 500px; /* Limite de largura */
+    background-color: var(--card-background, #fff);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupar altura total */
+    position: relative; /* Para footer fixo */
+}
+/* Fim do bloco inicial */
+/* Variáveis */
+:root {
+   --primary-blue: #2563EB; /* Azul principal */
+   --sigo-blue: #002442;
+   --background-grey-tabs: #e9ecef;
+   --tabs-inactive-color: #6b7280;
+   --toast-success-bg: #4CAF50; /* Verde */
+   --toast-error-bg: #f44336;   /* Vermelho */
+   --modal-warning-color: #ffc107; /* Amarelo */
+}
+.logo-img {
+    height: 43px; /* Ajustar se necessário */
+    position: absolute;
+    left: 50%;
+    top: 50%; /* <-- LINHA ADICIONADA */
+    transform: translate(-50%, -50%); /* <-- LINHA MODIFICADA */
+    object-fit: contain;
+}
+/* Estrutura da Página */
+.content-area.solicitacao-content {
+    padding: 15px;
+    background-color: var(--card-background); /* Fundo branco para conteúdo */
+}
+
+.page-header {
+    margin-bottom: 20px;
+}
+.page-category {
+    font-size: 0.9em;
+    color: var(--label-color);
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+.page-title {
+    font-size: 1.8em;
+    color: var(--text-color-dark);
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+
+/* Navegação de Abas */
+.tabs-nav-container {
+    background-color: var(--card-background);
+    padding: 10px 15px;
+    position: sticky;
+    top: 60px; /* Abaixo do header */
+    z-index: 5;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--border-color);
+}
+.tabs-nav {
+    display: flex;
+    width: 100%;
+    border-radius: 8px;
+    background-color: var(--background-grey-tabs);
+    overflow: hidden;
+    padding: 4px; /* Espaço interno */
+}
+.tab-link {
+    flex: 1; /* Ocupar espaço igual */
+    text-decoration: none;
+    display: flex; /* Para centralizar conteúdo do botão */
+}
+.tab-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 5px; /* Padding interno do botão */
+    border: none;
+    background-color: transparent;
+    font-size: 0.95em;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--tabs-inactive-color);
+    transition: all 0.2s ease;
+    border-radius: 6px; /* Borda interna */
+}
+.tab-button svg {
+    margin-right: 6px; /* Espaço ícone-texto */
+    width: 18px;
+    height: 18px;
+    vertical-align: middle; /* Alinhar ícone */
+}
+/* Aba Ativa */
+.tab-link.active .tab-button {
+    background-color: var(--card-background);
+    color: var(--text-color-dark);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+}
+.tab-link.active .tab-button svg path {
+    fill: var(--primary-blue); /* Cor do ícone ativo */
+}
+
+/* Formulário */
+.form-card {
+    margin-bottom: 20px;
+    /* Pode adicionar padding/borda se quiser destacar o formulário */
+}
+
+.label {
+    display: block;
+    font-size: 0.85rem; /* Menor */
+    color: var(--label-color);
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.form-control[readonly] { /* Estilo para inputs readonly */
+     background-color: #e9ecef;
+     opacity: 1;
+     cursor: default;
+}
+
+/* Divisor */
+.divider {
+    text-align: center;
+    margin: 25px 0 20px 0;
+    position: relative;
+    color: #999;
+}
+.divider span {
+    background-color: var(--card-background); /* Fundo para cobrir as linhas */
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+    font-size: 0.9em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.divider::before { /* Linha */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-color);
+    z-index: 0;
+}
+
+/* Layout Duas Colunas (Colaborador e Tempo) */
+.form-row {
+    display: flex;
+    flex-wrap: wrap; /* Quebrar linha se necessário */
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.form-group.half {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 120px; /* Largura mínima */
+    margin-bottom: 0; /* Remover margem dentro da row */
+}
+
+/* Inputs de Tempo */
+.time-inputs-group {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaço entre selects e 'às' */
+}
+.time-input {
+    flex-grow: 1; /* Ocupar espaço disponível */
+    text-align: center;
+    padding-left: 5px; /* Menos padding lateral */
+    padding-right: 5px;
+}
+.time-separator {
+    color: var(--placeholder-color);
+    font-weight: 400;
+}
+
+/* Textarea */
+.textarea-field {
+    min-height: 100px;
+    resize: vertical; /* Permitir redimensionar verticalmente */
+}
+
+/* Botão Solicitar */
+.btn-solicitar {
+    width: 100%;
+    padding: 12px; /* Padding */
+    background-color: var(--sigo-blue); /* Usar azul escuro */
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px; /* Menos espaço */
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 3px 8px rgba(0, 36, 66, 0.3);
+}
+.btn-solicitar:hover {
+    background-color: #001a2f; /* Mais escuro */
+}
+.btn-solicitar:active {
+    transform: translateY(1px);
+}
+
+/* Modal de Confirmação */
+/*.modal { /* Estilos base do modal (overlay) herdados de sup_sobremim.css */
+    /* Nenhum estilo específico aqui se já herda */
+
+.modal-content.confirmation-style { /* Estilos específicos para este modal */
+    padding: 25px;
+    max-width: 350px;
+}
+.modal-icon {
+    margin-bottom: 15px;
+}
+.modal-icon.warning .icon {
+    width: 48px;
+    height: 48px;
+    color: var(--modal-warning-color);
+}
+.modal-title {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: var(--text-color-dark);
+    margin-bottom: 10px;
+}
+.modal-text {
+    font-size: 0.95rem;
+    color: var(--text-color-light);
+    margin-bottom: 25px;
+}
+/* Botões do modal herdados de sup_sobremim.css */
+/* btn-modal, btn-cancel, btn-confirm */
+
+/* Toast Messages (Topo) */
+.toast-message {
+    position: fixed; /* Fixo no topo */
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -150%); /* Começa fora da tela */
+    width: 90%;
+    max-width: 450px; /* Largura máxima */
+    z-index: 50;
+    padding: 12px 15px;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    opacity: 0;
+    pointer-events: none; /* Não bloquear cliques */
+}
+.toast-message.success { background-color: var(--toast-success-bg); }
+.toast-message.error { background-color: var(--toast-error-bg); }
+
+.toast-message.visible {
+    opacity: 1;
+    transform: translate(-50%, 0); /* Desliza para baixo */
+}
+
+/* Botão voltar header */
+.header-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin-right: 10px;
+    color: #fff;
+    line-height: 1;
+}
+.header-back-button svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Responsividade (Ajustes se necessário) */
+@media (max-width: 400px) {
+    .form-group.half {
+        flex-basis: 100%; /* Uma coluna */
+    }
+     .time-inputs-group {
+        flex-wrap: wrap; /* Quebrar se não couber */
+     }
+      .time-input {
+          min-width: 80px;
+      }
+}
+/* Adicionar no fim do arquivo */
+
+/* Footer de Navegação */
+.footer-nav {
+    position: fixed; /* Fixo na base */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    height: var(--footer-height);
+    display: flex;
+    justify-content: center; /* Centralizar itens dentro */
+}
+
+.nav-items {
+    display: flex;
+    justify-content: space-around; /* Distribuir espaço igualmente */
+    align-items: stretch; /* Esticar itens verticalmente */
+    width: 100%;
+    max-width: 500px; /* Limitar largura no centro */
+    height: 100%;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* Ocupar espaço igual */
+    padding: 5px 0; /* Padding vertical */
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--nav-text-inactive, #6b7280);
+    transition: color 0.2s ease;
+}
+
+.nav-icon-wrapper {
+    margin-bottom: 3px; /* Espaço entre ícone e texto */
+    color: var(--nav-icon-inactive, #6b7280); /* Cor do ícone */
+    font-size: 1.5rem; /* Tamanho do ícone */
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+.nav-icon-wrapper svg {
+    display: block; /* Remover espaço extra abaixo do SVG */
+    width: 28px; /* Tamanho SVG */
+    height: 28px;
+}
+
+.nav-text {
+    font-size: 0.7rem; /* Texto pequeno */
+    font-weight: 500;
+}
+
+/* Estilo do Item Ativo */
+.nav-item.active .nav-icon-wrapper {
+    color: var(--nav-icon-active, #2563eb);
+}
+.nav-item.active .nav-icon-wrapper svg path {
+    fill: var(--nav-icon-active, #2563eb); /* Mudar fill do SVG */
+}
+.nav-item.active .nav-text {
+    color: var(--nav-text-active, #2563eb);
+}
+
+/* Efeito Hover (opcional) */
+.nav-item:hover .nav-icon-wrapper {
+    color: var(--nav-icon-active, #2563eb);
+}
+.nav-item:hover .nav-icon-wrapper svg path {
+    fill: var(--nav-icon-active, #2563eb);
+}
+.nav-item:hover .nav-text {
+    color: var(--nav-text-active, #2563eb);
+}
+
+
+/* Media Query para telas maiores */
+@media (min-width: 500px) { /* A partir da largura máxima */
+     body {
+         padding-bottom: 0; /* Remover padding se não for mobile */
+     }
+    .container.mobile-view {
+         margin: 20px auto; /* Centralizar container */
+         min-height: calc(100vh - 40px);
+         border-radius: 10px; /* Borda arredondada */
+    }
+     .footer-nav {
+         position: static; /* Footer deixa de ser fixo */
+         box-shadow: none;
+         height: auto;
+         max-width: none;
+         margin: 0 auto;
+         padding: 10px 0;
+         border-top: 1px solid var(--border-color, #ddd);
+     }
+      .nav-items { max-width: 600px; } /* Limitar largura do nav */
+}
+/* Fim do bloco final */
+/* --- Modal de Confirmação --- */
+.modal {
+    display: flex; /* Usar flex para centralizar */
+    position: fixed;
+    inset: 0; /* top, right, bottom, left = 0 */
+    background-color: var(--modal-overlay-bg, rgba(0, 0, 0, 0.5));
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0; /* Começa invisível */
+    pointer-events: none; /* Desabilitado */
+    transition: opacity 0.3s ease;
+}
+
+.modal.visible { /* Classe que o JS adiciona */
+    opacity: 1;
+    pointer-events: auto; /* Habilitado */
+}
+
+.modal-content.confirmation-style {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.modal:not(.visible) .modal-content.confirmation-style { /* Animação ao esconder */
+    transform: scale(0.95);
+}
+
+.modal-icon {
+    margin-bottom: 15px;
+}
+.modal-icon.warning .icon {
+    width: 48px;
+    height: 48px;
+    color: var(--modal-warning-color, #ffc107);
+}
+.modal-title {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: var(--text-color-dark);
+    margin-bottom: 10px;
+}
+.modal-text {
+    font-size: 0.95rem;
+    color: var(--text-color-light);
+    margin-bottom: 25px;
+}
+
+/* Estilo base para botões do modal (copiado de sup_sobremim.css) */
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.btn-modal {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+.btn-cancel {
+    background-color: #e2e8f0;
+    color: var(--text-color-dark);
+}
+.btn-cancel:hover { background-color: #cbd5e1; }
+
+.btn-confirm {
+    background-color: var(--button-sair-red, #dc3545); /* Cor vermelha (pode ajustar) */
+    color: #fff;
+}
+.btn-confirm:hover { background-color: var(--button-sair-hover, #bb2d3b); }
+
+/* --- FIM DO BLOCO DO MODAL --- */

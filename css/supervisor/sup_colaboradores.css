@@ -1,0 +1,261 @@
+/* Adicionar no início do arquivo */
+:root {
+   /* ... (variáveis existentes) ... */
+   --footer-height: 72px; /* Altura do footer */
+}
+
+/* Estrutura Básica */
+body {
+    background-color: var(--background-grey, #f0f2f5);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Roboto', Arial, sans-serif;
+    padding-bottom: var(--footer-height); /* Espaço para footer fixo */
+    margin: 0;
+}
+
+.container.mobile-view {
+    width: 100%;
+    max-width: 500px; /* Limite de largura */
+    background-color: var(--card-background, #fff);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupar altura total */
+    position: relative; /* Para footer fixo */
+}
+/* Fim do bloco inicial */
+/* Variáveis (herda de global.css) */
+:root {
+    --list-header-bg: #f8f9fa;
+    --list-border-color: #e5e7eb;
+    --icon-view-color: #6b7280;
+    --icon-view-hover-color: var(--nav-icon-active);
+}
+
+/* Estrutura da Página Principal (main) */
+.content-area.collaborators-page {
+    padding: 0; /* Remover padding padrão, controlar internamente */
+    display: flex; /* ESSENCIAL */
+    flex-direction: column; /* ESSENCIAL */
+    flex-grow: 1; /* <<-- IMPORTANTE: Ocupa espaço entre header e footer */
+    overflow: hidden; /* <<-- IMPORTANTE: Evita scroll no main, força scroll interno */
+    background-color: var(--card-background); /* Fundo branco para a área de conteúdo */
+}
+
+/* Cabeçalho da Página (Título, Subtítulo, Busca) */
+.page-header {
+    padding: 15px;
+    background-color: var(--card-background);
+    border-bottom: 1px solid var(--list-border-color);
+    flex-shrink: 0; /* Não encolher */
+}
+
+.page-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.page-subtitle {
+    font-size: 0.9em;
+    color: var(--text-color-light);
+    margin-bottom: 15px;
+}
+
+/* Campo de Busca */
+.search-container {
+    position: relative;
+}
+
+.search-input { /* Usa .form-control de global.css */
+    padding-left: 40px; /* Espaço para ícone */
+}
+
+
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--placeholder-color);
+    font-size: 1rem;
+    pointer-events: none; /* Para não interferir no clique do input */
+}
+
+/* Cabeçalho da Lista (Sticky) */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: var(--list-header-bg);
+    border-bottom: 1px solid var(--list-border-color);
+    color: var(--text-color-light);
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0; /* Não encolher */
+    position: sticky; /* Manter fixo no topo da área de scroll (.collaborator-list) */
+    top: 0; /* Fixar no topo do container de scroll */
+    z-index: 5;
+}
+
+
+/* Lista de Colaboradores (Scrollable) */
+.collaborator-list {
+    flex-grow: 1; /* <<-- IMPORTANTE: Ocupa o espaço restante dentro do main */
+    overflow-y: auto; /* <<-- IMPORTANTE: Permite scroll SÓ na lista */
+    background-color: var(--card-background);
+}
+
+.collaborator-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--list-border-color);
+    text-decoration: none;
+    color: var(--text-color-dark);
+    transition: background-color 0.15s ease;
+}
+.collaborator-item:last-child {
+    border-bottom: none;
+}
+.collaborator-item:hover {
+    background-color: #f9fafb;
+}
+
+.collaborator-name {
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+    flex-grow: 1;
+    min-width: 0; /* Necessário para text-overflow com flex */
+}
+
+.collaborator-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+/* Estilo badge já vem do global.css */
+/* .badge { ... } */
+
+.view-profile-icon {
+    color: var(--icon-view-color);
+    font-size: 1.1rem;
+    transition: color 0.15s ease;
+}
+.collaborator-item:hover .view-profile-icon {
+    color: var(--icon-view-hover-color);
+}
+
+/* Adicionar no fim do arquivo */
+
+/* Footer de Navegação */
+.footer-nav {
+    position: fixed; /* Fixo na base */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    height: var(--footer-height);
+    display: flex;
+    justify-content: center; /* Centralizar itens dentro */
+}
+
+.nav-items {
+    display: flex;
+    justify-content: space-around; /* Distribuir espaço igualmente */
+    align-items: stretch; /* Esticar itens verticalmente */
+    width: 100%;
+    max-width: 500px; /* Limitar largura no centro */
+    height: 100%;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* Ocupar espaço igual */
+    padding: 5px 0; /* Padding vertical */
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--nav-text-inactive, #6b7280);
+    transition: color 0.2s ease;
+}
+
+.nav-icon-wrapper {
+    margin-bottom: 3px; /* Espaço entre ícone e texto */
+    color: var(--nav-icon-inactive, #6b7280); /* Cor do ícone */
+    font-size: 1.5rem; /* Tamanho do ícone */
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+.nav-icon-wrapper svg {
+    display: block; /* Remover espaço extra abaixo do SVG */
+    width: 28px; /* Tamanho SVG */
+    height: 28px;
+}
+
+.nav-text {
+    font-size: 0.7rem; /* Texto pequeno */
+    font-weight: 500;
+}
+
+/* Estilo do Item Ativo */
+.nav-item.active .nav-icon-wrapper {
+    color: var(--nav-icon-active, #2563eb);
+}
+.nav-item.active .nav-icon-wrapper svg path {
+    fill: var(--nav-icon-active, #2563eb); /* Mudar fill do SVG */
+}
+.nav-item.active .nav-text {
+    color: var(--nav-text-active, #2563eb);
+}
+
+/* Efeito Hover (opcional) */
+.nav-item:hover .nav-icon-wrapper {
+    color: var(--nav-icon-active, #2563eb);
+}
+.nav-item:hover .nav-icon-wrapper svg path {
+    fill: var(--nav-icon-active, #2563eb);
+}
+.nav-item:hover .nav-text {
+    color: var(--nav-text-active, #2563eb);
+}
+
+
+/* Media Query para telas maiores */
+@media (min-width: 500px) { /* A partir da largura máxima */
+     body {
+         padding-bottom: 0; /* Remover padding se não for mobile */
+     }
+    .container.mobile-view {
+         margin: 20px auto; /* Centralizar container */
+         min-height: calc(100vh - 40px);
+         border-radius: 10px; /* Borda arredondada */
+    }
+     .footer-nav {
+         position: static; /* Footer deixa de ser fixo */
+         box-shadow: none;
+         height: auto;
+         max-width: none;
+         margin: 0 auto;
+         padding: 10px 0;
+         border-top: 1px solid var(--border-color, #ddd);
+     }
+      .nav-items { max-width: 600px; } /* Limitar largura do nav */
+}
+/* Fim do bloco final */

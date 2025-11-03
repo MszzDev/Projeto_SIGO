@@ -1,0 +1,229 @@
+/* profile.css - Estilos específicos para a tela de perfil de usuário */
+
+/* Card principal do perfil */
+.profile-card {
+    max-width: 900px; /* Largura um pouco menor */
+    margin: 0 auto; /* Centralizar */
+}
+
+/* Header do Card de Perfil */
+.profile-card-header {
+    padding: var(--spacing-lg); /* Padding interno */
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Seção do tipo de perfil e botão de edição */
+.profile-type-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.profile-type {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin: 0;
+}
+
+.edit-profile-btn {
+    border-radius: 50%; /* Botão redondo */
+    width: 38px; /* Tamanho ajustado */
+    height: 38px;
+    padding: 0; /* Remover padding */
+    display: inline-flex; /* Para alinhar ícone */
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    background-color: var(--white-color);
+}
+.edit-profile-btn i {
+    font-size: 0.9rem; /* Tamanho do ícone */
+}
+
+.edit-profile-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+}
+
+/* Informações principais do perfil */
+.profile-main-info {
+    display: flex;
+    gap: var(--spacing-lg); /* Espaço entre foto e infos */
+    align-items: center; /* Alinhar verticalmente */
+}
+
+/* Seção da foto do perfil */
+.profile-photo-section {
+    flex-shrink: 0; /* Não encolher */
+}
+
+.profile-photo {
+    width: 120px; /* Tamanho ajustado */
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--light-color); /* Borda sutil */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Informações básicas do perfil */
+.profile-basic-info {
+    flex-grow: 1; /* Ocupar espaço restante */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm); /* Espaço entre grupos */
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column; /* Label em cima, valor embaixo */
+}
+
+.info-label {
+    font-size: 0.75rem; /* Menor */
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.info-value {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.password-field {
+    display: flex;
+    align-items: baseline; /* Alinhar texto e botão */
+    gap: var(--spacing-sm);
+}
+.password-field .info-value {
+    font-family: monospace; /* Para os asteriscos ficarem uniformes */
+    font-size: 1.2rem; /* Asteriscos maiores */
+    line-height: 1;
+}
+
+.change-password-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 0.8rem; /* Menor */
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none; /* Sem sublinhado por padrão */
+    padding: 0;
+    margin-left: var(--spacing-sm);
+}
+
+.change-password-btn:hover {
+    text-decoration: underline; /* Sublinhado no hover */
+    color: #0056b3;
+}
+
+/* Detalhes do perfil (Conteúdo do Card) */
+.profile-details {
+    padding: var(--spacing-lg);
+}
+
+.details-section-title {
+    font-size: 1rem; /* Menor que H3 */
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-top: var(--spacing-lg); /* Espaço antes de cada seção */
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+/* Remover margem do primeiro título */
+.profile-details h4:first-of-type {
+    margin-top: 0;
+}
+
+.details-grid {
+    display: grid;
+    /* Criar colunas responsivas: min 200px, max 1fr */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md) var(--spacing-lg); /* Espaço vertical e horizontal */
+}
+
+.detail-item {
+     display: flex;
+    flex-direction: column; /* Label em cima, valor embaixo */
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.detail-value {
+    font-size: 0.95rem; /* Levemente menor que infos básicas */
+    color: var(--text-color);
+    font-weight: 400; /* Mais leve */
+    word-break: break-word; /* Quebrar palavras longas se necessário */
+}
+
+/* Ações do perfil (Botão Voltar) - Removido do HTML, mas CSS mantido caso necessário */
+.profile-actions {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    background-color: var(--light-color);
+    text-align: right;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .profile-card {
+        margin-left: 0; /* Remover margens laterais no mobile */
+        margin-right: 0;
+        border-radius: 0; /* Sem borda arredondada */
+        border-left: none;
+        border-right: none;
+    }
+
+    .profile-main-info {
+        flex-direction: column; /* Empilhar foto e infos */
+        align-items: center; /* Centralizar */
+        text-align: center;
+    }
+
+     .profile-photo {
+        width: 100px; /* Foto menor */
+        height: 100px;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .profile-basic-info {
+        align-items: center; /* Centralizar textos básicos */
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr; /* Apenas uma coluna */
+        gap: var(--spacing-md);
+    }
+
+     .profile-type-section {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .edit-profile-btn {
+         position: absolute; /* Posicionar botão editar */
+         top: var(--spacing-sm);
+         right: var(--spacing-sm);
+    }
+     .profile-card-header {
+         position: relative; /* Para posicionar o botão editar */
+         padding-top: calc(var(--spacing-lg) + 40px); /* Espaço para o botão */
+     }
+}

@@ -1,0 +1,104 @@
+/* solicitacoes.css - Estilos específicos para a tela de Solicitações */
+
+/* Estilos para os botões de filtro de unidade */
+.unit-filters {
+    display: flex;
+    flex-wrap: wrap; /* Permitir quebra de linha em telas menores */
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.filter-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    color: var(--text-color);
+    background-color: var(--light-color);
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap; /* Evitar quebra de linha no nome da unidade */
+}
+
+.filter-button:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+}
+
+.filter-button.active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Seção de pesquisa e data */
+.search-date-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    align-items: center;
+}
+
+.search-input-group {
+    flex-grow: 1; /* Ocupa espaço disponível */
+    position: relative;
+    min-width: 200px; /* Largura mínima */
+}
+
+.search-input-group .form-control {
+    padding-left: 2.5rem; /* Espaço para o ícone */
+}
+
+.search-input-group .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none; /* Não bloquear clique no input */
+}
+
+.date-input-group {
+    flex-shrink: 0; /* Não encolher */
+}
+
+.date-input-group .form-control {
+    min-width: 150px; /* Largura mínima para data */
+}
+
+/* Estilos para a tabela de solicitações */
+.table td span { /* Para alinhar imagem e texto do solicitante */
+    display: inline-block;
+    vertical-align: middle;
+}
+.table td .d-block { /* Helper para small abaixo do nome */
+    display: block;
+    font-size: 0.8em;
+    line-height: 1.2;
+}
+
+/* Badge e botão na mesma célula */
+.table td .badge,
+.table td .btn {
+    vertical-align: middle; /* Alinhar badges e botões */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .search-date-section {
+        flex-direction: column;
+        align-items: stretch; /* Alinhar itens para ocupar largura total */
+    }
+    .search-input-group,
+    .date-input-group {
+        width: 100%;
+    }
+     .unit-filters {
+        justify-content: flex-start; /* Alinhar botões à esquerda */
+        overflow-x: auto; /* Permitir scroll horizontal nos filtros */
+        flex-wrap: nowrap; /* Não quebrar linha */
+        padding-bottom: 10px; /* Espaço para scrollbar */
+    }
+}

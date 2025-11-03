@@ -1,0 +1,154 @@
+/* unit-detail.css - Estilos específicos para a tela de Detalhes da Unidade */
+
+/* Layout de detalhes da unidade */
+.row-details {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(-1 * var(--spacing-md) / 2); /* Ajuste para gap */
+    margin-right: calc(-1 * var(--spacing-md) / 2);
+    margin-bottom: var(--spacing-lg);
+}
+
+.col-unit-info,
+.col-supervisor-info {
+    padding-left: calc(var(--spacing-md) / 2);
+    padding-right: calc(var(--spacing-md) / 2);
+    margin-bottom: var(--spacing-md); /* Espaçamento vertical */
+    display: flex; /* Para o card ocupar altura total */
+    flex-direction: column;
+}
+
+.col-unit-info {
+    flex: 1; /* Ocupa mais espaço */
+    min-width: 300px; /* Largura mínima */
+}
+
+.col-supervisor-info {
+    flex: 0 0 320px; /* Largura fixa */
+}
+
+.col-unit-info .card,
+.col-supervisor-info .card {
+    height: 100%; /* Fazer o card ocupar a altura da coluna */
+}
+.col-unit-info .card-body p {
+    margin-bottom: 0.5rem; /* Espaçamento entre parágrafos */
+}
+.col-unit-info .card-body p:last-child {
+    margin-bottom: 0;
+}
+
+
+.supervisor-card .card-body {
+    display: flex;
+    align-items: center;
+}
+
+.supervisor-card img { /* Estilo da imagem do supervisor */
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: var(--spacing-md);
+}
+
+.supervisor-card h6 {
+    margin-bottom: 0.1rem; /* Menos espaço abaixo do nome */
+    font-weight: 500;
+}
+
+.supervisor-card small {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Estilos para abas de colaboradores */
+.collaborators-card .card-header button { /* Estilo botão adicionar */
+    font-size: 0.85rem;
+}
+
+/* Estilos Abas (Nav Tabs) */
+.nav-tabs-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color); /* Linha abaixo das abas */
+}
+
+.nav-tabs {
+    display: flex;
+    flex-wrap: nowrap; /* Não quebrar linha */
+    padding-left: 0;
+    margin-bottom: -1px; /* Para sobrepor a borda do container */
+    list-style: none;
+    border-bottom: none; /* Remover borda padrão */
+}
+
+.nav-tabs .nav-link {
+    background: none; /* Sem fundo padrão */
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    color: var(--text-muted);
+    padding: 0.6rem 1rem; /* Padding ajustado */
+    cursor: pointer;
+    font-weight: 500;
+    margin-right: 2px; /* Pequeno espaço entre abas */
+    white-space: nowrap; /* Não quebrar texto */
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent; /* Evitar borda no hover */
+    color: var(--primary-color);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary-color);
+    background-color: var(--card-bg); /* Fundo branco */
+    border-color: var(--border-color) var(--border-color) var(--card-bg); /* Bordas que se conectam */
+}
+
+/* Conteúdo das Abas */
+.tab-content {
+    margin-top: var(--spacing-md); /* Espaço acima do conteúdo da aba */
+}
+.tab-pane { display: none; }
+.tab-pane.fade { transition: opacity .15s linear; } /* Transição suave */
+.tab-pane.show.active { display: block; }
+
+/* Ações na tabela */
+.table td button {
+    margin-right: 5px; /* Espaço entre botões */
+}
+.table td button:last-child {
+    margin-right: 0;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .col-supervisor-info {
+        flex: 0 0 100%; /* Ocupa linha inteira */
+        max-width: 400px; /* Limitar largura máxima */
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .row-details {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .col-unit-info,
+    .col-supervisor-info {
+        padding-left: 0;
+        padding-right: 0;
+        flex: 0 0 100%; /* Garantir largura total */
+    }
+}
+/* Ajuste para múltiplos botões de ação */
+.table td .btn {
+    margin-right: 5px; /* Adiciona espaço entre os botões */
+}
+.table td .btn:last-child {
+    margin-right: 0;
+}

@@ -1,0 +1,49 @@
+/* css/common/splash.css */
+
+/* Define a animação de fade-in */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Define a animação de pulsar para o texto */
+@keyframes pulse {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.splash-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    
+    /* Usa o mesmo fundo da tela de login */
+    background-color: var(--body-bg, #f4f7f6); 
+    cursor: pointer;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.splash-logo {
+    /* Usa o mesmo estilo da logo de login */
+    width: 150px;
+    max-width: 50%;
+    height: auto;
+    margin-bottom: var(--spacing-lg, 24px);
+}
+
+.splash-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-muted, #6c757d);
+    animation: pulse 2.5s infinite ease-in-out;
+}

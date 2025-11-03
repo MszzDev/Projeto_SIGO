@@ -1,0 +1,6 @@
+/* css/gerente/editar-usuario.css */
+
+/* Reutiliza todos os estilos do formulário de adicionar */
+@import url('add-usuario.css');
+
+/* (Pode adicionar estilos específicos para "editar" aqui, se necessário) */

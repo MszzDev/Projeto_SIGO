@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGO - Adicionar Colaborador</title>
+    
+    <link rel="stylesheet" href="../../css/common/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../../css/common/accessibility.css">
+    <link rel="stylesheet" href="../../css/coordenador/add-colaborador.css">
+</head>
+<body>
+    <div class="d-flex">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../img/logo_sigo.png" alt="Logo SIGO" class="sigo-logo-sidebar">
+                <p class="sidebar-subtitle">Sistema Integrado de Gerenciamento Operacional</p>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="user-greeting">
+                    <h5>Olá, Coordenador</h5>
+                </div>
+                <nav class="sidebar-nav">
+                    <div class="sidebar-section">
+                        <h6>GESTÃO</h6>
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-home fa-fw"></i> Tela Inicial
+                        </a>
+                        <a href="colaboradores.html" class="nav-link active">
+                            <i class="fas fa-user-group"></i> Colaboradores
+                        </a>
+                        <a href="units.html" class="nav-link">
+                            <i class="fas fa-building fa-fw"></i> Unidades
+                        </a>
+                        <a href="transferir-colaborador.html" class="nav-link">
+                            <i class="fas fa-exchange-alt fa-fw"></i> Transferências
+                        </a>
+                        <a href="prelecoes.html" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher fa-fw"></i> Preleções
+                        </a>
+                        <a href="solicitacoes.html" class="nav-link">
+                            <i class="fas fa-clipboard-list fa-fw"></i> Solicitações
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="accessibility-menu">
+                    <button class="acc-option-btn" title="Aumentar fonte"><i class="fas fa-font"><i class="fas fa-plus"></i></i></button>
+                    <button class="acc-option-btn" title="Diminuir fonte"><i class="fas fa-font"><i class="fas fa-minus"></i></i></button>
+                    <button class="acc-option-btn" title="Alto contraste"><i class="fas fa-adjust"></i></button>
+                    <button class="acc-option-btn" title="Leitor de tela"><i class="fas fa-volume-up"></i></button>
+                </div>
+                <button id="acc-toggle-button" class="acc-toggle-btn">
+                    <span>ACESSIBILIDADE</span>
+                    <i class="fas fa-chevron-up acc-icon"></i>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <a href="profile.html" class="user-name">Miguel Soares</a>
+                        <span class="user-role">Coordenador</span>
+                    </div>
+                    <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+                    <button id="logout-button" class="btn btn-logout" title="Sair">
+                        <i class="fas fa-sign-out-alt"></i> </button>
+                </div>
+            </header>
+
+            <section class="content-area">
+                 <div class="welcome-section">
+                    <h2>Adicionar Colaborador</h2>
+                    <p>Preencha os dados para cadastrar um novo funcionário.</p>
+                </div>
+
+                <div class="card form-card">
+                    <form class="card-body" id="add-colab-form">
+                        
+                        <h4 class="form-section-title">Dados da Posição</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="unidade">Unidade Responsável</label>
+                                <select id="unidade" name="unidade" class="form-control" required>
+                                    <option value="" disabled selected>Selecione a unidade</option>
+                                    <option value="Jardim Ângela">Jardim Ângela</option>
+                                    <option value="Capão Redondo">Capão Redondo</option>
+                                    <option value="Santo Amaro">Santo Amaro</option>
+                                    </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cargo">Cargo</label>
+                                <select id="cargo" name="cargo" class="form-control" required>
+                                    <option value="Colaborador">Colaborador</option>
+                                    <option value="Supervisor">Supervisor</option>
+                                     <option value="Supervisor">Colaborador</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_usuario">ID (Ex: S123 ou C123)</label>
+                                <input type="text" id="id_usuario" name="id_usuario" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="periodo">Período/Turno</label>
+                                <select id="periodo" name="periodo" class="form-control" required>
+                                    <option value="Manhã">Manhã</option>
+                                    <option value="Tarde">Tarde</option>
+                                    <option value="Noite">Noite</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h4 class="form-section-title">Dados Pessoais</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo</label>
+                                <input type="text" id="nome" name="nome" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nome_social">Nome Social (Opcional)</label>
+                                <input type="text" id="nome_social" name="nome_social" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="rg">RG</label>
+                                <input type="text" id="rg" name="rg" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cpf">CPF</label>
+                                <input type="text" id="cpf" name="cpf" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data_nascimento">Data de Nascimento</label>
+                                <input type="date" id="data_nascimento" name="data_nascimento" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone">Telefone</label>
+                                <input type="tel" id="telefone" name="telefone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <h4 class="form-section-title">Endereço</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="cep">CEP</label>
+                                <input type="text" id="cep" name="cep" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="logradouro">Logradouro (Rua/Av.)</label>
+                                <input type="text" id="logradouro" name="logradouro" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="numero">Nº</label>
+                                <input type="text" id="numero" name="numero" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="complemento">Complemento</label>
+                                <input type="text" id="complemento" name="complemento" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="bairro">Bairro</label>
+                                <input type="text" id="bairro" name="bairro" class="form-control">
+                            </div>
+                        </div>
+                        <h4 class="form-section-title">Dados Bancários</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="banco">Banco</label>
+                                <input type="text" id="banco" name="banco" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="agencia">Agência</label>
+                                <input type="text" id="agencia" name="agencia" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="conta">Conta (com dígito)</label>
+                                <input type="text" id="conta" name="conta" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo_conta">Tipo (Ex: Corrente, Poupança)</label>
+                                <input type="text" id="tipo_conta" name="tipo_conta" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="chave_pix">Chave Pix</label>
+                                <input type="text" id="chave_pix" name="chave_pix" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <a href="colaboradores.html" class="btn btn-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Salvar Colaborador</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+                        <div class="form-actions">
+                            <a href="colaboradores.html" class="btn btn-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Salvar Colaborador</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../js/coordenador/add-colaborador.js" defer></script>
+    <script src="../../js/common/transitions.js" defer></script>
+    <script src="../../js/common/accessibility.js" defer></script>
+</body>
+</html>
