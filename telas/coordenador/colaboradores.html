@@ -19,7 +19,7 @@
             
             <div class="sidebar-content">
                 <div class="user-greeting">
-                    <h5>Olá, Coordenador</h5>
+                    <h5 id="sidebar-user-name">Olá, Coordenador</h5>
                 </div>
                 <nav class="sidebar-nav">
                     <div class="sidebar-section">
@@ -73,10 +73,10 @@
                 </div>
                 <div class="user-profile">
                     <div class="user-info">
-                        <a href="profile.html" class="user-name">Miguel Soares</a>
-                        <span class="user-role">Coordenador</span>
+                        <a href="profile.html" class="user-name">Coordenador</a>
+                        <span class="user-role">...</span>
                     </div>
-                    <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+                    <img id="header-user-avatar" src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
                     <button id="logout-button" class="btn btn-logout" title="Sair">
                         <i class="fas fa-sign-out-alt"></i> </button>
                 </div>
@@ -88,14 +88,16 @@
                     <p>Visualize os colaboradores organizados por unidade.</p>
                 </div>
 
-                <div class="container">
-                    </div>
+                <div class="container" id="colaboradores-container">
+                    <p class="text-muted" style="padding: 20px;">Carregando colaboradores...</p>
+                </div>
 
             </section>
         </main>
     </div>
     
     <script src="../../js/coordenador/colaboradores.js" defer></script>
+    <script src="../../js/common/logout.js" defer></script>
     <script src="../../js/common/transitions.js" defer></script>
     <script src="../../js/common/accessibility.js" defer></script> 
 </body>

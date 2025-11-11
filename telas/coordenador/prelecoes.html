@@ -19,7 +19,7 @@
             
             <div class="sidebar-content">
                 <div class="user-greeting">
-                    <h5>Olá, Coordenador</h5>
+                    <h5 id="sidebar-user-name">Olá, Coordenador</h5>
                 </div>
                 <nav class="sidebar-nav">
                     <div class="sidebar-section">
@@ -73,10 +73,10 @@
                 </div>
                 <div class="user-profile">
                     <div class="user-info">
-                        <a href="profile.html" class="user-name">Miguel Soares</a>
-                        <span class="user-role">Coordenador</span>
+                        <a href="profile.html" class="user-name">Coordenador</a>
+                        <span class="user-role">...</span>
                     </div>
-                    <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+                    <img id="header-user-avatar" src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
                     <button id="logout-button" class="btn btn-logout" title="Sair">
                         <i class="fas fa-sign-out-alt"></i> </button>
                 </div>
@@ -88,11 +88,9 @@
                     <p>Gerencie as preleções realizadas e agendadas.</p>
                 </div>
 
-                <div class="unit-filters">
-                    <a href="#" class="filter-button active">São Luis</a>
-                    <a href="#" class="filter-button">Jardim Ângela</a>
-                    <a href="#" class="filter-button">Jardim Nakamura</a>
-                    </div>
+                <div class="unit-filters" id="unidades-filter-container">
+                    <a href="#" class="filter-button active" data-unidade="Todos">Todos</a>
+                </div>
 
                 <div class="search-date-section">
                     <div class="search-input-group">
@@ -100,13 +98,13 @@
                         <input type="text" class="form-control" placeholder="Pesquisar por título ou responsável...">
                     </div>
                     <div class="date-input-group">
-                        <input type="date" class="form-control" value="2025-03-03">
+                        <input type="date" class="form-control" value="">
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <h5>Preleções - Unidade São Luis</h5>
+                        <h5 id="table-title">Todas as Preleções</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -120,8 +118,8 @@
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    </tbody>
+                                <tbody id="prelecoes-tbody">
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -150,6 +148,7 @@
     </div>
 
     <script src="../../js/coordenador/prelecoes.js" defer></script>
+    <script src="../../js/common/logout.js" defer></script>
     <script src="../../js/common/transitions.js" defer></script>
     <script src="../../js/common/accessibility.js" defer></script> 
 

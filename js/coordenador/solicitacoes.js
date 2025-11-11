@@ -1,46 +1,47 @@
 // js/coordenador/solicitacoes.js
 document.addEventListener('DOMContentLoaded', () => {
     
-    const tabela = document.querySelector('.table tbody');
-    const cardHeader = document.querySelector('.card-header h5');
-    const filterButtons = document.querySelectorAll('.unit-filters .filter-button');
+    const tbody = document.getElementById('solicitacoes-tbody');
+    const tableTitle = document.getElementById('table-title');
+    const filterContainer = document.getElementById('unidades-filter-container');
 
-    // --- FUNÇÃO DE CARREGAMENTO (MODIFICADA) ---
-    // Agora aceita um filtro de unidade
+    // 1. Pega o Coordenador logado
+    const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
+    
+    // 2. Pega todas as unidades e filtra as dele
+    const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
+    const minhasUnidades = (userLogado)
+        ? allUnidades.filter(u => u.coordenadorId == userLogado.id)
+        : [];
+    const minhasUnidadesNomes = minhasUnidades.map(u => u.nome);
+
+    // 3. Pega todas as solicitações
+    const allSolicitacoes = JSON.parse(localStorage.getItem('sigo_solicitacoes')) || [];
+    
+    // 4. Filtra solicitações que pertencem às unidades deste Coordenador
+    const minhasSolicitacoes = allSolicitacoes.filter(s => minhasUnidadesNomes.includes(s.unidade));
+
+    // --- FUNÇÃO DE RENDERIZAÇÃO ---
     function carregarSolicitacoes(filtroUnidade) {
-        if (!tabela) {
-            console.error("Tabela <tbody> não encontrada.");
+        if (!tbody || !tableTitle) return;
+        tbody.innerHTML = ''; // Limpa a tabela
+
+        let listaFiltrada = minhasSolicitacoes;
+
+        // Atualiza o título
+        if (filtroUnidade === "Todos") {
+            tableTitle.textContent = `Todas as Solicitações`;
+        } else {
+            tableTitle.textContent = `Solicitações - Unidade ${filtroUnidade}`;
+            listaFiltrada = minhasSolicitacoes.filter(s => s.unidade === filtroUnidade);
+        }
+
+        if (listaFiltrada.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" class="text-muted text-center p-4">Nenhuma solicitação encontrada.</td></tr>`;
             return;
         }
 
-        tabela.innerHTML = ''; // Limpa a tabela
-
-        // Pega os dados do localStorage
-        const solicitacoesSalvas = localStorage.getItem('sigo_solicitacoes');
-        let listaSolicitacoes = solicitacoesSalvas ? JSON.parse(solicitacoesSalvas) : [];
-
-        // ATUALIZA O TÍTULO DO CARD
-        if (cardHeader) {
-            // Se nenhum filtro for aplicado (ex: "Todos"), mostra um título geral
-            if (!filtroUnidade || filtroUnidade === "Todos") {
-                cardHeader.textContent = `Todas as Solicitações`;
-            } else {
-                cardHeader.textContent = `Solicitações - Unidade ${filtroUnidade}`;
-            }
-        }
-
-        // FILTRA A LISTA (só filtra se o filtro não for "Todos")
-        if (filtroUnidade && filtroUnidade !== "Todos") {
-            listaSolicitacoes = listaSolicitacoes.filter(s => s.unidade === filtroUnidade);
-        }
-
-        if (listaSolicitacoes.length === 0) {
-            tabela.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 20px;">Nenhuma solicitação encontrada para esta unidade.</td></tr>`;
-            return;
-        }
-
-        // Adiciona cada solicitação à tabela
-        listaSolicitacoes.forEach(solicitacao => {
+        listaFiltrada.forEach(solicitacao => {
             let statusHtml = '';
             if (solicitacao.status === 'Pendente') {
                 statusHtml = `<a href="aprovar-solicitacao.html?id=${solicitacao.id}" class="btn btn-sm btn-outline-primary">Analisar</a>`;
@@ -50,51 +51,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusHtml = `<span class="badge badge-danger">Recusado</span>`;
             }
 
-            const novaLinha = document.createElement('tr');
-            novaLinha.innerHTML = `
-                <td><span>${solicitacao.solicitante} <small class="text-muted d-block">${solicitacao.cargo}</small></span></td>
-                <td>${solicitacao.turno}</td>
-                <td>${solicitacao.data}</td>
-                <td>${statusHtml}</td>
+            tbody.innerHTML += `
+                <tr>
+                    <td><span>${solicitacao.solicitante} <small class="text-muted d-block">${solicitacao.cargo || 'Supervisor'}</small></span></td>
+                    <td>${solicitacao.turno}</td>
+                    <td>${solicitacao.data}</td>
+                    <td>${statusHtml}</td>
+                </tr>
             `;
-            tabela.appendChild(novaLinha);
         });
     }
 
-    // --- LÓGICA DOS FILTROS ---
-    let filtroAtivo = '';
-    
-    // Encontra o botão ativo inicial e carrega os dados
-    const botaoAtivoInicial = document.querySelector('.unit-filters .filter-button.active');
-    if (botaoAtivoInicial) {
-        filtroAtivo = botaoAtivoInicial.textContent.trim();
-    } else if (filterButtons.length > 0) {
-        // Se nenhum estiver ativo, ativa o primeiro
-        filterButtons[0].classList.add('active');
-        filtroAtivo = filterButtons[0].textContent.trim();
-    }
-
-    // Carrega os dados iniciais
-    if (filtroAtivo) {
-        carregarSolicitacoes(filtroAtivo);
-    }
-
-    // Adiciona evento de clique aos botões
-    filterButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            // Remove a classe 'active' de TODOS
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-
-            // Adiciona a classe 'active' apenas no clicado
-            button.classList.add('active');
-            
-            // Pega o nome da unidade pelo texto do botão
-            const novaUnidade = button.textContent.trim();
-            
-            // Recarrega a tabela com o novo filtro
-            carregarSolicitacoes(novaUnidade);
+    // --- LÓGICA DOS FILTROS DINÂMICOS ---
+    if (filterContainer) {
+        // Cria os botões de filtro
+        minhasUnidades.forEach(unit => {
+            filterContainer.innerHTML += `<a href="#" class="filter-button" data-unidade="${unit.nome}">${unit.nome}</a>`;
         });
-    });
+
+        // Adiciona evento de clique a todos os botões
+        const filterButtons = filterContainer.querySelectorAll('.filter-button');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const novaUnidade = button.dataset.unidade;
+                carregarSolicitacoes(novaUnidade);
+            });
+        });
+    }
+
+    // --- CARGA INICIAL ---
+    carregarSolicitacoes("Todos"); // Começa mostrando tudo
 });

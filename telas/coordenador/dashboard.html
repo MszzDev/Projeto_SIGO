@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="../../css/common/accessibility.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
     <div class="d-flex">
         <aside class="sidebar">
@@ -21,7 +19,7 @@
 
             <div class="sidebar-content">
                 <div class="user-greeting">
-                    <h5>Olá, Coordenador</h5>
+                    <h5 id="sidebar-user-name">Olá, Coordenador</h5>
                 </div>
                 <nav class="sidebar-nav">
                     <div class="sidebar-section">
@@ -45,8 +43,7 @@
                             <i class="fas fa-clipboard-list fa-fw"></i> Solicitações
                         </a>
                     </div>
-                    
-                    </nav>
+                </nav>
             </div> 
             
             <div class="sidebar-footer">
@@ -69,7 +66,6 @@
                     <i class="fas fa-chevron-up acc-icon"></i>
                 </button>
             </div>
-
         </aside> 
         
         <main class="main-content">
@@ -78,34 +74,36 @@
                 </div>
                 <div class="user-profile">
                     <div class="user-info">
-                        <a href="profile.html" class="user-name">Miguel Soares</a>
-                        <span class="user-role">Coordenador</span>
+                        <a href="profile.html" class="user-name">Carregando...</a>
+                        <span class="user-role">...</span>
                     </div>
-                    <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+                    <img id="header-user-avatar" src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
                     <button id="logout-button" class="btn btn-logout" title="Sair">
                         <i class="fas fa-sign-out-alt"></i> </button>
                 </div>
             </header>
 
             <section class="content-area">
-                <div class="welcome-section">
-                    <h2>Olá, Miguel Soares</h2>
+                <div class="welcome-section" id="welcome-container">
+                    <h2>Olá, ...</h2>
                     <p>Coordenador Regional</p>
                 </div>
 
                 <div class="row-cards">
                     <div class="col-card">
-                        <div class="card stats-card">
-                            <div class="card-body">
-                                <div class="card-icon">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <div class="card-text">
-                                    <h3 class="card-title">12</h3>
-                                    <p class="card-subtitle">Unidades Ativas</p>
+                        <a href="units.html" class="stats-card-link">
+                            <div class="card stats-card card-clickable">
+                                <div class="card-body">
+                                    <div class="card-icon">
+                                        <i class="fas fa-building"></i>
+                                    </div>
+                                    <div class="card-text">
+                                        <h3 class="card-title" id="stat-unidades">0</h3>
+                                        <p class="card-subtitle">Unidades Gerenciadas</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     
                     <div class="col-card">
@@ -116,8 +114,8 @@
                                         <i class="fas fa-users"></i>
                                     </div>
                                     <div class="card-text">
-                                        <h3 class="card-title">250</h3>
-                                        <p class="card-subtitle">Colaboradores</p>
+                                        <h3 class="card-title" id="stat-colaboradores">0</h3>
+                                        <p class="card-subtitle">Colaboradores na Equipe</p>
                                     </div>
                                 </div>
                             </div>
@@ -125,14 +123,14 @@
                     </div>
 
                     <div class="col-card">
-                        <a href="solicitacoes-pendentes.html" class="stats-card-link">
+                        <a href="solicitacoes.html" class="stats-card-link">
                             <div class="card stats-card card-clickable">
                                 <div class="card-body">
-                                    <div class="card-icon">
+                                    <div class="card-icon" style="color: var(--danger-color);">
                                         <i class="fas fa-clipboard-list"></i>
                                     </div>
                                     <div class="card-text">
-                                        <h3 class="card-title">3</h3>
+                                        <h3 class="card-title" id="stat-solicitacoes">0</h3>
                                         <p class="card-subtitle">Solicitações Pendentes</p>
                                     </div>
                                 </div>
@@ -140,23 +138,25 @@
                         </a>
                     </div>
                     <div class="col-card">
-                        <div class="card stats-card">
-                            <div class="card-body">
-                                <div class="card-icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                                <div class="card-text">
-                                    <h3 class="card-title">15</h3>
-                                    <p class="card-subtitle">Preleções Concluídas</p>
+                        <a href="prelecoes.html" class="stats-card-link">
+                            <div class="card stats-card card-clickable">
+                                <div class="card-body">
+                                    <div class="card-icon" style="color: var(--success-color);">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="card-text">
+                                        <h3 class="card-title" id="stat-prelecoes">0</h3>
+                                        <p class="card-subtitle">Preleções (Este Mês)</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <h5>Unidades Ativas Recentes</h5>
+                        <h5>Status das Unidades</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -169,42 +169,8 @@
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Jardim Ângela</td>
-                                        <td>1002</td>
-                                        <td><span class="badge badge-secondary" id="status-unidade-JardimAngela">Inativa</span></td>
-                                        <td><a href="unit-detail.html" class="btn btn-sm btn-outline-primary">Ver Detalhes</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Capão Redondo</td>
-                                        <td>1001</td>
-                                        <td><span class="badge badge-success">Ativa</span></td>
-                                        <td><a href="unit-detail.html" class="btn btn-sm btn-outline-primary">Ver
-                                                Detalhes</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Santo Amaro</td>
-                                        <td>1003</td>
-                                        <td><span class="badge badge-success">Ativa</span></td>
-                                        <td><a href="unit-detail.html" class="btn btn-sm btn-outline-primary">Ver
-                                                Detalhes</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>São Luis</td>
-                                        <td>1000</td>
-                                        <td><span class="badge badge-success">Ativa</span></td>
-                                        <td><a href="unit-detail.html" class="btn btn-sm btn-outline-primary">Ver
-                                                Detalhes</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jardim Nakamura</td>
-                                        <td>0958</td>
-                                        <td><span class="badge badge-success">Ativa</span></td>
-                                        <td><a href="unit-detail.html" class="btn btn-sm btn-outline-primary">Ver
-                                                Detalhes</a></td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="unidades-tbody">
+                                    </tbody>
                             </table>
                         </div>
                     </div>
@@ -214,8 +180,8 @@
     </div>
 
     <script src="../../js/coordenador/dashboard.js" defer></script>
+    <script src="../../js/common/logout.js" defer></script>
     <script src="../../js/common/transitions.js" defer></script>
     <script src="../../js/common/accessibility.js" defer></script>
 </body>
-
 </html>

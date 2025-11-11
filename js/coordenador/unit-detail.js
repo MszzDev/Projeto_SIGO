@@ -1,19 +1,62 @@
 // js/coordenador/unit-detail.js
 document.addEventListener('DOMContentLoaded', function () {
     
-    // --- PEGA A UNIDADE DA URL ---
     const params = new URLSearchParams(window.location.search);
-    const nomeUnidade = decodeURIComponent(params.get('unidade')); // ex: "Jardim Ângela"
+    const nomeUnidade = decodeURIComponent(params.get('unidade')); 
 
-    // --- ATUALIZA TÍTULO E DADOS ESTÁTICOS ---
+    const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
+    const allColaboradores = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
+
+    const estaUnidade = allUnidades.find(u => u.nome === nomeUnidade);
+    const estaEquipe = allColaboradores.filter(c => c.unidade === nomeUnidade);
+    // ATUALIZADO: Pega TODOS os supervisores
+    const supervisoresDaUnidade = estaEquipe.filter(c => c.cargo === 'Supervisor');
+
+    // Preenche infos gerais
     if (nomeUnidade) {
-        document.querySelector('.welcome-section h2').textContent = `Detalhes da Unidade: ${nomeUnidade}`;
+        document.getElementById('unit-detail-title').textContent = `Detalhes da Unidade: ${nomeUnidade}`;
+    }
+    if (estaUnidade) {
+        document.getElementById('unit-codigo').textContent = estaUnidade.codigo || 'N/A';
+        document.getElementById('unit-endereco').textContent = estaUnidade.endereco || 'Não informado';
+        document.getElementById('unit-coordenador').textContent = estaUnidade.coordenadorNome || 'Nenhum';
+    } else {
+        document.getElementById('unit-codigo').textContent = 'N/A';
+        document.getElementById('unit-endereco').textContent = 'Não cadastrado';
+        document.getElementById('unit-coordenador').textContent = 'Não atribuído';
     }
 
-    // --- LÓGICA DAS ABAS (Já existente) ---
+    // --- ATUALIZAÇÃO DO CARD DE SUPERVISOR (Dinâmico) ---
+    const supervisorContainer = document.getElementById('supervisor-info-body');
+    function atualizarCardSupervisor(turno) {
+        if (!supervisorContainer) return;
+        const supervisor = supervisoresDaUnidade.find(s => s.periodo === turno);
+
+        if (supervisor) {
+            // Meta 3: Usar foto_url se existir
+            const iniciais = supervisor.nome ? supervisor.nome.substring(0, 2).toUpperCase() : '??';
+            const avatarSrc = supervisor.foto_url 
+                ? supervisor.foto_url 
+                : `https://via.placeholder.com/50/003063/ffffff?text=${iniciais}`;
+            
+            // Meta 2: Card é um link
+            supervisorContainer.innerHTML = `
+                <a href="../common/perfil-colaborador.html?id=${supervisor.id}" class="supervisor-link-wrapper" title="Ver perfil de ${supervisor.nome}">
+                    <img src="${avatarSrc}" alt="Supervisor Avatar" class="rounded-circle me-3">
+                    <div>
+                        <h6 class="mb-0">${supervisor.nome}</h6>
+                        <small class="text-muted">Supervisor - ${supervisor.periodo}</small>
+                    </div>
+                </a>
+            `;
+        } else {
+            supervisorContainer.innerHTML = `<p class="text-muted">Nenhum supervisor para este turno.</p>`;
+        }
+    }
+
+    // Lógica das Abas
     const tabs = document.querySelectorAll('#collaboratorTabs .nav-link');
     const tabPanes = document.querySelectorAll('#collaboratorTabsContent .tab-pane');
-
     if (tabs.length > 0 && tabPanes.length > 0) {
         tabs.forEach(tab => {
             tab.addEventListener('click', function (event) {
@@ -22,108 +65,67 @@ document.addEventListener('DOMContentLoaded', function () {
                 tabPanes.forEach(p => { p.classList.remove('active', 'show'); });
                 this.classList.add('active');
                 const targetPane = document.querySelector(this.getAttribute('data-bs-target'));
-                if (targetPane) {
-                    targetPane.classList.add('active', 'show');
-                }
-            }); // Fim do addEventListener
-        }); // Fim do tabs.forEach
-    } // Fim do if (tabs.length > 0)
-
-
-    // --- CARREGA STATUS DA UNIDADE (Já existente) ---
-    (function carregarStatusUnidadeDetalhe() {
-        let status = "Inativa"; // Padrão
-        
-        // Simulação: Só funciona para Jardim Ângela por enquanto
-        if (nomeUnidade === "Jardim Ângela") { 
-            const statusJA = localStorage.getItem('sigo_status_unidade_JardimAngela');
-            if (statusJA === 'Ativa') {
-                status = 'Ativa';
-            }
-        }
-        // (Você pode adicionar lógicas 'else if' para outras unidades aqui)
-        
-        const badgeElement = document.getElementById('status-unidade-JardimAngela');
-        if (badgeElement) {
-            if (status === 'Ativa') {
-                badgeElement.textContent = 'Ativa';
-                badgeElement.classList.remove('badge-secondary', 'badge-warning', 'badge-danger');
-                badgeElement.classList.add('badge-success');
-            } else {
-                badgeElement.textContent = 'Inativa';
-                badgeElement.classList.remove('badge-success');
-                badgeElement.classList.add('badge-secondary');
-            }
-        }
-    })();
-    
-    // --- CARREGA COLABORADORES DA UNIDADE (NOVO) ---
-    (function carregarColaboradoresDaUnidade() {
-        if (!nomeUnidade) return; // Não faz nada se não houver unidade na URL
-
-        const colaboradoresSalvos = localStorage.getItem('sigo_colaboradores');
-        const listaColaboradores = colaboradoresSalvos ? JSON.parse(colaboradoresSalvos) : [];
-        
-        // Filtra por esta unidade
-        const meusColaboradores = listaColaboradores.filter(c => c.unidade === nomeUnidade);
-
-        // Separa por turno
-        const turnos = { Manhã: [], Tarde: [], Noite: [] };
-        meusColaboradores.forEach(colab => {
-            // Verifica se o turno existe no objeto, se não, ignora
-            if (turnos[colab.periodo]) {
-                turnos[colab.periodo].push(colab);
-            }
+                if (targetPane) targetPane.classList.add('active', 'show');
+                
+                // Meta 1: Atualiza o card
+                let turnoSelecionado = 'Manhã';
+                if (this.id === 'tarde-tab') turnoSelecionado = 'Tarde';
+                if (this.id === 'noite-tab') turnoSelecionado = 'Noite';
+                atualizarCardSupervisor(turnoSelecionado);
+            });
         });
+    }
 
-        // Renderiza as tabelas
-        renderizarTabelaTurno(document.getElementById('manha-content'), turnos.Manhã);
-        renderizarTabelaTurno(document.getElementById('tarde-content'), turnos.Tarde);
-        renderizarTabelaTurno(document.getElementById('noite-content'), turnos.Noite);
-    })();
-
-    /**
-     * Preenche o container de um turno com a lista de colaboradores
-     * @param {HTMLElement} container - O elemento (ex: #manha-content)
-     * @param {Array} lista - A lista de colaboradores daquele turno
-     */
+    // Carregar Status da Unidade
+    const badgeElement = document.getElementById('unit-status');
+    if (badgeElement) {
+        const statusStorageKey = `sigo_status_unidade_${nomeUnidade.replace(/\s/g, '')}`;
+        const statusAtivo = localStorage.getItem(statusStorageKey);
+        if (statusAtivo === 'Ativa') {
+            badgeElement.textContent = 'Ativa';
+            badgeElement.classList.remove('badge-secondary');
+            badgeElement.classList.add('badge-success');
+        } else {
+            badgeElement.textContent = 'Inativa';
+            badgeElement.classList.remove('badge-success');
+            badgeElement.classList.add('badge-secondary');
+        }
+    }
+    
+    // Carregar Tabelas de Colaboradores
     function renderizarTabelaTurno(container, lista) {
-        if (!container) return; // Se o container da aba não existir
-        
-        // Se a lista estiver vazia, mostra a mensagem
-        if (lista.length === 0) {
-            container.innerHTML = '<p class="text-muted">Nenhum colaborador registrado para este turno.</p>';
+        // (Esta função permanece a mesma)
+        if (!container) return;
+        const colaboradoresDoTurno = lista.filter(c => c.cargo === 'Colaborador');
+        if (colaboradoresDoTurno.length === 0) {
+            container.innerHTML = '<p class="text-muted" style="padding: 15px 0;">Nenhum colaborador registrado para este turno.</p>';
             return;
         }
-
-        // Se a lista não estiver vazia, encontra a tabela
-        const tabelaContainer = container.querySelector('.table-responsive');
-        if (!tabelaContainer) return; // Se a estrutura da tabela não existir
-
-        const tabelaBody = tabelaContainer.querySelector('tbody');
-        if (!tabelaBody) return; // Se o <tbody> não existir
-
-        tabelaBody.innerHTML = ''; // Limpa o <tbody>
-
-        // Preenche com os dados
-        lista.forEach(colab => {
-            tabelaBody.innerHTML += `
+        let tabelaHtml = `<div class="table-responsive"><table class="table table-hover"><thead>...</thead><tbody>`;
+        colaboradoresDoTurno.forEach(colab => {
+            tabelaHtml += `
                 <tr>
-                    <td>
-                        ${colab.nome}
-                    </td>
+                    <td>${colab.nome}</td>
                     <td><span class="badge badge-success">Ativo</span></td>
                     <td>
                         <a href="../common/perfil-colaborador.html?id=${colab.id}" class="btn btn-sm btn-outline-primary" title="Ver Perfil">
                             <i class="fas fa-eye"></i>
                         </a>
-                        
-                        <button class="btn btn-sm btn-outline-primary">Editar</button>
-                        <button class="btn btn-sm btn-danger">Remover</button>
                     </td>
                 </tr>
             `;
         });
-    } // Fim da função renderizarTabelaTurno
+        tabelaHtml += `</tbody></table></div>`;
+        container.innerHTML = tabelaHtml;
+    }
 
-}); // FIM do DOMContentLoaded
+    const equipeManha = estaEquipe.filter(c => c.periodo === 'Manhã');
+    const equipeTarde = estaEquipe.filter(c => c.periodo === 'Tarde');
+    const equipeNoite = estaEquipe.filter(c => c.periodo === 'Noite');
+    renderizarTabelaTurno(document.getElementById('manha-content'), equipeManha);
+    renderizarTabelaTurno(document.getElementById('tarde-content'), equipeTarde);
+    renderizarTabelaTurno(document.getElementById('noite-content'), equipeNoite);
+
+    // Carregamento Inicial
+    atualizarCardSupervisor('Manhã');
+});

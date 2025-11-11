@@ -1,13 +1,17 @@
 /* css/gerente/dashboard.css */
 
-/* Cards de estatísticas (baseado no dashboard do coordenador, mas mais denso) */
+/* Cards de estatísticas (Estilo Atualizado) */
+.stats-card {
+    transition: all 0.3s ease;
+    border-left-width: 4px; /* Borda lateral colorida */
+}
 .stats-card .card-body {
     padding: var(--spacing-md);
     display: flex;
     align-items: center;
 }
 .stats-card .card-icon {
-    font-size: 1.8rem; /* Ícone menor */
+    font-size: 1.8rem;
     color: var(--primary-color);
     margin-right: var(--spacing-md);
     width: 32px;
@@ -27,46 +31,171 @@
 }
 
 /* Cores específicas para os cards de estatística */
-.stats-card.solicitacoes .card-icon { color: var(--warning-color); }
-.stats-card.prelecoes .card-icon { color: var(--info-color); }
-.stats-card.unidades .card-icon { color: var(--primary-color); }
-.stats-card.colaboradores .card-icon { color: var(--success-color); }
+.stats-card.solicitacoes { border-left-color: var(--danger-color); }
+.stats-card.solicitacoes .card-icon { color: var(--danger-color); }
 
-/* Card de Destaque (Melhor Unidade / Preleção) */
-.highlight-card {
-    padding: var(--spacing-md);
-    border-left: 4px solid var(--success-color);
+.stats-card.prelecoes { border-left-color: var(--success-color); }
+.stats-card.prelecoes .card-icon { color: var(--success-color); }
+
+.stats-card.unidades { border-left-color: var(--primary-color); }
+.stats-card.unidades .card-icon { color: var(--primary-color); }
+
+.stats-card.colaboradores { border-left-color: var(--info-color); }
+.stats-card.colaboradores .card-icon { color: var(--info-color); }
+
+/* Efeito Hover ("mais bonito") */
+.stats-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
-.highlight-card .highlight-title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.stats-card.solicitacoes:hover { border-left-color: #a0212e; } /* Escurece a borda */
+.stats-card.prelecoes:hover { border-left-color: #1a7431; }
+.stats-card.unidades:hover { border-left-color: #002442; }
+.stats-card.colaboradores:hover { border-left-color: #0f7484; }
+
+
+/* --- NOVOS ESTILOS PARA GRADE DE VISUALIZAÇÃO --- */
+
+.dashboard-grid {
+    display: grid;
+    /* 3 colunas, com tamanho mínimo de 300px */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+}
+
+.card.info-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+.card.info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.info-header {
+    text-align: center;
+    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+}
+/* Ícones coloridos */
+.info-header .icon-atencao {
+    font-size: 1.5rem;
+    color: var(--danger-color);
     margin-bottom: var(--spacing-sm);
 }
-.highlight-card .highlight-value {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--dark-color);
-    margin-bottom: 2px;
+.info-header .icon-atividade {
+    font-size: 1.5rem;
+    color: var(--success-color);
+    margin-bottom: var(--spacing-sm);
 }
-.highlight-card .highlight-detail {
-    font-size: 0.9rem;
+.info-header .icon-acoes {
+    font-size: 1.5rem;
+    color: var(--info-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.info-header .info-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.info-header .info-subtitle {
+    font-size: 0.85rem;
     color: var(--text-muted);
     margin-bottom: 0;
 }
 
-/* Gráfico Fictício */
-.chart-placeholder {
-    width: 100%;
-    height: 250px;
-    background-color: var(--light-color);
-    border: 1px dashed var(--border-color);
-    border-radius: 6px;
+.info-list {
+    padding: var(--spacing-sm) 0;
+    flex-grow: 1; /* Faz o card preencher a altura */
+}
+
+/* Mensagem de "Nenhum dado" */
+.info-list .text-muted {
+    display: block;
+    text-align: center;
+    padding: var(--spacing-lg);
+    font-size: 0.9rem;
+}
+
+/* Item da lista (Solicitações/Preleções) */
+.info-list-item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-color);
+}
+.info-list-item:last-child {
+    border-bottom: none;
+}
+.info-list-item:hover {
+    background-color: var(--light-color);
+}
+
+.info-list-item .unit-name {
+    font-size: 0.95rem;
     font-weight: 500;
+}
+/* "Pílula" de status */
+.info-list-item .unit-stat {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background-color: var(--light-color);
+}
+
+.info-list-item .stat-atencao {
+    color: var(--danger-color);
+    background-color: #fde8e8; /* Fundo vermelho claro */
+}
+.info-list-item .stat-atividade {
+    color: var(--success-color);
+    background-color: #eaf6eb; /* Fundo verde claro */
+}
+
+/* Item da lista (Ações Rápidas) */
+.quick-action-link {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.quick-action-link:last-child {
+    border-bottom: none;
+}
+.quick-action-link:hover {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+
+.quick-action-link i {
+    width: 30px;
+    text-align: center;
+    margin-right: var(--spacing-sm);
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+}
+.quick-action-link:hover i {
+    color: var(--primary-color);
+}
+
+.quick-action-link span {
+    flex-grow: 1; /* Empurra a seta para a direita */
+}
+
+.quick-action-link .arrow {
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }

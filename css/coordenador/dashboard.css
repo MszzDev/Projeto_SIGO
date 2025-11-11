@@ -1,19 +1,19 @@
-/* dashboard.css - Estilos específicos para o dashboard */
+/* css/coordenador/dashboard.css */
 
 /* Estilos para os cards de estatísticas */
 .stats-card {
-    border-left: 4px solid var(--primary-color); /* Adiciona uma borda lateral */
+    border-left: 4px solid var(--primary-color); 
     padding: var(--spacing-md);
-    display: flex; /* Mantido flex */
-    align-items: center; /* Mantido center */
-    min-height: 100px; /* Altura mínima */
+    display: flex; 
+    align-items: center; 
+    min-height: 100px; 
 }
 
 /* Link que envolve o card */
 .stats-card-link {
     text-decoration: none;
     color: inherit;
-    display: block; /* Para o link ocupar o espaço do card */
+    display: block; 
 }
 .stats-card.card-clickable:hover {
     transform: translateY(-3px); /* Leve elevação no hover */
@@ -21,28 +21,28 @@
 }
 
 .stats-card .card-body {
-    padding: 0; /* Remover padding interno do body se o card já tem */
-    display: flex; /* Garantir flex */
-    align-items: center; /* Garantir alinhamento */
-    width: 100%; /* Ocupar todo o card */
+    padding: 0; /* Remover padding interno do body */
+    display: flex; 
+    align-items: center; 
+    width: 100%; 
 }
 
 .stats-card .card-icon {
-    font-size: 2.2rem; /* Levemente menor */
+    font-size: 2.2rem; 
     color: var(--primary-color);
-    margin-right: var(--spacing-lg); /* Mais espaço */
-    width: 40px; /* Largura fixa para alinhar */
+    margin-right: var(--spacing-lg); 
+    width: 40px; 
     text-align: center;
 }
 
 .stats-card .card-text {
-    text-align: left; /* Alinhar texto à esquerda */
+    text-align: left; 
 }
 
 .stats-card .card-text .card-title {
     font-size: 1.8rem;
     font-weight: 700;
-    margin-bottom: 0.1rem; /* Menos espaço */
+    margin-bottom: 0.1rem; 
     color: var(--dark-color);
     line-height: 1.2;
 }
@@ -55,7 +55,7 @@
 
 /* Estilos para a tabela de unidades ativas */
 .table {
-    margin-bottom: 0; /* Remover margem inferior se dentro de card-body */
+    margin-bottom: 0; 
 }
 
 /* Responsividade */
@@ -71,7 +71,6 @@
 }
 
 @media (max-width: 576px) {
-     /* No mobile, podemos centralizar se preferir */
     .stats-card .card-body {
        flex-direction: column;
        align-items: center;

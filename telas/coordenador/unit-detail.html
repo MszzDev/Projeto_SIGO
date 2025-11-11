@@ -83,7 +83,7 @@
 
             <section class="content-area">
                 <div class="welcome-section">
-                    <h2>Detalhes da Unidade: ...</h2> 
+                    <h2 id="unit-detail-title">Detalhes da Unidade: ...</h2> 
                     <p>Informações detalhadas e gerenciamento de colaboradores.</p>
                 </div>
 
@@ -93,10 +93,11 @@
                             <div class="card-header">
                                 <h5>Informações Gerais</h5>
                             </div>
-                            <div class="card-body">
-                                <p><strong>Código:</strong> 1002</p>
-                            <p><strong>Endereço:</strong> Rua das Flores, 123 - Jardim Ângela, São Paulo - SP</p>
-                            <p><strong>Status:</strong> <span class="badge badge-secondary" id="status-unidade-JardimAngela">Inativa</span></p>
+                            <div class="card-body" id="unit-info-body">
+                                <p><strong>Código:</strong> <span id="unit-codigo">...</span></p>
+                                <p><strong>Endereço:</strong> <span id="unit-endereco">...</span></p>
+                                <p><strong>Coordenador:</strong> <span id="unit-coordenador">...</span></p>
+                                <p><strong>Status:</strong> <span class="badge badge-secondary" id="unit-status">...</span></p>
                             </div>
                         </div>
                     </div>
@@ -105,12 +106,8 @@
                             <div class="card-header">
                                 <h5>Supervisor Responsável</h5>
                             </div>
-                            <div class="card-body">
-                                <img src="https://via.placeholder.com/50" alt="Supervisor Avatar" class="rounded-circle me-3">
-                                <div>
-                                    <h6 class="mb-0">Victor Hugo Ferreira da Silva</h6>
-                                    <small class="text-muted">Supervisor - Manhã</small>
-                                </div>
+                            <div class="card-body" id="supervisor-info-body">
+                                <p class="text-muted">Nenhum supervisor encontrado para esta unidade.</p>
                             </div>
                         </div>
                     </div>
@@ -119,8 +116,7 @@
                 <div class="card collaborators-card">
                     <div class="card-header">
                         <h5>Colaboradores por Turno</h5>
-                        <a href="add-colaborador.html" class="btn btn-sm btn-primary">Adicionar Colaborador</a>
-                    </div>
+                        </div>
                     <div class="card-body">
                         <div class="nav-tabs-container">
                             <nav class="nav nav-tabs" id="collaboratorTabs" role="tablist">
@@ -132,20 +128,7 @@
 
                         <div class="tab-content" id="collaboratorTabsContent">
                             <div class="tab-pane fade show active" id="manha-content" role="tabpanel" aria-labelledby="manha-tab">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Funcionário</th>
-                                                <th>Status</th>
-                                                <th>Ações</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            </tbody>
-                                    </table>
                                 </div>
-                            </div>
                             <div class="tab-pane fade" id="tarde-content" role="tabpanel" aria-labelledby="tarde-tab">
                                 </div>
                             <div class="tab-pane fade" id="noite-content" role="tabpanel" aria-labelledby="noite-tab">
@@ -158,7 +141,7 @@
     </div>
 
     <script src="../../js/coordenador/unit-detail.js" defer></script>
-    <script src="../../js/common/transitions.js" defer></script>
+    <script src="../../js/common/logout.js" defer></script> <script src="../../js/common/transitions.js" defer></script>
     <script src="../../js/common/accessibility.js" defer></script> 
 
 </body>

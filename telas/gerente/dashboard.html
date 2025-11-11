@@ -33,26 +33,23 @@
                     </div>
                     <div class="sidebar-section">
                         <h6>GERENCIAMENTO</h6>
-                        <a href="usuarios.html" class="nav-link"> 
-                            <i class="fas fa-users-cog fa-fw"></i> Usuários
-                        </a>
-                        <a href="../coordenador/units.html" class="nav-link">
+                        <a href="unidades.html" class="nav-link">
                             <i class="fas fa-building fa-fw"></i> Unidades
                         </a>
-                        <a href="../coordenador/colaboradores.html" class="nav-link">
+                        <a href="colaboradores.html" class="nav-link">
                             <i class="fas fa-user-group fa-fw"></i> Colaboradores
                         </a>
                     </div>
                     <div class="sidebar-section">
                         <h6>OPERAÇÕES</h6>
-                         <a href="../coordenador/solicitacoes.html" class="nav-link">
-                            <i class="fas fa-clipboard-list fa-fw"></i> Todas Solicitações
+                         <a href="historico-solicitacoes.html" class="nav-link">
+                            <i class="fas fa-clipboard-list fa-fw"></i> Hist. Solicitações
                         </a>
-                        <a href="../coordenador/prelecoes.html" class="nav-link">
-                            <i class="fas fa-chalkboard-teacher fa-fw"></i> Todas Preleções
+                        <a href="historico-prelecoes.html" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher fa-fw"></i> Hist. Preleções
                         </a>
-                        <a href="../coordenador/transferir-colaborador.html" class="nav-link">
-                            <i class="fas fa-exchange-alt fa-fw"></i> Transferências
+                        <a href="historico-transferencias.html" class="nav-link">
+                            <i class="fas fa-exchange-alt fa-fw"></i> Hist. Transferências
                         </a>
                     </div>
                 </nav>
@@ -75,7 +72,6 @@
         <main class="main-content">
             <header class="main-header">
                 <div class="header-left">
-                    <img src="../../img/logo_sigo.png" alt="Logo SIGO" class="sigo-logo-header">
                 </div>
                 <div class="user-profile">
                     <div class="user-info">
@@ -113,7 +109,7 @@
                                 <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                                 <div class="card-text">
                                     <h3 class="card-title" id="stat-prelecoes">0</h3>
-                                    <p class="card-subtitle">Preleções (Últ. 7 dias)</p>
+                                    <p class="card-subtitle">Total de Preleções</p>
                                 </div>
                             </div>
                         </div>
@@ -142,40 +138,58 @@
                     </div>
                 </div>
                 
-                <div class="row-cards">
-                    <div class="col-card" style="width: 100%;"> <div class="card">
-                        
-                            <div class="card-header">
-                                <h5>Índice de Solicitações (Últimos 30 dias)</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart-placeholder">
-                                    (Gráfico de Solicitações por Motivo - Ex: Atestado, Falta, etc.)
-                                </div>
-                            </div>
+                <div class="dashboard-grid">
+                    <div class="card info-card">
+                        <div class="info-header">
+                            <i class="fas fa-exclamation-triangle icon-atencao"></i>
+                            <h5 class="info-title">Pontos de Atenção</h5>
+                            <p class="info-subtitle">Unidades com mais solicitações pendentes.</p>
+                        </div>
+                        <div class="info-list" id="lista-atencao-solicitacoes">
+                            <p class="text-muted">Nenhuma solicitação pendente.</p>
                         </div>
                     </div>
-                    <div class="col-card">
-                        <div class="card highlight-card">
-                            <h5 class="highlight-title">Unidade Destaque</h5>
-                            <p class="highlight-value" id="destaque-unidade">Jardim Ângela</p>
-                            <p class="highlight-detail">Maior índice de preleções realizadas.</p>
+                    <div class="card info-card">
+                        <div class="info-header">
+                            <i class="fas fa-check-circle icon-atividade"></i>
+                            <h5 class="info-title">Atividade de Preleção</h5>
+                            <p class="info-subtitle">Unidades com mais preleções registradas.</p>
+                        </div>
+                        <div class="info-list" id="lista-atividade-prelecoes">
+                             <p class="text-muted">Nenhuma preleção registrada.</p>
                         </div>
                     </div>
-                     <div class="col-card">
-                        <div class="card highlight-card" style="border-left-color: var(--warning-color);">
-                            <h5 class="highlight-title">Ponto de Atenção</h5>
-                            <p class="highlight-value" id="atencao-unidade">Capão Redondo</p>
-                            <p class="highlight-detail">Maior índice de solicitações.</p>
+                    <div class="card info-card">
+                         <div class="info-header">
+                            <i class="fas fa-bolt icon-acoes"></i>
+                            <h5 class="info-title">Ações Rápidas</h5>
+                            <p class="info-subtitle">Atalhos para tarefas comuns.</p>
+                        </div>
+                        <div class="info-list">
+                            <a href="add-usuario.html" class="quick-action-link">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Adicionar Novo Usuário</span>
+                                <i class="fas fa-chevron-right arrow"></i>
+                            </a>
+                            <a href="relatorios.html" class="quick-action-link">
+                                <i class="fas fa-chart-pie"></i>
+                                <span>Ver Relatórios Completos</span>
+                                <i class="fas fa-chevron-right arrow"></i>
+                            </a>
+                             <a href="add-unidade.html" class="quick-action-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Adicionar Nova Unidade</span>
+                                <i class="fas fa-chevron-right arrow"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
-
             </section>
         </main>
     </div>
 
     <script src="../../js/gerente/dashboard.js" defer></script>
+    <script src="../../js/common/logout.js" defer></script>
     <script src="../../js/common/transitions.js" defer></script>
     <script src="../../js/common/accessibility.js" defer></script>
 </body>

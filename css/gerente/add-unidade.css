@@ -1,0 +1,10 @@
+/* css/gerente/add-unidade.css */
+
+/* Reutiliza todos os estilos do formulário de adicionar colaborador */
+@import url('../../css/coordenador/add-colaborador.css');
+
+/* Deixa o formulário de 3 campos mais bonito */
+.form-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    max-width: 600px; /* Limita a largura para formulários pequenos */
+}

@@ -19,7 +19,8 @@
             
             <div class="sidebar-content">
                 <div class="user-greeting">
-                    <h5>Olá, Coordenador</h5> </div>
+                    <h5 id="sidebar-user-name">Olá, Coordenador</h5>
+                </div>
                 <nav class="sidebar-nav">
                     <div class="sidebar-section">
                         <h6>GESTÃO</h6>
@@ -72,10 +73,10 @@
                 </div>
                 <div class="user-profile">
                     <div class="user-info">
-                        <a href="profile.html" class="user-name">Miguel Soares</a>
-                        <span class="user-role">Coordenador</span>
+                        <a href="profile.html" class="user-name">Carregando...</a>
+                        <span class="user-role">...</span>
                     </div>
-                    <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+                    <img id="header-user-avatar" src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
                     <button id="logout-button" class="btn btn-logout" title="Sair">
                         <i class="fas fa-sign-out-alt"></i> </button>
                 </div>
@@ -90,24 +91,27 @@
                 <div class="card profile-card">
                     <div class="profile-card-header">
                         <div class="profile-type-section">
-                            <h3 class="profile-type">Coordenador</h3> <button class="btn edit-profile-btn" title="Editar perfil">
-                                <i class="fas fa-pencil-alt"></i> </button>
+                            <h3 class="profile-type" id="prof-cargo">...</h3> 
+                            <button class="btn edit-profile-btn" title="Editar perfil">
+                                <i class="fas fa-pencil-alt"></i> 
+                            </button>
                         </div>
 
                         <div class="profile-main-info">
                             <div class="profile-photo-section">
-                                <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+                                <img id="prof-avatar" src="../../img/perf.png" alt="User Avatar" class="profile-photo">
                             </div>
 
                             <div class="profile-basic-info">
                                 <div class="info-group">
                                     <span class="info-label">Nome Completo</span>
-                                    <span class="info-value">Miguel Soares</span>
+                                    <span class="info-value" id="prof-nome">...</span>
                                 </div>
                                 <div class="info-group">
                                     <span class="info-label">ID</span>
-                                    <span class="info-value">C123</span> </div>
-                                <div class="info-group">
+                                    <span class="info-value" id="prof-id">...</span> 
+                                </div>
+                                <div class="info-group password-field">
                                     <span class="info-label">Senha</span>
                                     <div class="password-field">
                                         <span class="info-value">******</span>
@@ -123,27 +127,27 @@
                         <div class="details-grid">
                              <div class="detail-item">
                                 <span class="detail-label">RG</span>
-                                <span class="detail-value">44.555.555-x</span>
+                                <span class="detail-value" id="prof-rg">...</span>
                             </div>
                             <div class="detail-item">
                                 <span class="detail-label">CPF</span>
-                                <span class="detail-value">333.222.111-00</span>
+                                <span class="detail-value" id="prof-cpf">...</span>
                             </div>
                            <div class="detail-item">
                                 <span class="detail-label">Data de Nascimento</span>
-                                <span class="detail-value">06/06/1987</span>
+                                <span class="detail-value" id="prof-data-nascimento">...</span>
                             </div>
                             <div class="detail-item">
                                 <span class="detail-label">Nome Social</span>
-                                <span class="detail-value">Não informado</span>
+                                <span class="detail-value" id="prof-nome-social">...</span>
                             </div>
                              <div class="detail-item">
                                 <span class="detail-label">Telefone</span>
-                                <span class="detail-value">(11) 96385-8873</span>
+                                <span class="detail-value" id="prof-telefone">...</span>
                             </div>
                             <div class="detail-item">
                                 <span class="detail-label">Email</span>
-                                <span class="detail-value">miguel.s@email.com</span>
+                                <span class="detail-value" id="prof-email">...</span>
                             </div>
                         </div>
 
@@ -151,25 +155,24 @@
                          <div class="details-grid">
                             <div class="detail-item">
                                 <span class="detail-label">CEP</span>
-                                <span class="detail-value">04831-200</span>
+                                <span class="detail-value" id="prof-cep">...</span>
                             </div>
                             <div class="detail-item">
                                 <span class="detail-label">Logradouro</span>
-                                <span class="detail-value">Rua Manoel Vieira Sampaio</span>
+                                <span class="detail-value" id="prof-logradouro">...</span>
                             </div>
                             <div class="detail-item">
                                 <span class="detail-label">Número</span>
-                                <span class="detail-value">100</span> </div>
+                                <span class="detail-value" id="prof-numero">...</span> 
+                            </div>
                              <div class="detail-item">
                                 <span class="detail-label">Complemento</span>
-                                <span class="detail-value">Apto 50</span> </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Bairro</span>
-                                <span class="detail-value">Chácara Santana</span>
+                                <span class="detail-value" id="prof-complemento">...</span> 
                             </div>
                             <div class="detail-item">
-                                <span class="detail-label">Cidade/UF</span>
-                                <span class="detail-value">São Paulo / SP</span> </div>
+                                <span class="detail-label">Bairro</span>
+                                <span class="detail-value" id="prof-bairro">...</span>
+                            </div>
                         </div>
 
 
@@ -177,31 +180,34 @@
                          <div class="details-grid">
                             <div class="detail-item">
                                 <span class="detail-label">Banco</span>
-                                <span class="detail-value">Banco do Brasil</span>
+                                <span class="detail-value" id="prof-banco">...</span>
                             </div>
                            <div class="detail-item">
                                 <span class="detail-label">Agência</span>
-                                <span class="detail-value">1234-5</span> </div>
+                                <span class="detail-value" id="prof-agencia">...</span> 
+                           </div>
                              <div class="detail-item">
                                 <span class="detail-label">Conta</span>
-                                <span class="detail-value">98765-4</span> </div>
+                                <span class="detail-value" id="prof-conta">...</span> 
+                             </div>
                              <div class="detail-item">
                                 <span class="detail-label">Tipo</span>
-                                <span class="detail-value">Conta Corrente</span> </div>
+                                <span class="detail-value" id="prof-tipo-conta">...</span> 
+                             </div>
                              <div class="detail-item">
                                 <span class="detail-label">Chave Pix</span>
-                                <span class="detail-value">(11) 96385-8873</span>
+                                <span class="detail-value" id="prof-chave-pix">...</span>
                             </div>
                         </div>
                     </div>
-
-                    </div>
+                </div>
             </section>
         </main>
     </div>
 
+    <script src="../../js/common/profile-loader.js" defer></script> 
+    <script src="../../js/common/logout.js" defer></script> 
     <script src="../../js/common/transitions.js" defer></script> 
     <script src="../../js/common/accessibility.js" defer></script>
-
 </body>
 </html>

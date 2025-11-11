@@ -19,7 +19,7 @@
             
             <div class="sidebar-content">
                 <div class="user-greeting">
-                    <h5>Olá, Coordenador</h5>
+                    <h5 id="sidebar-user-name">Olá, Coordenador</h5>
                 </div>
                 <nav class="sidebar-nav">
                     <div class="sidebar-section">
@@ -72,10 +72,10 @@
                 </div>
                 <div class="user-profile">
                     <div class="user-info">
-                        <a href="profile.html" class="user-name">Miguel Soares</a>
-                        <span class="user-role">Coordenador</span>
+                        <a href="profile.html" class="user-name">Coordenador</a>
+                        <span class="user-role">...</span>
                     </div>
-                    <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+                    <img id="header-user-avatar" src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
                     <button id="logout-button" class="btn btn-logout" title="Sair">
                         <i class="fas fa-sign-out-alt"></i> </button>
                 </div>
@@ -87,13 +87,8 @@
                     <p>Gerencie as solicitações de colaboradores.</p>
                 </div>
 
-                <div class="unit-filters">
-                    <a href="#" class="filter-button">São Luis</a>
-                    <a href="#" class="filter-button active">Jardim Ângela</a> <a href="#" class="filter-button">Jardim Nakamura</a>
-                    <a href="#" class="filter-button">Morumbi</a>
-                    <a href="#" class="filter-button">Interlagos</a>
-                    <a href="#" class="filter-button">Santo Amaro</a>
-                    <a href="#" class="filter-button">Capão Redondo</a>
+                <div class="unit-filters" id="unidades-filter-container">
+                    <a href="#" class="filter-button active" data-unidade="Todos">Todos</a>
                 </div>
 
                 <div class="search-date-section">
@@ -102,12 +97,14 @@
                         <input type="text" class="form-control" placeholder="Pesquisar por nome ou unidade...">
                     </div>
                     <div class="date-input-group">
-                        <input type="date" class="form-control" value="2025-03-01"> </div>
+                        <input type="date" class="form-control" value="">
+                    </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <h5>Solicitações - Unidade Jardim Ângela</h5> </div>
+                        <h5 id="table-title">Todas as Solicitações</h5>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover">
@@ -119,8 +116,8 @@
                                         <th>Status/Ação</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    </tbody>
+                                <tbody id="solicitacoes-tbody">
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -130,6 +127,7 @@
     </div>
 
 <script src="../../js/coordenador/solicitacoes.js" defer></script>
+<script src="../../js/common/logout.js" defer></script>
 <script src="../../js/common/transitions.js" defer></script>
 <script src="../../js/common/accessibility.js" defer></script>
 

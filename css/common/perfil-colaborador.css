@@ -1,0 +1,124 @@
+/* css/common/perfil-colaborador.css */
+/* Estilo de desktop "bonito", baseado no perfil do Coordenador */
+
+/* Card principal do perfil */
+.profile-card {
+    max-width: 900px;
+    margin: 0 auto; /* Centraliza o card na tela */
+}
+
+/* Header do Card de Perfil */
+.profile-card-header {
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Seção do tipo de perfil (Ex: "Supervisor") */
+.profile-type-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.profile-type {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin: 0;
+}
+
+/* Informações principais (Foto + Dados Básicos) */
+.profile-main-info {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+/* Seção da foto do perfil */
+.profile-photo-section {
+    flex-shrink: 0;
+}
+
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--light-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Informações básicas (Nome, ID, Unidade) */
+.profile-basic-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.info-value {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/* Detalhes do perfil (Conteúdo do Card) */
+.profile-details {
+    padding: var(--spacing-lg);
+}
+
+.details-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+.profile-details h4:first-of-type {
+    margin-top: 0;
+}
+
+/* Grid para os detalhes (RG, CPF, Endereço, etc.) */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md) var(--spacing-lg);
+}
+
+.detail-item {
+     display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.detail-value {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    font-weight: 400;
+    word-break: break-word;
+}

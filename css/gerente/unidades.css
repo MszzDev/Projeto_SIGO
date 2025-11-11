@@ -1,0 +1,94 @@
+/* css/gerente/unidades.css */
+
+/* Importa o estilo do cabeçalho da página (para o botão Adicionar) */
+@import url('colaboradores.css');
+
+/* Estilo da Grade de Unidades (baseado na sua imagem) */
+.unit-grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Ajustes de margem para criar o "gap" */
+    margin-left: calc(-1 * var(--spacing-md) / 2);
+    margin-right: calc(-1 * var(--spacing-md) / 2);
+}
+
+.col-card {
+    flex: 0 0 auto;
+    width: 100%; /* Default mobile */
+    padding-left: calc(var(--spacing-md) / 2);
+    padding-right: calc(var(--spacing-md) / 2);
+    margin-bottom: var(--spacing-lg); /* Espaçamento vertical */
+    text-decoration: none;
+}
+
+/* --- Estilos dos Cards (de css/coordenador/units.css) --- */
+.unit-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.35rem;
+    padding: var(--spacing-lg);
+    text-align: center;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    height: 100%;
+    color: var(--text-color);
+    min-height: 100px;
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.2s ease-out;
+}
+
+.unit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    border-left-color: #0056b3;
+}
+
+.unit-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.25rem;
+}
+
+.unit-card-code {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Contagem de Pessoal (Novo) */
+.unit-card-staff {
+    margin-top: var(--spacing-md);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-sm);
+}
+
+.unit-card-staff span {
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+/* Cores das bordas (Opcional, mas deixa "mais bonito") */
+.col-card:nth-child(7n+1) .unit-card { border-left-color: #003063; } /* Azul */
+.col-card:nth-child(7n+2) .unit-card { border-left-color: #28a745; } /* Verde */
+.col-card:nth-child(7n+3) .unit-card { border-left-color: #ffc107; } /* Amarelo */
+.col-card:nth-child(7n+4) .unit-card { border-left-color: #dc3545; } /* Vermelho */
+.col-card:nth-child(7n+5) .unit-card { border-left-color: #17a2b8; } /* Ciano */
+.col-card:nth-child(7n+6) .unit-card { border-left-color: #6f42c1; } /* Roxo */
+.col-card:nth-child(7n+0) .unit-card { border-left-color: #fd7e14; } /* Laranja */
+
+
+/* Responsividade (copiado de global.css para cards) */
+@media (min-width: 576px) {
+    .col-card { width: 50%; } /* 2 colunas */
+}
+@media (min-width: 992px) {
+    .col-card { width: 33.333%; } /* 3 colunas */
+}
+@media (min-width: 1200px) {
+    .col-card { width: 25%; } /* 4 colunas */
+}

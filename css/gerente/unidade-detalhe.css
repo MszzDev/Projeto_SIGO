@@ -1,0 +1,26 @@
+/* css/gerente/unidade-detalhe.css */
+
+/* 1. Importa todos os estilos da página de detalhes do coordenador */
+@import url('../../css/coordenador/unit-detail.css');
+
+/* 2. Adiciona o wrapper de link para o card do supervisor */
+.supervisor-link-wrapper {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color-dark);
+    border-radius: 6px; /* Borda do link */
+    padding: 10px; /* Padding interno para o efeito hover */
+    margin: -10px; /* Anula o padding para o hover preencher */
+    transition: background-color 0.2s ease;
+}
+
+.supervisor-link-wrapper:hover {
+    background-color: var(--light-color);
+}
+
+/* 3. Garante que a imagem do supervisor no card use 'object-fit' */
+.supervisor-card img {
+    object-fit: cover; /* Garante que a foto preencha o círculo */
+    border: 1px solid var(--border-color); /* Adiciona uma borda sutil */
+}

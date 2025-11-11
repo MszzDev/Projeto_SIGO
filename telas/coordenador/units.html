@@ -19,7 +19,7 @@
             
             <div class="sidebar-content">
                 <div class="user-greeting">
-                    <h5>Olá, Coordenador</h5>
+                    <h5 id="sidebar-user-name">Olá, Coordenador</h5>
                 </div>
                 <nav class="sidebar-nav">
                     <div class="sidebar-section">
@@ -73,10 +73,10 @@
                     </div>
                 <div class="user-profile">
                     <div class="user-info">
-                        <a href="profile.html" class="user-name">Miguel Soares</a>
-                        <span class="user-role">Coordenador</span>
+                        <a href="profile.html" class="user-name">Coordenador</a>
+                        <span class="user-role">...</span>
                     </div>
-                    <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+                    <img id="header-user-avatar" src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
                     <button id="logout-button" class="btn btn-logout" title="Sair">
                         <i class="fas fa-sign-out-alt"></i> </button>
                 </div>
@@ -84,58 +84,20 @@
 
             <section class="content-area">
                 <div class="welcome-section">
-                    <h2>Unidades</h2>
-                    <p>Gerencie as unidades operacionais do sistema.</p>
+                    <h2>Minhas Unidades</h2>
+                    <p>Gerencie as unidades pelas quais você é responsável.</p>
                 </div>
 
-                <div class="row-cards">
-                    <div class="col-card">
-                        <a href="unit-detail.html?unidade=Jardim%20Ângela" class="unit-card">
-                            <h3 class="unit-card-title">Jardim Ângela</h3>
-                            <span class="unit-card-code">#1002</span>
-                        </a>
-                    </div>
-                    <div class="col-card">
-                        <a href="unit-detail.html?unidade=Capão%20Redondo" class="unit-card">
-                            <h3 class="unit-card-title">Capão Redondo</h3>
-                            <span class="unit-card-code">#1001</span>
-                        </a>
-                    </div>
-                    <div class="col-card">
-                        <a href="unit-detail.html?unidade=Santo%20Amaro" class="unit-card">
-                             <h3 class="unit-card-title">Santo Amaro</h3>
-                             <span class="unit-card-code">#1003</span>
-                        </a>
-                    </div>
-                    <div class="col-card">
-                        <a href="unit-detail.html?unidade=São%20Luis" class="unit-card">
-                            <h3 class="unit-card-title">São Luis</h3>
-                            <span class="unit-card-code">#1000</span>
-                        </a>
-                    </div>
-                    <div class="col-card">
-                        <a href="unit-detail.html?unidade=Jardim%20Nakamura" class="unit-card">
-                             <h3 class="unit-card-title">Jardim Nakamura</h3>
-                             <span class="unit-card-code">#0958</span>
-                        </a>
-                    </div>
-                    <div class="col-card">
-                        <a href="unit-detail.html?unidade=Morumbi" class="unit-card">
-                            <h3 class="unit-card-title">Morumbi</h3>
-                             <span class="unit-card-code">#1004</span>
-                        </a>
-                    </div>
-                    <div class="col-card">
-                        <a href="unit-detail.html?unidade=Interlagos" class="unit-card">
-                            <h3 class="unit-card-title">Interlagos</h3>
-                             <span class="unit-card-code">#1005</span>
-                        </a>
-                    </div>
-                     </div>
+                <div class="row-cards" id="unidades-container">
+                    <p class="text-muted" style="padding: 20px;">Carregando unidades...</p>
+                </div>
             </section>
         </main>
     </div>
 
+    <script src="../../js/coordenador/units.js" defer></script>
+    <script src="../../js/common/logout.js" defer></script>
     <script src="../../js/common/accessibility.js" defer></script>
     <script src="../../js/common/transitions.js" defer></script> 
+</body>
 </html>

@@ -6,7 +6,8 @@
     <title>SIGO - Solicitar Colaborador</title>
     <link rel="stylesheet" href="../../css/common/global.css">
     <link rel="stylesheet" href="../../css/supervisor/sup_solicitar.css">
-    </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
 <body>
     <div class="container mobile-view">
 
@@ -16,7 +17,6 @@
          <div id="error-message" class="toast-message error">
             Erro ao enviar solicitação. Verifique os campos.
         </div>
-
 
         <header class="header">
             <a href="sup_dashboard.html" class="header-back-button">
@@ -53,15 +53,15 @@
                 <div class="form-card">
                     <div class="form-group">
                         <label class="label" for="unidade">Unidade Responsável</label>
-                        <input type="text" id="unidade" class="form-control" placeholder="Nome da Unidade" value="Jardim Ângela" readonly required>
+                        <input type="text" id="unidade" class="form-control" placeholder="Carregando..." value="" readonly required>
                     </div>
                     <div class="form-group">
                         <label class="label" for="supervisor">Supervisor</label>
-                         <input type="text" id="supervisor" class="form-control" placeholder="Nome do supervisor" value="Victor Hugo F. Silva" readonly required>
+                         <input type="text" id="supervisor" class="form-control" placeholder="Carregando..." value="" readonly required>
                     </div>
                     <div class="form-group">
                         <label class="label" for="turno">Turno</label>
-                         <input type="text" id="turno" class="form-control" placeholder="Turno do supervisor" value="Manhã" readonly>
+                         <input type="text" id="turno" class="form-control" placeholder="Carregando..." value="" readonly>
                     </div>
 
                     <div class="divider"><span>Detalhes da Solicitação</span></div>
@@ -121,11 +121,26 @@
 
         <footer class="footer-nav">
              <nav class="nav-items">
-                <a href="sup_dashboard.html" class="nav-item"><div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h3.692v-5.077q0-.343.233-.575q.232-.233.575-.233h3q.343 0 .576.233q.232.232.232.575V19H18v-8.692q0-.154-.067-.28t-.183-.22L12.366 5.75q-.154-.134-.366-.134t-.365.134L6.25 9.808q-.115.096-.183-.22t-.067.28zm-1 0v-8.692q0-.384.172-.727t.474-.565l5.385-4.078q.423-.323.966-.323t.972.323l5.385 4.077q.303.222.474.566q.172.343.172.727V19q0 .402-.299.701T18 20h-3.884q-.344 0-.576-.232q-.232-.233-.232-.576v-5.076h-2.616v5.076q0 .344-.232.576T9.885 20H6q-.402 0-.701-.299T5 19m7-6.711"/></svg></div><span class="nav-text">Início</span></a>
-                 <a href="sup_colaboradores.html" class="nav-item"><div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.596 11.385q-1.237 0-2.118-.882t-.882-2.118t.882-2.12t2.118-.88t2.119.88t.881 2.12t-.881 2.118t-2.119.882M16.695 19q.982 0 1.64-.644q.66-.645.665-1.664q.006-.984-.659-1.646q-.664-.661-1.646-.661t-1.646.664t-.664 1.646t.664 1.644t1.646.661m4.424 2.789l-2.453-2.455q-.412.333-.905.5T16.692 20q-1.364 0-2.336-.971t-.971-2.335t.97-2.336q.972-.974 2.335-.974t2.337.972t.973 2.336q0 .555-.166 1.049q-.167.494-.48.905l2.454 2.435zM2.596 18.615V16.97q0-.696.36-1.197q.361-.5.97-.8q1.301-.62 2.584-.988q1.282-.368 3.086-.368q.608 0 1.151.049q.544.049 1.055.133q-.408.666-.605 1.395q-.197.73-.197 1.5q0 .501.085.98q.084.479.273.943zm14.27-10.23q0 1.237-.882 2.118t-2.118.881q-.064 0-.162-.014t-.162-.032q.509-.622.781-1.38q.273-.759.273-1.576t-.285-1.56t-.769-1.391q.081-.029.162-.038t.162-.009q1.237 0 2.118.882t.882 2.118"/></svg></div><span class="nav-text">Colab.</span></a>
-                 <a href="sup_solicitar.html" class="nav-item active"><div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m12.07 18.577l2.407-2.402l-2.408-2.402l-.627.627l1.383 1.383q-1.161.006-2.064-.273q-.903-.28-1.447-.824q-.558-.557-.84-1.265t-.282-1.415q0-.425.094-.85t.274-.806l-.677-.6q-.29.529-.433 1.096T7.308 12q0 .891.346 1.759t1.023 1.555t1.779 1.02t2.263.339l-1.277 1.277zm4.067-4.327q.29-.529.432-1.096T16.712 12q0-.888-.344-1.765t-1.03-1.554q-.667-.687-1.775-1.017q-1.109-.331-2.263-.331l1.277-1.283l-.627-.627l-2.408 2.402l2.408 2.402l.627-.627l-1.388-1.388q1.155 0 2.067.281t1.455.828t.83 1.255t.286 1.418q0 .425-.093.85t-.274.806zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709M12 20q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></svg></div><span class="nav-text">Solicitar</span></a>
-                 <a href="sup_hist_solicitar.html" class="nav-item"><div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.616 20q-.672 0-1.144-.472T4 18.385V7.486q0-.292.093-.55t.28-.475l1.558-1.87q.217-.293.543-.442T7.173 4h9.616q.372 0 .708.149t.553.441l1.577 1.91q.187.217.28.485q.093.267.093.56v10.84q0 .67-.472 1.143q-.472.472-1.143.472zM5.38 6.808H18.6L17.27 5.21q-.097-.096-.222-.153T16.788 5H7.192q-.134 0-.26.058t-.22.154zm9.619 1H9v6.788l3-1.5l3 1.5z"/></svg></div><span class="nav-text">Histórico</span></a>
-                 <a href="sup_sobremim.html" class="nav-item"><div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.76 20.462q-.35 0-.613-.277q-.264-.277-.264-.62v-2.223q0-1.906 1.184-3.367q1.185-1.461 3.046-1.864q-.853.6-1.322 1.511t-.47 1.942v3.997q0 .232.075.463q.075.232.212.437zm3.108 0q-.359 0-.623-.267t-.264-.63v-4q0-1.5 1.035-2.532Q10.052 12 11.552 12h4.01q1.484 0 2.517 1.033t1.032 2.533v1.33q0 1.5-1.032 2.533t-2.533 1.033zM12 10.208q-1.393 0-2.364-.971t-.97-2.364t.97-2.364q.971-.97 2.364-.97t2.364.97t.97 2.364t-.97 2.364q-.971.97-2.364.97"/></svg></div><span class="nav-text">Perfil</span></a>
+                <a href="sup_dashboard.html" class="nav-item">
+                    <div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h3.692v-5.077q0-.343.233-.575q.232-.233.575-.233h3q.343 0 .576.233q.232.232.232.575V19H18v-8.692q0-.154-.067-.28t-.183-.22L12.366 5.75q-.154-.134-.366-.134t-.365.134L6.25 9.808q-.115.096-.183-.22t-.067.28zm-1 0v-8.692q0-.384.172-.727t.474-.565l5.385-4.078q.423-.323.966-.323t.972.323l5.385 4.077q.303.222.474.566q.172.343.172.727V19q0 .402-.299.701T18 20h-3.884q-.344 0-.576-.232q-.232-.233-.232-.576v-5.076h-2.616v5.076q0 .344-.232.576T9.885 20H6q-.402 0-.701-.299T5 19m7-6.711"/></svg></div>
+                    <span class="nav-text">Início</span>
+                </a>
+                 <a href="sup_colaboradores.html" class="nav-item">
+                    <div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.596 11.385q-1.237 0-2.118-.882t-.882-2.118t.882-2.12t2.118-.88t2.119.88t.881 2.12t-.881 2.118t-2.119.882M16.695 19q.982 0 1.64-.644q.66-.645.665-1.664q.006-.984-.659-1.646q-.664-.661-1.646-.661t-1.646.664t-.664 1.646t.664 1.644t1.646.661m4.424 2.789l-2.453-2.455q-.412.333-.905.5T16.692 20q-1.364 0-2.336-.971t-.971-2.335t.97-2.336q.972-.974 2.335-.974t2.337.972t.973 2.336q0 .555-.166 1.049q-.167.494-.48.905l2.454 2.435zM2.596 18.615V16.97q0-.696.36-1.197q.361-.5.97-.8q1.301-.62 2.584-.988q1.282-.368 3.086-.368q.608 0 1.151.049q.544.049 1.055.133q-.408.666-.605 1.395q-.197.73-.197 1.5q0 .501.085.98q.084.479.273.943zm14.27-10.23q0 1.237-.882 2.118t-2.118.881q-.064 0-.162-.014t-.162-.032q.509-.622.781-1.38q.273-.759.273-1.576t-.285-1.56t-.769-1.391q.081-.029.162-.038t.162-.009q1.237 0 2.118.882t.882 2.118"/></svg></div>
+                    <span class="nav-text">Colab.</span>
+                 </a>
+                 <a href="sup_solicitar.html" class="nav-item active">
+                     <div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m12.07 18.577l2.407-2.402l-2.408-2.402l-.627.627l1.383 1.383q-1.161.006-2.064-.273q-.903-.28-1.447-.824q-.558-.557-.84-1.265t-.282-1.415q0-.425.094-.85t.274-.806l-.677-.6q-.29.529-.433 1.096T7.308 12q0 .891.346 1.759t1.023 1.555t1.779 1.02t2.263.339l-1.277 1.277zm4.067-4.327q.29-.529.432-1.096T16.712 12q0-.888-.344-1.765t-1.03-1.554q-.667-.687-1.775-1.017q-1.109-.331-2.263-.331l1.277-1.283l-.627-.627l-2.408 2.402l2.408 2.402l.627-.627l-1.388-1.388q1.155 0 2.067.281t1.455.828t.83 1.255t.286 1.418q0 .425-.093.85t-.274.806zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709M12 20q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></svg></div>
+                    <span class="nav-text">Solicitar</span>
+                 </a>
+                 <a href="sup_hist_solicitar.html" class="nav-item">
+                     <div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.616 20q-.672 0-1.144-.472T4 18.385V7.486q0-.292.093-.55t.28-.475l1.558-1.87q.217-.293.543-.442T7.173 4h9.616q.372 0 .708.149t.553.441l1.577 1.91q.187.217.28.485q.093.267.093.56v10.84q0 .67-.472 1.143q-.472.472-1.143.472zM5.38 6.808H18.6L17.27 5.21q-.097-.096-.222-.153T16.788 5H7.192q-.134 0-.26.058t-.22.154zm9.619 1H9v6.788l3-1.5l3 1.5z"/></svg></div>
+                    <span class="nav-text">Histórico</span>
+                 </a>
+                 <a href="sup_sobremim.html" class="nav-item">
+                     <div class="nav-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.76 20.462q-.35 0-.613-.277q-.264-.277-.264-.62v-2.223q0-1.906 1.184-3.367q1.185-1.461 3.046-1.864q-.853.6-1.322 1.511t-.47 1.942v3.997q0 .232.075.463q.075.232.212.437zm3.108 0q-.359 0-.623-.267t-.264-.63v-4q0-1.5 1.035-2.532Q10.052 12 11.552 12h4.01q1.484 0 2.517 1.033t1.032 2.533v1.33q0 1.5-1.032 2.533t-2.533 1.033zM12 10.208q-1.393 0-2.364-.971t-.97-2.364t.97-2.364q.971-.97 2.364-.97t2.364.97t.97 2.364t-.97 2.364q-.971.97-2.364.97"/></svg></div>
+                    <span class="nav-text">Perfil</span>
+                 </a>
             </nav>
         </footer>
 
@@ -147,6 +162,7 @@
     </div> 
     
     <script src="../../js/supervisor/sup_solicitar.js" defer></script>
+    <script src="../../js/common/logout.js" defer></script>
     <script src="../../js/common/transitions.js" defer></script>
 </body>
 </html>

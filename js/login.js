@@ -1,5 +1,6 @@
+// js/login.js (Versão MESTRE TEMPORÁRIA)
 document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
+    event.preventDefault(); 
 
     const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
@@ -8,30 +9,50 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     const username = usernameInput.value.trim();
     const password = passwordInput.value.trim();
 
-    // Limpa estilos de erro anteriores
     errorMessage.classList.remove('visible');
     usernameInput.classList.remove('input-error');
     passwordInput.classList.remove('input-error');
 
-   // Verifica as credenciais
-    if (username === 'C123' && password === '123') {
-        // Redireciona para o dashboard do Coordenador
-        window.location.href = 'telas/coordenador/dashboard.html';
-    
-    } else if (username === 'S123' && password === '123') {
-        // Define que o supervisor S123 (Jardim Ângela) está ATIVO
-        localStorage.setItem('sigo_status_unidade_JardimAngela', 'Ativa');
-        // Redireciona para o dashboard do Supervisor
-        window.location.href = 'telas/supervisor/sup_dashboard.html';
-
-    // --- NOVO BLOCO ADICIONADO ---
-    } else if (username === 'G123' && password === '123') {
-        // Redireciona para o novo dashboard do Gerente
+    // --- LÓGICA MESTRE TEMPORÁRIA ---
+    // Permite o login G123 mesmo se o banco de dados estiver vazio
+    if (username === 'G123' && password === '123') {
+        
+        // Cria um usuário Gerente FALSO na sessão SÓ para esta vez
+        const tempGerente = {
+            id: "master",
+            nome: "Gerente ADM",
+            cargo: "Gerente",
+            id_usuario: "G123"
+        };
+        sessionStorage.setItem('sigo_user_logado', JSON.stringify(tempGerente));
         window.location.href = 'telas/gerente/dashboard.html';
-    // --- FIM DO NOVO BLOCO ---
+        return; // Pula o resto da verificação
+    }
+    // --- FIM DA LÓGICA MESTRE ---
+
+
+    // Lógica Padrão (para todos os outros usuários)
+    const allUsers = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
+    const user = allUsers.find(u => u.id_usuario === username);
+
+    if (user && password === '123') {
+        sessionStorage.setItem('sigo_user_logado', JSON.stringify(user));
+
+        if (user.cargo === 'Gerente') {
+            window.location.href = 'telas/gerente/dashboard.html';
+        } else if (user.cargo === 'Coordenador') {
+            window.location.href = 'telas/coordenador/dashboard.html';
+        } else if (user.cargo === 'Supervisor') {
+            const statusKey = `sigo_status_unidade_${user.unidade.replace(/\s/g, '')}`;
+            localStorage.setItem(statusKey, 'Ativa');
+            window.location.href = 'telas/supervisor/sup_dashboard.html';
+        } else {
+             errorMessage.textContent = 'Cargo desconhecido. Contate o admin.';
+             errorMessage.classList.add('visible');
+        }
 
     } else {
-        // Exibe mensagem de erro
+        errorMessage.textContent = 'ID ou Senha inválidos.';
         errorMessage.classList.add('visible');
         usernameInput.classList.add('input-error');
         passwordInput.classList.add('input-error');

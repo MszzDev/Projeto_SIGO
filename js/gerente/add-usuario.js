@@ -14,24 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 novoUsuario[key] = value;
             });
             
-            // Adiciona um ID único
             novoUsuario.id = Date.now();
             
-            // Pega a lista existente de colaboradores/usuários
             const colaboradoresSalvos = localStorage.getItem('sigo_colaboradores');
             const listaColaboradores = colaboradoresSalvos ? JSON.parse(colaboradoresSalvos) : [];
             
-            // Adiciona o novo usuário (Coordenador/Supervisor) à lista
             listaColaboradores.unshift(novoUsuario);
             
-            // Salva a lista atualizada de volta
             localStorage.setItem('sigo_colaboradores', JSON.stringify(listaColaboradores));
             
-            // Sucesso
             alert(`Usuário [${novoUsuario.cargo}] adicionado com sucesso!`);
             
-            // Redireciona para a página de gerenciamento de usuários
-            window.location.href = 'usuarios.html';
+            // *** CORREÇÃO DO LINK ***
+            window.location.href = 'colaboradores.html';
 
         } catch (error) {
             console.error('Erro ao salvar usuário:', error);

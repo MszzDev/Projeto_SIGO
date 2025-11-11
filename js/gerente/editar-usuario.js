@@ -4,13 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('edit-user-form');
     if (!form) return;
 
-    // --- 1. PEGAR ID DA URL E CARREGAR DADOS ---
     const params = new URLSearchParams(window.location.search);
     const userId = Number(params.get('id'));
 
     if (!userId) {
         alert("Erro: ID de usuário não fornecido.");
-        window.location.href = 'usuarios.html'; // Volta para a lista
+        window.location.href = 'colaboradores.html'; // *** CORREÇÃO DO LINK ***
         return;
     }
 
@@ -19,46 +18,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!usuarioParaEditar) {
         alert("Erro: Usuário não encontrado.");
-        window.location.href = 'usuarios.html'; // Volta para a lista
+        window.location.href = 'colaboradores.html'; // *** CORREÇÃO DO LINK ***
         return;
     }
 
-    // --- 2. PREENCHER O FORMULÁRIO ---
-    // Pega todas as chaves (nomes dos campos) do objeto salvo
     Object.keys(usuarioParaEditar).forEach(key => {
-        const field = form.elements[key]; // Encontra o campo do formulário pelo 'name'
+        const field = form.elements[key]; 
         if (field) {
+            if (field.tagName === 'SELECT' && key === 'unidade') {
+                let optionExists = Array.from(field.options).some(opt => opt.value === usuarioParaEditar[key]);
+                if (!optionExists && usuarioParaEditar[key]) {
+                    field.add(new Option(usuarioParaEditar[key], usuarioParaEditar[key]));
+                }
+            }
             field.value = usuarioParaEditar[key];
         }
     });
 
-    // --- 3. SALVAR ALTERAÇÕES (SUBMIT) ---
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-
         try {
-            // Pega os dados atualizados do formulário
             const formData = new FormData(form);
-            const usuarioAtualizado = { id: userId }; // Mantém o ID original
+            const usuarioAtualizado = { id: userId }; 
             formData.forEach((value, key) => {
                 usuarioAtualizado[key] = value;
             });
 
-            // Encontra o índice do usuário antigo na lista
+            // (Lógica para salvar nome do coordenador em unidades)
+            if (usuarioAtualizado.cargo === 'Unidade') {
+                 const coordSelect = form.elements['coordenadorId'];
+                 if(coordSelect && coordSelect.value !== 'Nenhum') {
+                    usuarioAtualizado.coordenadorNome = coordSelect.options[coordSelect.selectedIndex].text;
+                 } else {
+                    usuarioAtualizado.coordenadorNome = "Nenhum";
+                 }
+            }
+
             const index = listaColaboradores.findIndex(c => c.id === userId);
             if (index === -1) {
                 alert("Erro ao salvar: usuário não encontrado.");
                 return;
             }
 
-            // Substitui o usuário antigo pelo atualizado
             listaColaboradores[index] = usuarioAtualizado;
-
-            // Salva a lista inteira de volta no localStorage
             localStorage.setItem('sigo_colaboradores', JSON.stringify(listaColaboradores));
 
             alert("Usuário atualizado com sucesso!");
-            window.location.href = 'usuarios.html'; // Volta para a lista
+            
+            // *** CORREÇÃO DO LINK ***
+            window.location.href = 'colaboradores.html'; 
 
         } catch (error) {
             console.error('Erro ao salvar usuário:', error);

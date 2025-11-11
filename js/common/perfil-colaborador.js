@@ -21,18 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Função auxiliar para preencher um campo
+    // --- FUNÇÃO ATUALIZADA ---
+    // Preenche .textContent de spans/etc.
     function preencherCampo(id, valor) {
         const campo = document.getElementById(id);
         if (campo) {
-            // Se for um input/select, usa .value
-            if (campo.tagName === 'INPUT' || campo.tagName === 'SELECT') {
-                campo.value = valor || 'Não informado';
-            } 
-            // Se for um span, p, h1, etc., usa .textContent
-            else {
-                campo.textContent = valor || 'Não informado';
-            }
+            campo.textContent = valor || 'Não informado';
         }
     }
     
@@ -41,8 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Avatar (pega as 2 primeiras letras do nome)
     const avatar = document.getElementById('prof-avatar');
     if (avatar && colab.nome) {
-        const iniciais = colab.nome.substring(0, 2).toUpperCase();
-        avatar.src = `https://via.placeholder.com/100/1a3a52/ffffff?text=${iniciais}`;
+        if (colab.foto_url) {
+            avatar.src = colab.foto_url;
+        } else {
+            const iniciais = colab.nome.substring(0, 2).toUpperCase();
+            avatar.src = `https://via.placeholder.com/120/1a3a52/ffffff?text=${iniciais}`;
+        }
     }
 
     // Posição
@@ -67,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
     preencherCampo('prof-complemento', colab.complemento);
     preencherCampo('prof-numero', colab.numero);
     
-    // --- BLOCO ADICIONADO ---
     // Dados Bancários
     preencherCampo('prof-banco', colab.banco);
     preencherCampo('prof-agencia', colab.agencia);

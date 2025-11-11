@@ -1,7 +1,7 @@
 // js/supervisor/sup_hist.js
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- LÓGICA DO DATE PICKER (Já existente) ---
+    // --- LÓGICA DO DATE PICKER ---
     document.querySelectorAll('.date-filter-wrapper').forEach(wrapper => {
         const input = wrapper.querySelector('.date-input-field');
         if(input) {
@@ -12,36 +12,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- LÓGICA DE CARREGAMENTO (NOVA) ---
+    // --- LÓGICA DE CARREGAMENTO DINÂMICO ---
     const historyList = document.querySelector('.history-list');
-    if (!historyList) return; // Se não houver lista, para
+    if (!historyList) return; 
 
-    // Simulação: Supervisor S123 (Victor Hugo) está logado
-    const supervisorLogado = "Victor Hugo F. Silva"; 
+    // 1. Pega o supervisor logado
+    const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
+    if (!userLogado || userLogado.cargo !== 'Supervisor') {
+        historyList.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--text-muted);">Erro: Supervisor não identificado.</p>';
+        return;
+    }
+    
+    const supervisorLogadoNome = userLogado.nome; 
     historyList.innerHTML = ''; // Limpa o conteúdo estático
 
     // Verifica se estamos na página de SOLICITAÇÕES
     if (document.title.includes("Histórico de Solicitações")) {
-        carregarHistoricoSolicitacoes(historyList, supervisorLogado);
+        carregarHistoricoSolicitacoes(historyList, supervisorLogadoNome);
     } 
     // Verifica se estamos na página de PRELEÇÕES
     else if (document.title.includes("Histórico de Preleções")) {
-        carregarHistoricoPrelecoes(historyList, supervisorLogado);
+        carregarHistoricoPrelecoes(historyList, supervisorLogadoNome);
     }
 });
 
-function carregarHistoricoSolicitacoes(container, supervisor) {
+function carregarHistoricoSolicitacoes(container, supervisorNome) {
     const solicitacoesSalvas = localStorage.getItem('sigo_solicitacoes');
     const listaSolicitacoes = solicitacoesSalvas ? JSON.parse(solicitacoesSalvas) : [];
+    
     // Filtra SÓ as solicitações deste supervisor
-    const minhasSolicitacoes = listaSolicitacoes.filter(s => s.solicitante === supervisor);
+    const minhasSolicitacoes = listaSolicitacoes.filter(s => s.solicitante === supervisorNome);
 
     if (minhasSolicitacoes.length === 0) {
         container.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--text-muted);">Você ainda não fez nenhuma solicitação.</p>';
         return;
     }
     
-    // Agrupa por data (simplificado)
+    // Agrupa por data
     let grupos = {};
     minhasSolicitacoes.forEach(s => {
         if (!grupos[s.data]) grupos[s.data] = [];
@@ -68,18 +75,18 @@ function carregarHistoricoSolicitacoes(container, supervisor) {
     }
 }
 
-function carregarHistoricoPrelecoes(container, supervisor) {
+function carregarHistoricoPrelecoes(container, supervisorNome) {
     const prelecoesSalvas = localStorage.getItem('sigo_prelecoes');
     const listaPrelecoes = prelecoesSalvas ? JSON.parse(prelecoesSalvas) : [];
-    // Filtra SÓ as preleções deste supervisor
-    const minhasPrelecoes = listaPrelecoes.filter(p => p.supervisor === supervisor);
+    
+    // Filtra SÓ as preleções registradas por este supervisor
+    const minhasPrelecoes = listaPrelecoes.filter(p => p.supervisor === supervisorNome);
 
     if (minhasPrelecoes.length === 0) {
         container.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--text-muted);">Você ainda não registrou nenhuma preleção.</p>';
         return;
     }
     
-    // Agrupa por data (simplificado)
     let grupos = {};
     minhasPrelecoes.forEach(p => {
         if (!grupos[p.data]) grupos[p.data] = [];
