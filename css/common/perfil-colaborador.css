@@ -1,43 +1,26 @@
-/* css/common/perfil-colaborador.css */
-/* Estilo de desktop "bonito", baseado no perfil do Coordenador */
+/* css/common/perfil-colaborador.css (COMPLETAMENTE NOVO) */
+
+/* Adiciona o fundo cinza à página */
+.profile-page-bg {
+    background-color: var(--body-bg, #f4f7f6);
+    padding-top: 1px; /* Evita colapso de margem */
+}
 
 /* Card principal do perfil */
 .profile-card {
     max-width: 900px;
-    margin: 0 auto; /* Centraliza o card na tela */
+    margin: var(--spacing-lg) auto; /* Margem em cima e embaixo */
+    border-radius: 8px; /* Bordas mais suaves */
 }
 
-/* Header do Card de Perfil */
+/* --- NOVO CABEÇALHO DE PERFIL --- */
 .profile-card-header {
     padding: var(--spacing-lg);
+    text-align: center;
     border-bottom: 1px solid var(--border-color);
-}
-
-/* Seção do tipo de perfil (Ex: "Supervisor") */
-.profile-type-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-lg);
-}
-
-.profile-type {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--dark-color);
-    margin: 0;
-}
-
-/* Informações principais (Foto + Dados Básicos) */
-.profile-main-info {
-    display: flex;
-    gap: var(--spacing-lg);
-    align-items: center;
-}
-
-/* Seção da foto do perfil */
-.profile-photo-section {
-    flex-shrink: 0;
+    padding-top: 40px;
+    position: relative;
+    background-color: var(--white-color);
 }
 
 .profile-photo {
@@ -45,39 +28,66 @@
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--light-color);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 4px solid var(--white-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    
+    /* Efeito de sobreposição */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Puxa metade para cima */
+    background-color: #eee; /* Cor de fundo caso a img falhe */
 }
 
-/* Informações básicas (Nome, ID, Unidade) */
-.profile-basic-info {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
+.profile-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-top: 40px; /* Espaço para a foto */
+    margin-bottom: 0;
 }
 
-.info-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.info-label {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
-}
-
-.info-value {
+.profile-cargo {
     font-size: 1rem;
-    color: var(--text-color);
-    font-weight: 500;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 4px;
+    margin-bottom: var(--spacing-lg);
 }
 
-/* Detalhes do perfil (Conteúdo do Card) */
+/* --- NOVA SEÇÃO DE INFOS BÁSICAS --- */
+.profile-basic-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+    background-color: var(--light-color);
+    padding: var(--spacing-md);
+    margin: 0 calc(-1 * var(--spacing-lg)); /* Estica de ponta a ponta */
+}
+
+.info-tag {
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.info-tag strong {
+    color: var(--text-color-dark);
+    font-weight: 500;
+}
+.info-tag i {
+    color: var(--primary-color);
+    font-size: 0.9em;
+}
+
+
+/* --- SEÇÃO DE DETALHES (Estilos melhorados) --- */
 .profile-details {
     padding: var(--spacing-lg);
 }
@@ -107,18 +117,20 @@
     flex-direction: column;
 }
 
+/* Rótulo (RG, CPF, etc.) - ESTILO MELHORADO */
 .detail-label {
     font-size: 0.75rem;
     color: var(--text-muted);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 2px;
+    margin-bottom: 4px; /* Espaço entre label e valor */
 }
 
+/* Valor (XXXX, Flavio...) - ESTILO MELHORADO */
 .detail-value {
     font-size: 0.95rem;
     color: var(--text-color);
-    font-weight: 400;
+    font-weight: 500; /* Um pouco mais forte */
     word-break: break-word;
 }

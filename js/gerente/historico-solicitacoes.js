@@ -17,13 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let htmlFinal = '';
 
     coordenadores.forEach(cood => {
-        // --- ATUALIZAÇÃO DA FOTO ---
-        const iniciais = cood.nome ? cood.nome.substring(0, 2).toUpperCase() : '??';
+        // --- PADRONIZAÇÃO DA FOTO ---
         const avatarSrc = cood.foto_url
             ? cood.foto_url
-            : `https://via.placeholder.com/40/003063/ffffff?text=${iniciais}`;
+            : '../../img/perf.png';
         
         const minhasUnidades = allUnidades.filter(u => u.coordenadorId == cood.id);
+        const minhasUnidadesNomes = minhasUnidades.map(u => u.nome);
+        
+        // Calcula estatísticas
+        const meusRegistros = allSolicitacoes.filter(s => minhasUnidadesNomes.includes(s.unidade));
+        const pendentes = meusRegistros.filter(s => s.status === 'Pendente').length;
 
         htmlFinal += `
             <details class="coordenador-card">
@@ -33,7 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h3 class="coordenador-nome">${cood.nome}</h3>
                         <span class="coordenador-info">${cood.email || 'Sem email'}</span>
                     </div>
-                    <i class="fas fa-chevron-right leque-icon"></i>
+
+                    <div class="coordenador-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" style="color: var(--warning-color);">${pendentes}</span>
+                            <span class="stat-label">Pendentes</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${meusRegistros.length}</span>
+                            <span class="stat-label">Total</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right leque-icon" style="margin-left: var(--spacing-md);"></i>
                 </summary>
                 <div class="coordenador-details">
         `;

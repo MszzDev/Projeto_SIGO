@@ -32,15 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Preenche os campos ---
     
-    // Avatar (pega as 2 primeiras letras do nome)
+    // Avatar
     const avatar = document.getElementById('prof-avatar');
     if (avatar && colab.nome) {
-        if (colab.foto_url) {
-            avatar.src = colab.foto_url;
-        } else {
-            const iniciais = colab.nome.substring(0, 2).toUpperCase();
-            avatar.src = `https://via.placeholder.com/120/1a3a52/ffffff?text=${iniciais}`;
-        }
+        avatar.src = colab.foto_url ? colab.foto_url : '../../img/perf.png';
+        if (colab.foto_url) avatar.style.objectFit = 'cover';
     }
 
     // Posição
@@ -66,10 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
     preencherCampo('prof-numero', colab.numero);
     
     // Dados Bancários
-    preencherCampo('prof-banco', colab.banco);
+    preencherCampo('prof-banco_nome', colab.banco_nome); // Usa o nome do banco
     preencherCampo('prof-agencia', colab.agencia);
     preencherCampo('prof-conta', colab.conta);
-    preencherCampo('prof-tipo-conta', colab.tipo_conta);
-    preencherCampo('prof-chave-pix', colab.chave_pix);
+    preencherCampo('prof-tipo_conta', colab.tipo_conta);
+    preencherCampo('prof-chave_pix', colab.chave_pix);
     
 });

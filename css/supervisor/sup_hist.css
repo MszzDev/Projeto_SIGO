@@ -1,71 +1,8 @@
-/* css/supervisor/sup_hist.css - VERSÃO COMPLETA E CORRIGIDA */
-
-/* --- Variáveis (Copiadas de outros arquivos para garantir consistência) --- */
-:root {
-    /* Cores Globais */
-    --primary-color: #003063;
-    --primary-blue: #2563EB; /* Azul principal (botões/ícones ativos) */
-    --sigo-blue: #002442;    /* Azul escuro (header) */
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --warning-color: #ffc107;
-    --secondary-color: #6c757d;
-    --light-color: #f8f9fa;
-    --white-color: #ffffff;
-    --dark-color: #343a40;
-    
-    /* Cores de Texto e Fundo */
-    --body-bg: #f4f7f6;
-    --card-background: #fff;
-    --background-grey: #f0f2f5;
-    --background-grey-tabs: #e9ecef;
-    --border-color: #dee2e6;
-    --list-border-color: #e5e7eb;
-    
-    --text-color-dark: #333;
-    --text-color-light: #555;
-    --label-color: #555;
-    --placeholder-color: #999;
-    --text-muted: #6c757d;
-
-    /* Cores de Navegação */
-    --nav-icon-inactive: #6b7280;
-    --nav-icon-active: #2563eb;
-    --nav-text-inactive: #6b7280;
-    --nav-text-active: #2563eb;
-    --tabs-inactive-color: #6b7280;
-
-    /* Cores de Status Específicas */
-    --status-approved-color: var(--success-color); /* Verde */
-    --status-pending-color: var(--warning-color); /* Amarelo */
-    --status-rejected-color: var(--danger-color); /* Vermelho */
-
-    /* Dimensões */
-    --footer-height: 72px;
-}
+/* css/supervisor/sup_hist.css */
+@import url('sup_layout.css'); /* IMPORTA O LAYOUT MESTRE */
+@import url('sup_solicitar.css'); /* Importa abas e modais */
 
 /* --- Estrutura da Página --- */
-body {
-    background-color: var(--background-grey);
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-    font-family: 'Roboto', Arial, sans-serif;
-    padding-bottom: var(--footer-height);
-    margin: 0;
-}
-
-.container.mobile-view {
-    width: 100%;
-    max-width: 500px;
-    background-color: var(--card-background);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    position: relative;
-}
-
 .content-area.historico-page {
     padding: 15px;
     background-color: var(--card-background);
@@ -74,126 +11,6 @@ body {
     flex-direction: column;
     overflow: hidden; /* Evitar scroll duplo */
 }
-
-/* --- HEADER SUPERIOR (Garantia de estilos) --- */
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 15px;
-    background-color: var(--sigo-blue); /* Cor de fundo */
-    color: #fff;
-    height: 60px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    position: relative; /* FUNDAMENTAL: Para logo absoluta */
-    overflow: hidden;
-}
-
-/* Estilo para a imagem do logo (Corrigido) */
-.logo-img {
-    height: 75px;
-    width: auto;
-    max-width: 180px;
-    position: absolute;
-    left: 50%;
-    top: 50%; /* Centraliza verticalmente */
-    transform: translate(-50%, -50%); /* Centraliza H e V */
-    object-fit: contain;
-}
-
-/* Placeholders para centralização */
-.header-placeholder-right,
-.header-back-button {
-    min-width: 40px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    z-index: 1;
-}
-
-.header-back-button {
-    padding: 5px;
-    color: #fff;
-    line-height: 1;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    background: none;
-}
-.header-back-button svg {
-    width: 24px;
-    height: 24px;
-    display: block;
-}
-
-/* --- FIM DO BLOCO DO HEADER --- */
-
-
-/* --- Navegação de Abas (Copiado de sup_solicitar.css) --- */
-.tabs-nav-container {
-    background-color: var(--card-background);
-    padding: 10px 15px;
-    position: sticky;
-    top: 60px; /* Abaixo do header */
-    z-index: 5;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    border-bottom: 1px solid var(--border-color);
-}
-.tabs-nav {
-    display: flex;
-    width: 100%;
-    border-radius: 8px;
-    background-color: var(--background-grey-tabs);
-    overflow: hidden;
-    padding: 4px;
-}
-.tab-link {
-    flex: 1;
-    text-decoration: none;
-    display: flex;
-}
-.tab-button {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 5px;
-    border: none;
-    background-color: transparent;
-    font-size: 0.95em;
-    cursor: pointer;
-    font-weight: 500;
-    color: var(--tabs-inactive-color);
-    transition: all 0.2s ease;
-    border-radius: 6px;
-}
-.tab-button svg {
-    margin-right: 6px;
-    width: 18px;
-    height: 18px;
-    vertical-align: middle;
-}
-/* Aba Ativa */
-.tab-link.active .tab-button {
-    background-color: var(--card-background);
-    color: var(--text-color-dark);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    font-weight: 600;
-}
-.tab-link.active .tab-button svg path,
-.tab-link.active .tab-button svg {
-    fill: var(--primary-blue);
-}
-/* Cor do Ícone Inativo */
-.tab-link:not(.active) .tab-button svg path,
-.tab-link:not(.active) .tab-button svg {
-    fill: var(--tabs-inactive-color);
-}
-
 
 /* --- Cabeçalho da Página de Histórico --- */
 .page-header {
@@ -228,14 +45,14 @@ body {
     align-items: center;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 0 12px; /* Mais padding */
-    background-color: var(--light-color); /* Fundo cinza claro */
+    padding: 0 12px;
+    background-color: var(--light-color);
     min-width: 150px;
-    height: 42px; /* Altura padrão */
+    height: 42px;
 }
 .search-icon {
     color: var(--placeholder-color);
-    margin-right: 10px; /* Mais espaço */
+    margin-right: 10px;
     font-size: 0.9rem;
 }
 .search-input {
@@ -243,7 +60,7 @@ body {
     outline: none;
     flex-grow: 1;
     background: transparent;
-    font-size: 0.95rem; /* Tamanho ajustado */
+    font-size: 0.95rem;
     color: var(--text-color-dark);
     height: 100%;
 }
@@ -252,7 +69,7 @@ body {
 }
 .search-box:focus-within {
      border-color: var(--primary-blue);
-     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); /* Sombra maior */
+     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
 .date-filter-wrapper {
@@ -265,14 +82,13 @@ body {
     cursor: pointer;
     height: 42px;
     position: relative;
-    min-width: 42px; /* Tamanho de um ícone */
+    min-width: 42px;
 }
 .date-icon {
     color: var(--placeholder-color);
     font-size: 0.9rem;
     z-index: 0;
 }
-/* Esconde o texto do input date (YYYY-MM-DD) */
 .date-input-field {
     border: none;
     outline: none;
@@ -288,7 +104,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.01; /* Quase invisível mas clicável */
+    opacity: 0.01;
     z-index: 1;
 }
 
@@ -297,11 +113,11 @@ body {
     margin-top: 10px;
     flex-grow: 1;
     overflow-y: auto; /* Permite scroll só na lista */
-    padding-right: 5px; /* Evitar que scrollbar cole nos cards */
+    padding-right: 5px;
 }
 
 .month-title {
-    font-size: 1.1em; /* Menor */
+    font-size: 1.1em;
     font-weight: 600;
     color: var(--text-color-dark);
     margin-top: 20px;
@@ -330,11 +146,11 @@ body {
 /* --- Card de Histórico Base --- */
 .card.history-card {
     border: 1px solid var(--list-border-color);
-    border-radius: 10px; /* Mais arredondado */
+    border-radius: 10px;
     padding: 0;
     margin-bottom: 12px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06); /* Sombra sutil */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
     text-decoration: none;
     color: inherit;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -494,67 +310,6 @@ body {
     margin-top: 10px;
 }
 
-/* --- Footer Nav --- */
-.footer-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 20;
-    height: var(--footer-height);
-    display: flex;
-    justify-content: center;
-}
-.nav-items {
-    display: flex;
-    justify-content: space-around;
-    align-items: stretch;
-    width: 100%;
-    max-width: 500px;
-    height: 100%;
-}
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    padding: 5px 0;
-    text-decoration: none;
-    cursor: pointer;
-    color: var(--nav-text-inactive);
-    transition: color 0.2s ease;
-}
-.nav-icon-wrapper {
-    margin-bottom: 3px;
-    color: var(--nav-icon-inactive);
-    font-size: 1.5rem;
-    line-height: 1;
-    transition: color 0.2s ease;
-}
-.nav-icon-wrapper svg {
-    display: block;
-    width: 28px;
-    height: 28px;
-}
-.nav-text {
-    font-size: 0.7rem;
-    font-weight: 500;
-}
-/* Item Ativo */
-.nav-item.active .nav-icon-wrapper { color: var(--nav-icon-active); }
-.nav-item.active .nav-icon-wrapper svg path,
-.nav-item.active .nav-icon-wrapper svg { fill: var(--nav-icon-active); }
-.nav-item.active .nav-text { color: var(--nav-text-active); }
-/* Hover */
-.nav-item:hover .nav-icon-wrapper { color: var(--nav-icon-active); }
-.nav-item:hover .nav-icon-wrapper svg path,
-.nav-item:hover .nav-icon-wrapper svg { fill: var(--nav-icon-active); }
-.nav-item:hover .nav-text { color: var(--nav-text-active); }
-
-
 /* Responsividade */
 @media (max-width: 768px) {
     .search-filter-container {
@@ -564,34 +319,4 @@ body {
     .search-box, .date-filter-wrapper {
         width: 100%;
     }
-}
-
-/* Ajuste para telas maiores */
-@media (min-width: 500px) {
-     body {
-         padding-bottom: 0;
-     }
-    .container.mobile-view {
-         margin: 20px auto;
-         min-height: calc(100vh - 40px);
-         border-radius: 10px;
-    }
-     .footer-nav {
-         position: static;
-         box-shadow: none;
-         height: auto;
-         max-width: none;
-         margin: 0 auto;
-         padding: 10px 0;
-         border-top: 1px solid var(--border-color);
-     }
-      .nav-items { max-width: 600px; }
-}
-.logo-img {
-    height: 43px; /* Ajustar se necessário */
-    position: absolute;
-    left: 50%;
-    top: 50%; /* <-- LINHA ADICIONADA */
-    transform: translate(-50%, -50%); /* <-- LINHA MODIFICADA */
-    object-fit: contain;
 }

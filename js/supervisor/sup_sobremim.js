@@ -1,6 +1,7 @@
 // js/supervisor/sup_sobremim.js
 document.addEventListener('DOMContentLoaded', () => {
-    const logoutBtn = document.getElementById('logout-btn');
+    // ATUALIZADO: Alvo é o <button> com o ID
+    const logoutBtn = document.getElementById('logout-btn'); 
     const exitModal = document.getElementById('exit-modal');
     const confirmBtn = document.getElementById('confirm-btn');
     const cancelBtn = document.getElementById('cancel-btn');
@@ -18,7 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
      function hideToast() { if(successToast) successToast.classList.remove('show'); }
 
     // 1. Mostrar o Modal
-    if (logoutBtn) { logoutBtn.addEventListener('click', showModal); }
+    if (logoutBtn) { 
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Impede o envio do formulário (embora seja um botão tipo 'button')
+            showModal();
+        }); 
+    }
 
     // 2. Esconder o Modal
     if (cancelBtn) { cancelBtn.addEventListener('click', hideModal); }

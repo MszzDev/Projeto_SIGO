@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if(cancelBtn) cancelBtn.addEventListener('click', hideModal);
     
-    // *** AQUI ESTÁ A LÓGICA QUE "CONGELA" ***
     if(confirmBtn) confirmBtn.addEventListener('click', () => {
         const data = getFormData(); 
         
@@ -104,6 +103,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data && userLogado) {
             hideModal();
             try {
+                // --- LÓGICA DE NOTIFICAÇÃO (INÍCIO) ---
+                const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
+                const estaUnidade = allUnidades.find(u => u.nome === userLogado.unidade);
+                const targetCoordenadorId = estaUnidade ? estaUnidade.coordenadorId : null;
+
+                if (targetCoordenadorId) {
+                    const notificacoes = JSON.parse(localStorage.getItem('sigo_notificacoes')) || [];
+                    const novaNotificacao = {
+                        id: Date.now(),
+                        tipo: 'solicitacao',
+                        unidade: userLogado.unidade,
+                        texto: `Nova solicitação de ${userLogado.nome.split(' ')[0]} para a unidade ${userLogado.unidade}.`,
+                        coordenadorId: targetCoordenadorId,
+                        lida: false,
+                        link: 'solicitacoes-pendentes.html' // Leva para a pág. de pendentes
+                    };
+                    notificacoes.unshift(novaNotificacao);
+                    localStorage.setItem('sigo_notificacoes', JSON.stringify(notificacoes));
+                }
+                // --- LÓGICA DE NOTIFICAÇÃO (FIM) ---
+
                 const solicitacoesSalvas = localStorage.getItem('sigo_solicitacoes');
                 const listaSolicitacoes = solicitacoesSalvas ? JSON.parse(solicitacoesSalvas) : [];
                 const novaSolicitacao = {

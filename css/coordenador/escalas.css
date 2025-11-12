@@ -1,0 +1,88 @@
+/* css/coordenador/escalas.css */
+
+.schedule-card > .card-body {
+    /* Adicionado: Permite scroll horizontal se a grade de 7 dias não couber */
+    overflow-x: auto;
+}
+
+.schedule-grid {
+    display: grid;
+    /* Modificado: 7 colunas (dias), com largura mínima de 200px cada */
+    grid-template-columns: repeat(7, minmax(200px, 1fr)); 
+    gap: var(--spacing-md);
+    min-height: 400px;
+}
+
+.day-column {
+    background-color: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex; /* Adicionado: Para os turnos crescerem */
+    flex-direction: column; /* Adicionado */
+}
+
+.day-header {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--white-color);
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    font-weight: 600;
+    color: var(--dark-color);
+    flex-shrink: 0; /* Adicionado */
+}
+
+.shift-box {
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+    flex-grow: 1; /* Adicionado: Faz o turno crescer */
+    display: flex; /* Adicionado */
+    flex-direction: column; /* Adicionado */
+}
+.day-column .shift-box:last-child {
+    border-bottom: none;
+}
+
+.shift-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    padding-left: 5px;
+    flex-shrink: 0; /* Adicionado */
+}
+
+.shift-select {
+    width: 100%;
+    min-height: 150px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 0.9rem;
+    background-color: var(--white-color);
+    flex-grow: 1; /* Adicionado: Faz o select crescer */
+}
+
+.shift-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 48, 99, 0.2);
+    outline: none;
+}
+
+.shift-select option {
+    padding: 4px 2px;
+}
+.shift-select option:checked {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.card-footer {
+    text-align: right;
+    background-color: var(--light-color);
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-md);
+}
+
+/* Responsividade (Removida a regra de stack, priorizando scroll horizontal) */

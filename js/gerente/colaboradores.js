@@ -16,11 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let htmlFinal = '';
 
     coordenadores.forEach(cood => {
-        // --- ATUALIZAÇÃO DA FOTO ---
-        const iniciais = cood.nome ? cood.nome.substring(0, 2).toUpperCase() : '??';
+        // --- PADRONIZAÇÃO DA FOTO (Coordenador) ---
         const avatarSrc = cood.foto_url 
             ? cood.foto_url 
-            : `https://via.placeholder.com/40/003063/ffffff?text=${iniciais}`;
+            : '../../img/perf.png'; // Fallback para perf.png
 
         const minhasUnidades = allUnidades.filter(u => u.coordenadorId == cood.id);
         const minhasUnidadesNomes = minhasUnidades.map(u => u.nome);
@@ -36,6 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div>
                         <h3 class="coordenador-nome">${cood.nome}</h3>
                         <span class="coordenador-info">${cood.email || 'Sem email'}</span>
+                    </div>
+
+                    <div class="coordenador-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">${minhasUnidades.length}</span>
+                            <span class="stat-label">Unidades</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${minhaEquipe.length}</span>
+                            <span class="stat-label">Equipe</span>
+                        </div>
                     </div>
                     <div class="coordenador-actions">
                         <a href="editar-usuario.html?id=${cood.id}" class="btn btn-sm btn-outline-primary btn-edit" title="Editar Usuário">
@@ -86,11 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <tbody>
             `;
             minhaEquipe.forEach(user => {
-                // --- ATUALIZAÇÃO DA FOTO (PEQUENA) ---
-                const avatarIniciais = user.nome ? user.nome.substring(0, 2).toUpperCase() : '??';
+                // --- PADRONIZAÇÃO DA FOTO (Equipe) ---
                 const avatarSrcEquipe = user.foto_url 
                     ? user.foto_url 
-                    : `https://via.placeholder.com/32/1a3a52/ffffff?text=${avatarIniciais}`;
+                    : '../../img/perf.png'; // Fallback para perf.png
                 
                 const badgeClass = user.cargo === 'Supervisor' ? 'badge-supervisor' : 'badge-colaborador';
                 htmlFinal += `

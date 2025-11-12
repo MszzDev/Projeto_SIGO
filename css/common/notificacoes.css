@@ -1,0 +1,155 @@
+/* css/common/notificacoes.css */
+
+/* Wrapper para o sino, para posicionar o contador */
+.notification-bell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: var(--spacing-sm); /* Espaço do avatar */
+}
+
+/* O próprio ícone do sino */
+.notification-bell .btn-bell {
+    background-color: transparent;
+    border: none;
+    color: var(--text-muted); /* Cinza sutil */
+    font-size: 1.3rem; /* Tamanho do ícone */
+    padding: 0.3rem 0.6rem; /* Padding pequeno */
+    cursor: pointer;
+    border-radius: 50%; /* Fazer redondo */
+    width: 38px; /* Largura fixa */
+    height: 38px; /* Altura fixa */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.notification-bell .btn-bell:hover {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+.notification-bell .btn-bell:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 48, 99, 0.2);
+}
+
+/* O contador vermelho (badge) */
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    background-color: var(--danger-color);
+    color: var(--white-color);
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--header-bg); /* Contorno branco */
+    
+    /* Animação de "pulso" */
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease;
+}
+
+/* Classe 'active' que o JS adiciona quando há notificações */
+.notification-badge.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* O menu dropdown que abre */
+.notification-dropdown {
+    display: none; /* Começa escondido */
+    position: absolute;
+    top: 100%; /* Abaixo do header */
+    right: 0;
+    margin-top: 10px; /* Espaço do header */
+    width: 350px;
+    max-width: 90vw;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color);
+    z-index: 1000; /* Acima de tudo */
+    
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+/* Classe 'open' que o JS adiciona */
+.notification-dropdown.open {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notification-dropdown-header {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+}
+
+.notification-dropdown-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-color);
+}
+.notification-dropdown-body .notification-item:last-child {
+    border-bottom: none;
+}
+.notification-item:hover {
+    background-color: var(--light-color);
+}
+
+.notification-item-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--white-color);
+}
+.notification-item-icon.solicitacao {
+    background-color: var(--primary-color);
+}
+.notification-item-icon.ocorrencia {
+    background-color: var(--danger-color);
+}
+.notification-item-icon i {
+    font-size: 0.8rem;
+}
+
+.notification-item-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-color-light);
+}
+.notification-item-text strong {
+    color: var(--text-color-dark);
+}
+
+.notification-empty-state {
+    padding: var(--spacing-lg);
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}

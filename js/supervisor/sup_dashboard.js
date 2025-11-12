@@ -16,23 +16,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (greetingEl) greetingEl.textContent = `Olá, ${userLogado.nome.split(' ')[0]}`;
     if (unitNameEl) unitNameEl.textContent = `Unidade ${userLogado.unidade} - Supervisor`;
 
-    // 3. Conta os colaboradores
-    const allColaboradores = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
-    const meusColaboradores = allColaboradores.filter(c => 
-        c.unidade === userLogado.unidade && c.cargo === 'Colaborador'
-    );
+    // 3. (LÓGICA ATUALIZADA) Conta os colaboradores NA ESCALA DE HOJE
+    const sigoEscalas = JSON.parse(localStorage.getItem('sigo_escalas')) || {};
+    let contagemHoje = 0;
+    
+    const dias = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
+    const diaKey = dias[new Date().getDay()]; // 'seg', 'ter', etc.
+
+    // MODIFICADO: Verificação de fim de semana REMOVIDA
+    const escalaDaUnidade = sigoEscalas[userLogado.unidade] || {};
+    const idsManha = escalaDaUnidade[`${diaKey}-manha`] || [];
+    const idsTarde = escalaDaUnidade[`${diaKey}-tarde`] || [];
+    const idsNoite = escalaDaUnidade[`${diaKey}-noite`] || [];
+    contagemHoje = idsManha.length + idsTarde.length + idsNoite.length;
     
     const countEl = document.querySelector('.header-card-stats .count');
-    if (countEl) countEl.textContent = meusColaboradores.length;
+    if (countEl) countEl.textContent = contagemHoje;
 
     // 4. Preenche a Data
     const infoDateEl = document.getElementById('info-date-js');
     if (infoDateEl) {
         const data = new Date();
-        // Formata a data para "Novembro, 2025"
+        // Formata a data
         infoDateEl.textContent = data.toLocaleDateString('pt-BR', {
             month: 'long',
             year: 'numeric'
-        }).replace(data.toLocaleDateString('pt-BR', { month: 'long' }), m => m.charAt(0).toUpperCase() + m.slice(1)); // Garante a primeira letra maiúscula
+        }).replace(data.toLocaleDateString('pt-BR', { month: 'long' }), m => m.charAt(0).toUpperCase() + m.slice(1));
     }
 });

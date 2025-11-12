@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Carrega as unidades
     const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
     
-    // 3. Filtra as unidades deste coordenador
+    // 3. Filtra as unidades deste coordenador (pelo ID único)
     const minhasUnidades = allUnidades.filter(u => u.coordenadorId == userLogado.id);
 
     container.innerHTML = ''; // Limpa o "Carregando..."
@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Desenha os cards
     minhasUnidades.forEach(unit => {
+        // ATUALIZADO: Link agora usa ?id=
         container.innerHTML += `
             <div class="col-card">
-                <a href="unit-detail.html?unidade=${encodeURIComponent(unit.nome)}" class="unit-card">
+                <a href="unit-detail.html?id=${unit.id}" class="unit-card">
                     <h3 class="unit-card-title">${unit.nome}</h3>
                     <span class="unit-card-code">#${unit.codigo}</span>
                 </a>

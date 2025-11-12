@@ -9,18 +9,47 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
             const formData = new FormData(form);
-            const coordSelect = form.elements['coordenadorId'];
-            const coordId = coordSelect.value;
-            // Pega o NOME do coordenador (o texto da opção selecionada)
-            const coordNome = (coordId && coordId !== "Nenhum") ? coordSelect.options[coordSelect.selectedIndex].text : "Nenhum";
+            
+            // Função auxiliar para pegar ID e Nome
+            function getSelectInfo(elementName) {
+                const select = form.elements[elementName];
+                const id = select.value;
+                const nome = (id && id !== "Nenhum") ? select.options[select.selectedIndex].text : "Nenhum";
+                return { id, nome };
+            }
+
+            // Pega info do Coordenador
+            const coord = getSelectInfo('coordenadorId');
+            
+            // Pega info dos 3 Supervisores
+            const supManha = getSelectInfo('supervisorManhaId');
+            const supTarde = getSelectInfo('supervisorTardeId');
+            const supNoite = getSelectInfo('supervisorNoiteId');
 
             const novaUnidade = {
-                id: Date.now(),
+                id: Date.now(), // ID automático
                 nome: formData.get('nome'),
                 codigo: formData.get('codigo'),
-                endereco: formData.get('endereco'),
-                coordenadorId: coordId, // SALVA O ID
-                coordenadorNome: coordNome // SALVA O NOME
+                
+                // Coordenador Responsável
+                coordenadorId: coord.id,
+                coordenadorNome: coord.nome,
+                
+                // Supervisores por Turno
+                supervisorManhaId: supManha.id,
+                supervisorManhaNome: supManha.nome,
+                supervisorTardeId: supTarde.id,
+                supervisorTardeNome: supTarde.nome,
+                supervisorNoiteId: supNoite.id,
+                supervisorNoiteNome: supNoite.nome,
+
+                // Endereço
+                cep: formData.get('cep'),
+                logradouro: formData.get('logradouro'),
+                numero: formData.get('numero'),
+                bairro: formData.get('bairro'),
+                cidade: formData.get('cidade'),
+                uf: formData.get('uf')
             };
 
             if (!novaUnidade.nome || !novaUnidade.codigo) {

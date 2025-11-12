@@ -1,49 +1,11 @@
-/* Adicionar no início do arquivo */
+/* css/supervisor/sup_solicitar.css */
+@import url('sup_layout.css'); /* IMPORTA O LAYOUT MESTRE */
+
+/* Variáveis específicas da página */
 :root {
-   /* ... (variáveis existentes) ... */
-   --footer-height: 72px; /* Altura do footer */
+   --modal-warning-color: var(--warning-color);
 }
 
-/* Estrutura Básica */
-body {
-    background-color: var(--background-grey, #f0f2f5);
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-    font-family: 'Roboto', Arial, sans-serif;
-    padding-bottom: var(--footer-height); /* Espaço para footer fixo */
-    margin: 0;
-}
-
-.container.mobile-view {
-    width: 100%;
-    max-width: 500px; /* Limite de largura */
-    background-color: var(--card-background, #fff);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ocupar altura total */
-    position: relative; /* Para footer fixo */
-}
-/* Fim do bloco inicial */
-/* Variáveis */
-:root {
-   --primary-blue: #2563EB; /* Azul principal */
-   --sigo-blue: #002442;
-   --background-grey-tabs: #e9ecef;
-   --tabs-inactive-color: #6b7280;
-   --toast-success-bg: #4CAF50; /* Verde */
-   --toast-error-bg: #f44336;   /* Vermelho */
-   --modal-warning-color: #ffc107; /* Amarelo */
-}
-.logo-img {
-    height: 43px; /* Ajustar se necessário */
-    position: absolute;
-    left: 50%;
-    top: 50%; /* <-- LINHA ADICIONADA */
-    transform: translate(-50%, -50%); /* <-- LINHA MODIFICADA */
-    object-fit: contain;
-}
 /* Estrutura da Página */
 .content-area.solicitacao-content {
     padding: 15px;
@@ -72,7 +34,7 @@ body {
     background-color: var(--card-background);
     padding: 10px 15px;
     position: sticky;
-    top: 60px; /* Abaixo do header */
+    top: 0; /* Fica fixo no topo da ÁREA DE CONTEÚDO */
     z-index: 5;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid var(--border-color);
@@ -125,7 +87,6 @@ body {
 /* Formulário */
 .form-card {
     margin-bottom: 20px;
-    /* Pode adicionar padding/borda se quiser destacar o formulário */
 }
 
 .label {
@@ -229,10 +190,7 @@ body {
 }
 
 /* Modal de Confirmação */
-/*.modal { /* Estilos base do modal (overlay) herdados de sup_sobremim.css */
-    /* Nenhum estilo específico aqui se já herda */
-
-.modal-content.confirmation-style { /* Estilos específicos para este modal */
+.modal-content.confirmation-style {
     padding: 25px;
     max-width: 350px;
 }
@@ -255,8 +213,6 @@ body {
     color: var(--text-color-light);
     margin-bottom: 25px;
 }
-/* Botões do modal herdados de sup_sobremim.css */
-/* btn-modal, btn-cancel, btn-confirm */
 
 /* Toast Messages (Topo) */
 .toast-message {
@@ -266,7 +222,7 @@ body {
     transform: translate(-50%, -150%); /* Começa fora da tela */
     width: 90%;
     max-width: 450px; /* Largura máxima */
-    z-index: 50;
+    z-index: 101; /* Acima do modal */
     padding: 12px 15px;
     color: white;
     font-weight: 500;
@@ -286,21 +242,6 @@ body {
     transform: translate(-50%, 0); /* Desliza para baixo */
 }
 
-/* Botão voltar header */
-.header-back-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    margin-right: 10px;
-    color: #fff;
-    line-height: 1;
-}
-.header-back-button svg {
-    width: 24px;
-    height: 24px;
-}
-
 /* Responsividade (Ajustes se necessário) */
 @media (max-width: 400px) {
     .form-group.half {
@@ -313,107 +254,7 @@ body {
           min-width: 80px;
       }
 }
-/* Adicionar no fim do arquivo */
 
-/* Footer de Navegação */
-.footer-nav {
-    position: fixed; /* Fixo na base */
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 20;
-    height: var(--footer-height);
-    display: flex;
-    justify-content: center; /* Centralizar itens dentro */
-}
-
-.nav-items {
-    display: flex;
-    justify-content: space-around; /* Distribuir espaço igualmente */
-    align-items: stretch; /* Esticar itens verticalmente */
-    width: 100%;
-    max-width: 500px; /* Limitar largura no centro */
-    height: 100%;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1; /* Ocupar espaço igual */
-    padding: 5px 0; /* Padding vertical */
-    text-decoration: none;
-    cursor: pointer;
-    color: var(--nav-text-inactive, #6b7280);
-    transition: color 0.2s ease;
-}
-
-.nav-icon-wrapper {
-    margin-bottom: 3px; /* Espaço entre ícone e texto */
-    color: var(--nav-icon-inactive, #6b7280); /* Cor do ícone */
-    font-size: 1.5rem; /* Tamanho do ícone */
-    line-height: 1;
-    transition: color 0.2s ease;
-}
-.nav-icon-wrapper svg {
-    display: block; /* Remover espaço extra abaixo do SVG */
-    width: 28px; /* Tamanho SVG */
-    height: 28px;
-}
-
-.nav-text {
-    font-size: 0.7rem; /* Texto pequeno */
-    font-weight: 500;
-}
-
-/* Estilo do Item Ativo */
-.nav-item.active .nav-icon-wrapper {
-    color: var(--nav-icon-active, #2563eb);
-}
-.nav-item.active .nav-icon-wrapper svg path {
-    fill: var(--nav-icon-active, #2563eb); /* Mudar fill do SVG */
-}
-.nav-item.active .nav-text {
-    color: var(--nav-text-active, #2563eb);
-}
-
-/* Efeito Hover (opcional) */
-.nav-item:hover .nav-icon-wrapper {
-    color: var(--nav-icon-active, #2563eb);
-}
-.nav-item:hover .nav-icon-wrapper svg path {
-    fill: var(--nav-icon-active, #2563eb);
-}
-.nav-item:hover .nav-text {
-    color: var(--nav-text-active, #2563eb);
-}
-
-
-/* Media Query para telas maiores */
-@media (min-width: 500px) { /* A partir da largura máxima */
-     body {
-         padding-bottom: 0; /* Remover padding se não for mobile */
-     }
-    .container.mobile-view {
-         margin: 20px auto; /* Centralizar container */
-         min-height: calc(100vh - 40px);
-         border-radius: 10px; /* Borda arredondada */
-    }
-     .footer-nav {
-         position: static; /* Footer deixa de ser fixo */
-         box-shadow: none;
-         height: auto;
-         max-width: none;
-         margin: 0 auto;
-         padding: 10px 0;
-         border-top: 1px solid var(--border-color, #ddd);
-     }
-      .nav-items { max-width: 600px; } /* Limitar largura do nav */
-}
-/* Fim do bloco final */
 /* --- Modal de Confirmação --- */
 .modal {
     display: flex; /* Usar flex para centralizar */
@@ -449,27 +290,6 @@ body {
     transform: scale(0.95);
 }
 
-.modal-icon {
-    margin-bottom: 15px;
-}
-.modal-icon.warning .icon {
-    width: 48px;
-    height: 48px;
-    color: var(--modal-warning-color, #ffc107);
-}
-.modal-title {
-    font-size: 1.25em;
-    font-weight: 600;
-    color: var(--text-color-dark);
-    margin-bottom: 10px;
-}
-.modal-text {
-    font-size: 0.95rem;
-    color: var(--text-color-light);
-    margin-bottom: 25px;
-}
-
-/* Estilo base para botões do modal (copiado de sup_sobremim.css) */
 .modal-actions {
     display: flex;
     justify-content: space-between;
@@ -491,9 +311,7 @@ body {
 .btn-cancel:hover { background-color: #cbd5e1; }
 
 .btn-confirm {
-    background-color: var(--button-sair-red, #dc3545); /* Cor vermelha (pode ajustar) */
+    background-color: var(--button-sair-red, #dc3545);
     color: #fff;
 }
 .btn-confirm:hover { background-color: var(--button-sair-hover, #bb2d3b); }
-
-/* --- FIM DO BLOCO DO MODAL --- */

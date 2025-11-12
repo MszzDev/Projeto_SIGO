@@ -30,26 +30,34 @@
 
 /* 2. O Título Clicável (Coordenador) */
 .coordenador-summary {
-    display: flex;
+    display: grid;
+    /* Colunas: Avatar | Informações | Estatísticas | Ações */
+    grid-template-columns: auto 1fr auto auto;
     align-items: center;
     gap: var(--spacing-md);
-    padding: var(--spacing-md) var(--spacing-lg); /* Um pouco menor */
+    padding: var(--spacing-lg);
     cursor: pointer;
-    background-color: var(--light-color);
+    background-color: var(--card-bg); /* Fundo branco */
     transition: background-color 0.2s ease;
-    position: relative; /* Para o ícone do leque */
 }
 .coordenador-summary:hover {
-    background-color: #e9ecef;
+    background-color: #fcfcfc;
 }
+/* Adiciona borda SÓ quando o 'leque' está aberto */
+details[open] > .coordenador-summary {
+    border-bottom: 1px solid var(--border-color);
+}
+
 .coordenador-avatar {
-    width: 40px;
-    height: 40px;
+    width: 48px; /* Avatar maior */
+    height: 48px;
     border-radius: 50%;
+    object-fit: cover; /* Garante que perf.png cubra o espaço */
     flex-shrink: 0;
+    border: 1px solid var(--border-color);
 }
 .coordenador-nome {
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Fonte maior */
     font-weight: 600;
     color: var(--dark-color);
     margin: 0;
@@ -59,23 +67,32 @@
     color: var(--text-muted);
 }
 
-/* Ícone do leque no canto */
-.coordenador-summary::after {
-    content: '\f054'; /* Font Awesome "chevron-right" */
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    right: var(--spacing-lg);
-    top: 50%;
-    transform: translateY(-50%) rotate(0deg);
-    color: var(--text-muted);
+/* 3. NOVO: Bloco de Estatísticas no Cabeçalho */
+.coordenador-stats {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-left: auto; /* Empurra para a esquerda (antes das ações) */
+    padding: 0 var(--spacing-md);
+}
+.coordenador-stats .stat-item {
+    text-align: right;
+}
+.coordenador-stats .stat-value {
+    display: block;
     font-size: 1.2rem;
-    transition: transform 0.3s ease;
+    font-weight: 600;
+    color: var(--dark-color);
+    line-height: 1;
+}
+.coordenador-stats .stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
 }
 
-/* 3. Ações (Botões) */
+/* 4. Ações (Botões) */
 .coordenador-actions {
-    margin-left: auto; /* Empurra para a direita */
     padding-left: var(--spacing-md);
     display: flex;
     gap: 8px;
@@ -85,30 +102,32 @@
     position: relative; /* Garante o z-index */
 }
 
-/* 4. O Conteúdo (Unidades e Equipe) */
+/* 5. O Conteúdo (Unidades e Equipe) */
 .coordenador-details {
     padding: var(--spacing-lg);
     border-top: 1px solid var(--border-color);
+    background-color: var(--light-color); /* Fundo cinza para contraste */
 }
 
-/* 5. Estilo do "leque" (Unidade/Equipe) aninhado */
+/* 6. Estilo do "leque" (Unidade/Equipe) aninhado */
 .sub-leque {
     border: 1px solid var(--border-color);
     border-radius: 6px;
-    margin-bottom: var(--spacing-sm);
-    background-color: var(--card-bg);
+    margin-bottom: var(--spacing-md);
+    background-color: var(--card-bg); /* Fundo branco */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
 .sub-leque-summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: var(--spacing-md);
-    font-weight: 500;
+    font-weight: 600; /* Mais forte */
     color: var(--dark-color);
     cursor: pointer;
 }
 .sub-leque-summary:hover {
-    background-color: var(--light-color);
+    background-color: #fcfcfc;
 }
 .sub-leque-summary .leque-icon {
     font-size: 0.9rem;
@@ -117,15 +136,15 @@
 }
 
 .sub-leque-content {
-    padding: 0 var(--spacing-md) var(--spacing-md);
+    padding: 0; /* Tabela vai cuidar do padding */
     border-top: 1px solid var(--border-color);
 }
 .sub-leque-content .table-responsive {
-    margin-top: var(--spacing-md);
+    margin: 0;
 }
 .sub-leque-content .unidade-lista {
     list-style: none;
-    padding: var(--spacing-md) 0 0 0;
+    padding: var(--spacing-md);
     margin: 0;
 }
 .unidade-lista li {
@@ -140,21 +159,23 @@
     color: var(--text-muted);
 }
 
-/* 6. Animação do "Leque" */
-details[open] > .coordenador-summary::after {
-    transform: translateY(-50%) rotate(90deg);
-}
+/* 7. Animação do "Leque" */
+details[open] > .coordenador-summary .leque-icon,
 details[open] > .sub-leque-summary .leque-icon {
     transform: rotate(90deg);
 }
+/* (Removido o ::after do .coordenador-summary, vamos usar o .leque-icon) */
 
-/* 7. Estilos de Tabela (para a Equipe) */
+/* 8. Estilos de Tabela (para a Equipe) */
 .table .user-avatar {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     margin-right: 10px;
     vertical-align: middle;
+    object-fit: cover; /* Garante que perf.png preencha */
+    border: 2px solid var(--white-color);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 .table td span {
     display: inline-block;

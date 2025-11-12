@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const listaContainer = document.querySelector('.pending-requests-list');
     if (!listaContainer) return;
 
+    // Pega o usuário logado
+    const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
+
     // Limpa a lista estática do HTML
     listaContainer.innerHTML = ''; 
 
@@ -29,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="request-unit">Unidade ${solicitacao.unidade}</span>
                     </div>
                     <div class="request-content">
-                        <img src="https://via.placeholder.com/32/1a3a52/ffffff?text=${solicitacao.solicitante.substring(0,2).toUpperCase()}" alt="Avatar" class="rounded-circle me-2 request-avatar">
+                        <img src="../../img/perf.png" alt="Avatar" class="rounded-circle me-2 request-avatar" style="width: 28px; height: 28px; object-fit: cover;">
                         <strong class="requester-name">${solicitacao.solicitante}</strong>
                         <span class="request-action">solicitou</span>
                         <strong class="request-count">${solicitacao.qtd} Colaborador(es)</strong>
@@ -43,4 +46,25 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         listaContainer.innerHTML += cardHtml;
     });
+
+    // --- FUNÇÃO PARA LIMPAR NOTIFICAÇÕES (Adicionada) ---
+    function limparNotificacoesSolicitacao() {
+        if (!userLogado) return;
+        let allNotificacoes = JSON.parse(localStorage.getItem('sigo_notificacoes')) || [];
+        let algumaAlteracao = false;
+        
+        // Marca como lida todas as notificações de 'solicitacao' deste usuário
+        allNotificacoes.forEach(n => {
+            if (n.coordenadorId == userLogado.id && n.tipo === 'solicitacao' && n.lida === false) {
+                n.lida = true;
+                algumaAlteracao = true;
+            }
+        });
+
+        if (algumaAlteracao) {
+            localStorage.setItem('sigo_notificacoes', JSON.stringify(allNotificacoes));
+        }
+    }
+    
+    limparNotificacoesSolicitacao(); // Limpa as notificações ao carregar a página
 });

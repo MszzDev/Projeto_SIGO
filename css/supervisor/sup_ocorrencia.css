@@ -1,0 +1,8 @@
+/* css/supervisor/sup_ocorrencia.css */
+@import url('sup_layout.css'); /* IMPORTA O LAYOUT MESTRE */
+
+/* Herdar estilos de Solicitar para Abas, Formulário base, Modal, Toast */
+@import url('sup_solicitar.css');
+
+/* (Estilos de sup_relatar.css são importados por sup_solicitar.css,
+   então .select-field, .label .required, .btn-enviar já estão incluídos) */

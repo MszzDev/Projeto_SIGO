@@ -1,45 +1,53 @@
 // js/coordenador/unit-detail.js
 document.addEventListener('DOMContentLoaded', function () {
     
+    // --- 1. PEGAR UNIDADE DA URL (Modificado para ID) ---
     const params = new URLSearchParams(window.location.search);
-    const nomeUnidade = decodeURIComponent(params.get('unidade')); 
+    const unidadeId = Number(params.get('id')); 
 
+    // --- 2. CARREGAR DADOS ---
     const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
     const allColaboradores = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
 
-    const estaUnidade = allUnidades.find(u => u.nome === nomeUnidade);
+    // --- 3. ENCONTRAR DADOS DA UNIDADE E EQUIPE (Modificado para ID) ---
+    const estaUnidade = allUnidades.find(u => u.id === unidadeId);
+    
+    if (!estaUnidade) {
+        document.getElementById('unit-detail-title').textContent = 'Erro: Unidade não encontrada';
+        return;
+    }
+    
+    const nomeUnidade = estaUnidade.nome; // Pega o nome a partir da unidade encontrada
     const estaEquipe = allColaboradores.filter(c => c.unidade === nomeUnidade);
-    // ATUALIZADO: Pega TODOS os supervisores
-    const supervisoresDaUnidade = estaEquipe.filter(c => c.cargo === 'Supervisor');
+    // Esta lógica de supervisor continua correta, pois ela lê os Colaboradores
+    const supervisoresDaUnidade = estaEquipe.filter(c => c.cargo === 'Supervisor'); 
 
-    // Preenche infos gerais
-    if (nomeUnidade) {
-        document.getElementById('unit-detail-title').textContent = `Detalhes da Unidade: ${nomeUnidade}`;
-    }
-    if (estaUnidade) {
-        document.getElementById('unit-codigo').textContent = estaUnidade.codigo || 'N/A';
-        document.getElementById('unit-endereco').textContent = estaUnidade.endereco || 'Não informado';
-        document.getElementById('unit-coordenador').textContent = estaUnidade.coordenadorNome || 'Nenhum';
-    } else {
-        document.getElementById('unit-codigo').textContent = 'N/A';
-        document.getElementById('unit-endereco').textContent = 'Não cadastrado';
-        document.getElementById('unit-coordenador').textContent = 'Não atribuído';
-    }
+    // --- 4. PREENCHER CABEÇALHO E INFO GERAIS ---
+    document.getElementById('unit-detail-title').textContent = `Detalhes da Unidade: ${nomeUnidade}`;
+    
+    // Bloco de Info Gerais
+    document.getElementById('unit-codigo').textContent = estaUnidade.codigo || 'N/A';
+    document.getElementById('unit-coordenador').textContent = estaUnidade.coordenadorNome || 'Nenhum';
+    
+    // Bloco de Endereço
+    document.getElementById('unit-logradouro').textContent = estaUnidade.logradouro || 'Não informado';
+    document.getElementById('unit-numero').textContent = estaUnidade.numero || 'S/N';
+    document.getElementById('unit-bairro').textContent = estaUnidade.bairro || 'Não informado';
+    document.getElementById('unit-cidade').textContent = estaUnidade.cidade || '';
+    document.getElementById('unit-uf').textContent = estaUnidade.uf || '';
+    document.getElementById('unit-cep').textContent = estaUnidade.cep || 'Não informado';
 
-    // --- ATUALIZAÇÃO DO CARD DE SUPERVISOR (Dinâmico) ---
+
+    // --- 5. FUNÇÃO PARA ATUALIZAR O CARD DO SUPERVISOR ---
     const supervisorContainer = document.getElementById('supervisor-info-body');
     function atualizarCardSupervisor(turno) {
         if (!supervisorContainer) return;
+        // Esta lógica busca na lista de *colaboradores* (sigo_colaboradores)
+        // quem é supervisor *nesta unidade* e *neste turno*.
         const supervisor = supervisoresDaUnidade.find(s => s.periodo === turno);
 
         if (supervisor) {
-            // Meta 3: Usar foto_url se existir
-            const iniciais = supervisor.nome ? supervisor.nome.substring(0, 2).toUpperCase() : '??';
-            const avatarSrc = supervisor.foto_url 
-                ? supervisor.foto_url 
-                : `https://via.placeholder.com/50/003063/ffffff?text=${iniciais}`;
-            
-            // Meta 2: Card é um link
+            const avatarSrc = supervisor.foto_url ? supervisor.foto_url : '../../img/perf.png';
             supervisorContainer.innerHTML = `
                 <a href="../common/perfil-colaborador.html?id=${supervisor.id}" class="supervisor-link-wrapper" title="Ver perfil de ${supervisor.nome}">
                     <img src="${avatarSrc}" alt="Supervisor Avatar" class="rounded-circle me-3">
@@ -50,11 +58,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 </a>
             `;
         } else {
-            supervisorContainer.innerHTML = `<p class="text-muted">Nenhum supervisor para este turno.</p>`;
+            // Esta lógica agora checa se um supervisor foi *definido* na unidade
+            // (sigo_unidades), mesmo que ele ainda não tenha sido cadastrado
+            // como um colaborador (ex: nome importado).
+            let supNome = "Nenhum";
+            if(turno === 'Manhã' && estaUnidade.supervisorManhaId !== 'Nenhum') {
+                supNome = estaUnidade.supervisorManhaNome;
+            } else if (turno === 'Tarde' && estaUnidade.supervisorTardeId !== 'Nenhum') {
+                supNome = estaUnidade.supervisorTardeNome;
+            } else if (turno === 'Noite' && estaUnidade.supervisorNoiteId !== 'Nenhum') {
+                supNome = estaUnidade.supervisorNoiteNome;
+            }
+            
+            if(supNome && supNome !== "Nenhum") {
+                 supervisorContainer.innerHTML = `<p class="text-muted">Supervisor definido: ${supNome} (sem perfil de login)</p>`;
+            } else {
+                 supervisorContainer.innerHTML = `<p class="text-muted">Nenhum supervisor para este turno.</p>`;
+            }
         }
     }
 
-    // Lógica das Abas
+    // --- 6. LÓGICA DAS ABAS ---
     const tabs = document.querySelectorAll('#collaboratorTabs .nav-link');
     const tabPanes = document.querySelectorAll('#collaboratorTabsContent .tab-pane');
     if (tabs.length > 0 && tabPanes.length > 0) {
@@ -67,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const targetPane = document.querySelector(this.getAttribute('data-bs-target'));
                 if (targetPane) targetPane.classList.add('active', 'show');
                 
-                // Meta 1: Atualiza o card
                 let turnoSelecionado = 'Manhã';
                 if (this.id === 'tarde-tab') turnoSelecionado = 'Tarde';
                 if (this.id === 'noite-tab') turnoSelecionado = 'Noite';
@@ -76,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Carregar Status da Unidade
+    // --- 7. CARREGAR STATUS DA UNIDADE ---
     const badgeElement = document.getElementById('unit-status');
     if (badgeElement) {
         const statusStorageKey = `sigo_status_unidade_${nomeUnidade.replace(/\s/g, '')}`;
@@ -92,16 +115,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
     
-    // Carregar Tabelas de Colaboradores
+    // --- 8. CARREGAR TABELAS DE COLABORADORES ---
     function renderizarTabelaTurno(container, lista) {
-        // (Esta função permanece a mesma)
         if (!container) return;
         const colaboradoresDoTurno = lista.filter(c => c.cargo === 'Colaborador');
         if (colaboradoresDoTurno.length === 0) {
             container.innerHTML = '<p class="text-muted" style="padding: 15px 0;">Nenhum colaborador registrado para este turno.</p>';
             return;
         }
-        let tabelaHtml = `<div class="table-responsive"><table class="table table-hover"><thead>...</thead><tbody>`;
+        let tabelaHtml = `<div class="table-responsive"><table class="table table-hover"><thead><tr><th>Funcionário</th><th>Status</th><th>Ações</th></tr></thead><tbody>`;
         colaboradoresDoTurno.forEach(colab => {
             tabelaHtml += `
                 <tr>
@@ -126,6 +148,6 @@ document.addEventListener('DOMContentLoaded', function () {
     renderizarTabelaTurno(document.getElementById('tarde-content'), equipeTarde);
     renderizarTabelaTurno(document.getElementById('noite-content'), equipeNoite);
 
-    // Carregamento Inicial
+    // --- 10. CARREGAMENTO INICIAL ---
     atualizarCardSupervisor('Manhã');
 });

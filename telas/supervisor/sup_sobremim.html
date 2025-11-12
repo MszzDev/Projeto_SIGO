@@ -6,8 +6,7 @@
     <title>Perfil e Opções</title>
     <link rel="stylesheet" href="../../css/common/global.css">
     <link rel="stylesheet" href="../../css/supervisor/sup_sobremim.css">
-     <link rel="stylesheet" href="../../css/supervisor/sup_dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container mobile-view">
@@ -20,20 +19,31 @@
         </header>
 
         <main class="content-area sobremim-content">
-            <div class="content-header">
-                <h1 class="page-title">Perfil e Opções</h1>
-                <p class="page-subtitle">Gerencie seu perfil ou saia do sistema.</p>
-            </div>
-
-            <a href="sup_perfil_supervisor.html" class="profile-link-card">
-               <img id="user-avatar" src="../../img/perf.png" alt="User Avatar" class="profile-link-avatar">
-                <span class="profile-link-text">Ver Meu Perfil</span>
-                <i class="fas fa-chevron-right profile-link-arrow"></i>
+            
+            <a href="sup_perfil_supervisor.html" class="user-info-card-link">
+                <div class="user-info-card">
+                    <img id="user-avatar" src="../../img/perf.png" alt="User Avatar" class="user-avatar-large">
+                    <h2 id="user-name-large">Carregando...</h2>
+                    <p id="user-unit-large">Supervisor</p>
+                    <span class="view-profile-prompt">
+                        Ver Perfil <i class="fas fa-chevron-right"></i>
+                    </span>
+                </div>
             </a>
 
-            <button id="logout-btn" class="btn btn-logout-action">
-                <i class="fas fa-sign-out-alt"></i> Sair do Sistema
-            </button>
+            <div class="action-list-wrapper">
+                <h2 class="section-title">Opções</h2>
+                <div class="action-list">
+                    <button id="logout-btn" class="action-list-item danger">
+                        <div>
+                            <i class="fas fa-sign-out-alt action-icon"></i>
+                            <span>Sair do Sistema</span>
+                        </div>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </button>
+                </div>
+            </div>
+
         </main>
 
         <div id="exit-modal" class="modal-overlay hidden">

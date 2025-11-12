@@ -1,33 +1,15 @@
-
+/* css/supervisor/sup_relatar.css */
+@import url('sup_layout.css'); /* IMPORTA O LAYOUT MESTRE */
 /* Herdar estilos de Solicitar para Abas, Formulário base, Modal, Toast */
 @import url('sup_solicitar.css'); 
 
-
-
 /* --- Estilos Específicos para Relatar Preleção --- */
-
 .content-area.relatorio-content {
     padding: 15px;
     background-color: var(--card-background);
 }
 
-.page-category { /* Estilo similar a solicitar.css */
-    font-size: 0.9em;
-    color: var(--label-color);
-    font-weight: 500;
-    margin-bottom: 2px;
-}
-.page-title { /* Estilo similar a solicitar.css */
-    font-size: 1.8em;
-    color: var(--text-color-dark);
-    font-weight: 700;
-    margin-bottom: 20px; /* Espaço antes do form */
-}
-
-/* Formulário e Seções */
-.form-card {
-     margin-bottom: 20px;
-}
+/* (Estilos de .page-category, .page-title, etc. são herdados de sup_solicitar.css) */
 
 /* Indicador de campo obrigatório */
 .label .required {
@@ -80,7 +62,6 @@
     background-color: #e7f1ff; /* Azul bem claro */
     color: var(--primary-blue);
     font-weight: 500; /* Levemente mais forte */
-    /* box-shadow: 0 0 0 1px var(--primary-blue); Opcional: sombra interna */
 }
 
 /* Dica abaixo dos botões */
@@ -90,7 +71,6 @@
     color: var(--text-muted);
     margin-top: 5px;
 }
-
 
 /* Botão Enviar */
 .btn-enviar {
@@ -113,110 +93,3 @@
 .btn-enviar:active {
     transform: translateY(1px);
 }
-
-/* Mensagem Temporária (Topo) */
-.toast-message.top { /* Estilo já definido em solicitar.css, ajustar se necessário */
-     /* Garante que fique visível */
-     z-index: 110;
-}
-/* Adicionar no fim do arquivo */
-
-/* Footer de Navegação */
-.footer-nav {
-    position: fixed; /* Fixo na base */
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 20;
-    height: var(--footer-height);
-    display: flex;
-    justify-content: center; /* Centralizar itens dentro */
-}
-
-.nav-items {
-    display: flex;
-    justify-content: space-around; /* Distribuir espaço igualmente */
-    align-items: stretch; /* Esticar itens verticalmente */
-    width: 100%;
-    max-width: 500px; /* Limitar largura no centro */
-    height: 100%;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1; /* Ocupar espaço igual */
-    padding: 5px 0; /* Padding vertical */
-    text-decoration: none;
-    cursor: pointer;
-    color: var(--nav-text-inactive, #6b7280);
-    transition: color 0.2s ease;
-}
-
-.nav-icon-wrapper {
-    margin-bottom: 3px; /* Espaço entre ícone e texto */
-    color: var(--nav-icon-inactive, #6b7280); /* Cor do ícone */
-    font-size: 1.5rem; /* Tamanho do ícone */
-    line-height: 1;
-    transition: color 0.2s ease;
-}
-.nav-icon-wrapper svg {
-    display: block; /* Remover espaço extra abaixo do SVG */
-    width: 28px; /* Tamanho SVG */
-    height: 28px;
-}
-
-.nav-text {
-    font-size: 0.7rem; /* Texto pequeno */
-    font-weight: 500;
-}
-
-/* Estilo do Item Ativo */
-.nav-item.active .nav-icon-wrapper {
-    color: var(--nav-icon-active, #2563eb);
-}
-.nav-item.active .nav-icon-wrapper svg path {
-    fill: var(--nav-icon-active, #2563eb); /* Mudar fill do SVG */
-}
-.nav-item.active .nav-text {
-    color: var(--nav-text-active, #2563eb);
-}
-
-/* Efeito Hover (opcional) */
-.nav-item:hover .nav-icon-wrapper {
-    color: var(--nav-icon-active, #2563eb);
-}
-.nav-item:hover .nav-icon-wrapper svg path {
-    fill: var(--nav-icon-active, #2563eb);
-}
-.nav-item:hover .nav-text {
-    color: var(--nav-text-active, #2563eb);
-}
-
-
-/* Media Query para telas maiores */
-@media (min-width: 500px) { /* A partir da largura máxima */
-     body {
-         padding-bottom: 0; /* Remover padding se não for mobile */
-     }
-    .container.mobile-view {
-         margin: 20px auto; /* Centralizar container */
-         min-height: calc(100vh - 40px);
-         border-radius: 10px; /* Borda arredondada */
-    }
-     .footer-nav {
-         position: static; /* Footer deixa de ser fixo */
-         box-shadow: none;
-         height: auto;
-         max-width: none;
-         margin: 0 auto;
-         padding: 10px 0;
-         border-top: 1px solid var(--border-color, #ddd);
-     }
-      .nav-items { max-width: 600px; } /* Limitar largura do nav */
-}
-/* Fim do bloco final */

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../css/coordenador/unit-detail.css">
     <link rel="stylesheet" href="../../css/common/accessibility.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/common/notificacoes.css">
 </head>
 <body>
     <div class="d-flex">
@@ -19,7 +20,7 @@
             
             <div class="sidebar-content">
                 <div class="user-greeting">
-                    <h5>Olá, Coordenador</h5>
+                    <h5 id="sidebar-user-name">Olá, Coordenador</h5>
                 </div>
                 <nav class="sidebar-nav">
                     <div class="sidebar-section">
@@ -29,6 +30,9 @@
                         </a>
                         <a href="colaboradores.html" class="nav-link">
                         <i class="fas fa-user-group"></i> Colaboradores
+                        </a>
+                        <a href="escalas.html" class="nav-link">
+                            <i class="fas fa-calendar-alt fa-fw"></i> Escalas
                         </a>
                         <a href="units.html" class="nav-link active"> <i class="fas fa-building fa-fw"></i> Unidades
                         </a>
@@ -41,29 +45,14 @@
                         <a href="solicitacoes.html" class="nav-link">
                             <i class="fas fa-clipboard-list fa-fw"></i> Solicitações
                         </a>
+                        <a href="ocorrencias.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle fa-fw"></i> Ocorrências
+                        </a>
                     </div>
                 </nav>
-            </div> <div class="sidebar-footer">
-                <div class="accessibility-menu">
-                    <button class="acc-option-btn" title="Aumentar fonte">
-                        <i class="fas fa-font"><i class="fas fa-plus"></i></i>
-                    </button>
-                    <button class="acc-option-btn" title="Diminuir fonte">
-                        <i class="fas fa-font"><i class="fas fa-minus"></i></i>
-                    </button>
-                    <button class="acc-option-btn" title="Alto contraste">
-                        <i class="fas fa-adjust"></i>
-                    </button>
-                    <button class="acc-option-btn" title="Leitor de tela">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
+            </div> 
+            <div class="sidebar-footer">
                 </div>
-                <button id="acc-toggle-button" class="acc-toggle-btn">
-                    <span>ACESSIBILIDADE</span>
-                    <i class="fas fa-chevron-up acc-icon"></i>
-                </button>
-            </div>
-
         </aside>
 
         <main class="main-content">
@@ -75,47 +64,58 @@
                         <a href="profile.html" class="user-name">Miguel Soares</a>
                         <span class="user-role">Coordenador</span>
                     </div>
-                    <img src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
+                    <img id="header-user-avatar" src="../../img/perf.png" alt="User Avatar" class="rounded-circle">
                     <button id="logout-button" class="btn btn-logout" title="Sair">
                         <i class="fas fa-sign-out-alt"></i> </button>
                 </div>
             </header>
 
             <section class="content-area">
-                <div class="welcome-section">
-                    <h2 id="unit-detail-title">Detalhes da Unidade: ...</h2> 
-                    <p>Informações detalhadas e gerenciamento de colaboradores.</p>
+                
+                <div class="page-header-actions">
+                    <div class="welcome-section">
+                        <h2 id="unit-detail-title">Detalhes da Unidade: ...</h2> 
+                        <p>Informações detalhadas e gerenciamento de colaboradores.</p>
+                    </div>
+                    <div class="actions">
+                         <a href="units.html" class="btn btn-secondary">Voltar</a>
+                    </div>
                 </div>
 
-                <div class="row-details">
-                    <div class="col-unit-info">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Informações Gerais</h5>
-                            </div>
-                            <div class="card-body" id="unit-info-body">
-                                <p><strong>Código:</strong> <span id="unit-codigo">...</span></p>
-                                <p><strong>Endereço:</strong> <span id="unit-endereco">...</span></p>
-                                <p><strong>Coordenador:</strong> <span id="unit-coordenador">...</span></p>
-                                <p><strong>Status:</strong> <span class="badge badge-secondary" id="unit-status">...</span></p>
-                            </div>
+                <div class="details-grid">
+                    
+                    <div class="card grid-card-info">
+                        <div class="card-header"><h5>Informações Gerais</h5></div>
+                        <div class="card-body" id="unit-info-body">
+                            <p><strong>Código:</strong> <span id="unit-codigo">...</span></p>
+                            <p><strong>Status:</strong> <span class="badge badge-secondary" id="unit-status">...</span></p>
+                            <p><strong>Coordenador:</strong> <span id="unit-coordenador">...</span></p>
                         </div>
                     </div>
-                    <div class="col-supervisor-info">
-                        <div class="card supervisor-card">
-                            <div class="card-header">
-                                <h5>Supervisor Responsável</h5>
-                            </div>
-                            <div class="card-body" id="supervisor-info-body">
-                                <p class="text-muted">Nenhum supervisor encontrado para esta unidade.</p>
-                            </div>
+                    
+                    <div class="card grid-card-endereco">
+                        <div class="card-header"><h5>Endereço</h5></div>
+                        <div class="card-body" id="unit-address-body">
+                            <p><strong id="unit-logradouro">...</strong>, <span id="unit-numero">...</span></p>
+                            <p><span id="unit-bairro">...</span>, <span id="unit-cidade">...</span> - <span id="unit-uf">...</span></p>
+                            <p><strong>CEP:</strong> <span id="unit-cep">...</span></p>
                         </div>
+                    </div>
+                    
+                    </div>
+                
+                <div class="card supervisor-card">
+                    <div class="card-header">
+                        <h5>Supervisor Responsável (do turno selecionado)</h5>
+                    </div>
+                    <div class="card-body" id="supervisor-info-body">
+                        <p class="text-muted">Nenhum supervisor encontrado para esta unidade.</p>
                     </div>
                 </div>
 
                 <div class="card collaborators-card">
                     <div class="card-header">
-                        <h5>Colaboradores por Turno</h5>
+                        <h5>Colaboradores da Unidade</h5>
                         </div>
                     <div class="card-body">
                         <div class="nav-tabs-container">
@@ -141,7 +141,10 @@
     </div>
 
     <script src="../../js/coordenador/unit-detail.js" defer></script>
-    <script src="../../js/common/logout.js" defer></script> <script src="../../js/common/transitions.js" defer></script>
+    <script src="../../js/common/notificacoes.js" defer></script>
+    <script src="../../js/common/profile-loader.js" defer></script>
+    <script src="../../js/common/logout.js" defer></script> 
+    <script src="../../js/common/transitions.js" defer></script>
     <script src="../../js/common/accessibility.js" defer></script> 
 
 </body>

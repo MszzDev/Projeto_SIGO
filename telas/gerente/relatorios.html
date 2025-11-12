@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../css/gerente/relatorios.css">
     <link rel="stylesheet" href="../../css/common/accessibility.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="d-flex">
@@ -41,7 +42,7 @@
                         </a>
                     </div>
                     <div class="sidebar-section">
-                        <h6>OPERAÇÕES</h6>
+                       <h6>OPERAÇÕES</h6>
                          <a href="historico-solicitacoes.html" class="nav-link">
                             <i class="fas fa-clipboard-list fa-fw"></i> Hist. Solicitações
                         </a>
@@ -50,6 +51,9 @@
                         </a>
                         <a href="historico-transferencias.html" class="nav-link">
                             <i class="fas fa-exchange-alt fa-fw"></i> Hist. Transferências
+                        </a>
+                        <a href="historico-ocorrencias.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle fa-fw"></i> Hist. Ocorrências
                         </a>
                     </div>
                 </nav>
@@ -97,6 +101,10 @@
                             <h5>Estatísticas Gerais</h5>
                         </div>
                         <div class="report-card-body">
+                            <div class="chart-container" style="height: 200px;">
+                                <canvas id="solicitacoesStatusChart"></canvas>
+                            </div>
+                            <hr class="chart-divider">
                             <div class="stat-item">
                                 <span class="stat-label">Total de Solicitações</span>
                                 <span class="stat-value" id="stat-total-solicitacoes">0</span>
@@ -129,18 +137,32 @@
                             <h5>Unidades (Mais Solicitações)</h5>
                         </div>
                         <div class="report-card-body" id="ranking-solicitacoes-body">
-                            <p class="text-muted">Carregando dados...</p>
+                            <div class="chart-container" style="height: 400px;">
+                                <canvas id="solicitacoesPorUnidadeChart"></canvas>
+                            </div>
                         </div>
                     </div>
 
                     <div class="report-card">
                         <div class="report-card-header">
-                            <h5>Supervisores (Mais Preleções)</h5>
+                            <h5>Top 3 Supervisores (Mais Preleções)</h5>
                         </div>
                         <div class="report-card-body" id="ranking-prelecoes-body">
                             <p class="text-muted">Carregando dados...</p>
                         </div>
                     </div>
+                    
+                    <div class="report-card">
+                        <div class="report-card-header">
+                            <h5>Atividade nos Últimos 7 Dias</h5>
+                        </div>
+                        <div class="report-card-body" id="atividade-tempo-body">
+                            <div class="chart-container" style="height: 400px;">
+                                <canvas id="atividadeAoLongoTempoChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 
             </section>

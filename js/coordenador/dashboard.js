@@ -35,12 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
         userProfile.querySelector('.user-name').textContent = userLogado.nome;
         userProfile.querySelector('.user-role').textContent = userLogado.cargo;
 
+        // --- PADRONIZAÇÃO DA FOTO ---
         const avatarHeader = document.getElementById('header-user-avatar');
         if (userLogado.foto_url) {
             avatarHeader.src = userLogado.foto_url;
         } else {
-            const iniciais = userLogado.nome ? userLogado.nome.substring(0, 2).toUpperCase() : '??';
-            avatarHeader.src = `https://via.placeholder.com/40/003063/ffffff?text=${iniciais}`;
+            avatarHeader.src = '../../img/perf.png'; // Fallback padrão
         }
     })();
 

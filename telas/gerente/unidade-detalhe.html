@@ -50,6 +50,9 @@
                         <a href="historico-transferencias.html" class="nav-link">
                             <i class="fas fa-exchange-alt fa-fw"></i> Hist. Transferências
                         </a>
+                         <a href="historico-ocorrencias.html" class="nav-link">
+                            <i class="fas fa-exclamation-triangle fa-fw"></i> Hist. Ocorrências
+                        </a>
                     </div>
                 </nav>
             </div>
@@ -66,7 +69,7 @@
                     <i class="fas fa-chevron-up acc-icon"></i>
                 </button>
             </div>
-        </aside>
+            </aside>
 
         <main class="main-content">
             <header class="main-header">
@@ -81,43 +84,57 @@
                         <i class="fas fa-sign-out-alt"></i> 
                     </button>
                 </div>
-            </header>
+                </header>
 
             <section class="content-area">
-                <div class="welcome-section">
-                    <h2 id="unit-detail-title">Detalhes da Unidade: ...</h2> 
-                    <p>Informações detalhadas e gerenciamento de colaboradores.</p>
+                
+                <div class="page-header-actions">
+                    <div class="welcome-section">
+                        <h2 id="unit-detail-title">Detalhes da Unidade: ...</h2> 
+                        <p>Informações detalhadas e gerenciamento de colaboradores.</p>
+                    </div>
+                    <div class="actions">
+                        <a href="unidades.html" class="btn btn-secondary">Voltar</a>
+                        <a href="#" id="btn-editar-unidade" class="btn btn-primary">
+                            <i class="fas fa-pencil-alt"></i> Editar Unidade
+                        </a>
+                    </div>
                 </div>
 
-                <div class="row-details">
-                    <div class="col-unit-info">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Informações Gerais</h5>
-                            </div>
-                            <div class="card-body" id="unit-info-body">
-                                <p><strong>Código:</strong> <span id="unit-codigo">...</span></p>
-                                <p><strong>Endereço:</strong> <span id="unit-endereco">...</span></p>
-                                <p><strong>Coordenador:</strong> <span id="unit-coordenador">...</span></p>
-                                <p><strong>Status:</strong> <span class="badge badge-secondary" id="unit-status">...</span></p>
-                            </div>
+                <div class="details-grid">
+                    
+                    <div class="card grid-card-info">
+                        <div class="card-header"><h5>Informações Gerais</h5></div>
+                        <div class="card-body" id="unit-info-body">
+                            <p><strong>Código:</strong> <span id="unit-codigo">...</span></p>
+                            <p><strong>Status:</strong> <span class="badge badge-secondary" id="unit-status">...</span></p>
+                            <p><strong>Coordenador:</strong> <span id="unit-coordenador">...</span></p>
                         </div>
                     </div>
-                    <div class="col-supervisor-info">
-                        <div class="card supervisor-card">
-                            <div class="card-header">
-                                <h5>Supervisor Responsável</h5>
-                            </div>
-                            <div class="card-body" id="supervisor-info-body">
-                                <p class="text-muted">Nenhum supervisor para este turno.</p>
-                            </div>
+                    
+                    <div class="card grid-card-endereco">
+                        <div class="card-header"><h5>Endereço</h5></div>
+                        <div class="card-body" id="unit-address-body">
+                            <p><strong id="unit-logradouro">...</strong>, <span id="unit-numero">...</span></p>
+                            <p><span id="unit-bairro">...</span>, <span id="unit-cidade">...</span> - <span id="unit-uf">...</span></p>
+                            <p><strong>CEP:</strong> <span id="unit-cep">...</span></p>
                         </div>
+                    </div>
+                    
+                    </div>
+                
+                <div class="card supervisor-card">
+                    <div class="card-header">
+                        <h5>Supervisor Responsável</h5>
+                    </div>
+                    <div class="card-body" id="supervisor-info-body">
+                        <p class="text-muted">Nenhum supervisor para este turno.</p>
                     </div>
                 </div>
 
                 <div class="card collaborators-card">
                     <div class="card-header">
-                        <h5>Colaboradores por Turno</h5>
+                        <h5>Colaboradores da Unidade</h5>
                     </div>
                     <div class="card-body">
                         <div class="nav-tabs-container">

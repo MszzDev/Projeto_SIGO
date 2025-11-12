@@ -5,28 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Pega unidades da lista 'sigo_unidades' (lista mestre oficial)
     const unidadesSalvas = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
-    const nomesUnidadesMestre = unidadesSalvas.map(u => u.nome);
-
-    // 2. Pega unidades da lista 'sigo_colaboradores' (para garantir que antigas apareçam)
-    const users = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
-    const nomesUnidadesStaff = users.map(u => u.unidade).filter(u => u && u !== 'N/A');
-
-    // 3. Junta tudo, remove duplicadas e ordena
-    const allUnitNames = [...new Set([...nomesUnidadesMestre, ...nomesUnidadesStaff])];
-    allUnitNames.sort(); // Ordena alfabeticamente
-
-    // 4. Guarda a opção "N/A"
-    let optionsHtml = '<option value="N/A">N/A (Ex: Coordenador)</option>';
     
-    // Verifica se o select tem uma opção "disabled" (Ex: "Selecione...")
-    const disabledOption = selectUnidade.querySelector('option[disabled]');
-    if (disabledOption) {
-        optionsHtml = disabledOption.outerHTML + optionsHtml; // Mantém ela no topo
+    // 2. Ordena alfabeticamente
+    unidadesSalvas.sort((a, b) => a.nome.localeCompare(b.nome));
+
+    // 3. Guarda a opção "N/A" ou a opção "Selecione..."
+    let optionsHtml = '';
+    const defaultOption = selectUnidade.querySelector('option[value="N/A"]') 
+                       || selectUnidade.querySelector('option[disabled]');
+                       
+    if (defaultOption) {
+        optionsHtml = defaultOption.outerHTML;
     }
 
-    // 5. Adiciona as unidades
-    allUnitNames.forEach(unitName => {
-        optionsHtml += `<option value="${unitName}">${unitName}</option>`;
+    // 4. Adiciona as unidades
+    unidadesSalvas.forEach(unit => {
+        optionsHtml += `<option value="${unit.nome}">${unit.nome}</option>`;
     });
 
     selectUnidade.innerHTML = optionsHtml;

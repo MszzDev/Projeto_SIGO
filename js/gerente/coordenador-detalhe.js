@@ -76,12 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <tbody>
             `;
             equipe.forEach(user => {
-                const avatar = user.nome ? user.nome.substring(0, 2).toUpperCase() : '??';
+                // --- PADRONIZAÇÃO DA FOTO ---
+                const avatarSrc = user.foto_url ? user.foto_url : '../../img/perf.png';
                 const badgeClass = user.cargo === 'Supervisor' ? 'badge-supervisor' : 'badge-colaborador';
+                
                 htmlFinal += `
                     <tr>
                         <td>
-                            <img src="https://via.placeholder.com/32/1a3a52/ffffff?text=${avatar}" alt="Avatar" class="user-avatar">
+                            <img src="${avatarSrc}" alt="Avatar" class="user-avatar">
                             <span>${user.nome}<small class="d-block text-muted">${user.email || ''}</small></span>
                         </td>
                         <td><span class="badge ${badgeClass}">${user.cargo}</span></td>

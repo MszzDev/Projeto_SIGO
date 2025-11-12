@@ -1,9 +1,9 @@
 // js/gerente/dashboard.js
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. Elementos do DOM ---
+    // --- 1. Elementos do DOM (Corrigido) ---
     const el = {
-        statSolicitacoes: document.getElementById('stat-solicitacoes'),
+        statOcorrencias: document.getElementById('stat-ocorrencias-abertas'), // O card que substituímos
         statPrelecoes: document.getElementById('stat-prelecoes'),
         statUnidades: document.getElementById('stat-unidades-ativas'),
         statColaboradores: document.getElementById('stat-colaboradores'),
@@ -15,13 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const solicitacoes = JSON.parse(localStorage.getItem('sigo_solicitacoes')) || [];
     const prelecoes = JSON.parse(localStorage.getItem('sigo_prelecoes')) || [];
     const colaboradores = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
+    const ocorrencias = JSON.parse(localStorage.getItem('sigo_ocorrencias')) || [];
 
-    // --- 3. Preencher Cards de Estatística (Topo) ---
+    // --- 3. Preencher Cards de Estatística (Topo) (Corrigido) ---
     (function preencherCardsTopo() {
-        const pendentes = solicitacoes.filter(s => s.status === 'Pendente').length;
-        if (el.statSolicitacoes) el.statSolicitacoes.textContent = pendentes;
+        const abertas = ocorrencias.filter(o => o.status === 'Aberta').length;
+
+        if (el.statOcorrencias) el.statOcorrencias.textContent = abertas; // Conta as ocorrências
         if (el.statPrelecoes) el.statPrelecoes.textContent = prelecoes.length;
         if (el.statColaboradores) el.statColaboradores.textContent = colaboradores.length;
+        
         const unidadesUnicas = new Set(colaboradores.map(c => c.unidade).filter(u => u && u !== 'N/A'));
         if (el.statUnidades) el.statUnidades.textContent = unidadesUnicas.size;
     })();
@@ -43,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         unidadesOrdenadas.slice(0, 5).forEach(([unidade, contagem]) => {
             const label = contagem > 1 ? 'solicitações' : 'solicitação';
-            // *** CORREÇÃO DO LINK ***
             el.listaAtencao.innerHTML += `
                 <a href="historico-solicitacoes.html" class="info-list-item">
                     <span class="unit-name">${unidade}</span>
@@ -69,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         unidadesOrdenadas.slice(0, 5).forEach(([unidade, contagem]) => {
             const label = contagem > 1 ? 'preleções' : 'preleção';
-            // *** CORREÇÃO DO LINK ***
             el.listaAtividade.innerHTML += `
                 <a href="historico-prelecoes.html" class="info-list-item">
                     <span class="unit-name">${unidade}</span>

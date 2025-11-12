@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 novoUsuario[key] = value;
             });
             
+            // Adiciona um ID automático
             novoUsuario.id = Date.now();
             
             const colaboradoresSalvos = localStorage.getItem('sigo_colaboradores');
@@ -25,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             alert(`Usuário [${novoUsuario.cargo}] adicionado com sucesso!`);
             
-            // *** CORREÇÃO DO LINK ***
             window.location.href = 'colaboradores.html';
 
         } catch (error) {

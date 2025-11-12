@@ -83,6 +83,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- FUNÇÃO PARA LIMPAR NOTIFICAÇÕES (Adicionar no final) ---
+    function limparNotificacoesSolicitacao() {
+        if (!userLogado) return;
+        let allNotificacoes = JSON.parse(localStorage.getItem('sigo_notificacoes')) || [];
+        let algumaAlteracao = false;
+        
+        // Marca como lida todas as notificações de 'solicitacao' deste usuário
+        allNotificacoes.forEach(n => {
+            if (n.coordenadorId == userLogado.id && n.tipo === 'solicitacao' && n.lida === false) {
+                n.lida = true;
+                algumaAlteracao = true;
+            }
+        });
+
+        if (algumaAlteracao) {
+            localStorage.setItem('sigo_notificacoes', JSON.stringify(allNotificacoes));
+        }
+    }
+
     // --- CARGA INICIAL ---
     carregarSolicitacoes("Todos"); // Começa mostrando tudo
+    limparNotificacoesSolicitacao(); // Limpa as notificações ao carregar a página
 });

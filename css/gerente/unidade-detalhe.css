@@ -1,6 +1,7 @@
 /* css/gerente/unidade-detalhe.css */
 
 /* 1. Importa todos os estilos da página de detalhes do coordenador */
+/* (Isso importa a grade de 2 colunas e o card de supervisor dinâmico) */
 @import url('../../css/coordenador/unit-detail.css');
 
 /* 2. Adiciona o wrapper de link para o card do supervisor */
@@ -23,4 +24,20 @@
 .supervisor-card img {
     object-fit: cover; /* Garante que a foto preencha o círculo */
     border: 1px solid var(--border-color); /* Adiciona uma borda sutil */
+}
+
+/* 4. Estilo para o header com botão de editar */
+.page-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+.page-header-actions .welcome-section {
+    margin-bottom: 0; /* Remove margem, pois o wrapper já tem */
+}
+.page-header-actions .actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
 }

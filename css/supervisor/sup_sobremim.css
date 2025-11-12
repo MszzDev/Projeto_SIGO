@@ -1,137 +1,163 @@
-/* Adicionar no início do arquivo */
-:root {
-   /* ... (variáveis existentes) ... */
-   --footer-height: 72px; /* Altura do footer */
-}
+/* css/supervisor/sup_sobremim.css (Arquivo ATUALIZADO) */
+@import url('sup_layout.css'); /* IMPORTA O LAYOUT MESTRE */
 
-/* Estrutura Básica */
-body {
-    background-color: var(--background-grey, #f0f2f5);
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-    font-family: 'Roboto', Arial, sans-serif;
-    padding-bottom: var(--footer-height); /* Espaço para footer fixo */
-    margin: 0;
-}
-
-.container.mobile-view {
-    width: 100%;
-    max-width: 500px; /* Limite de largura */
-    background-color: var(--card-background, #fff);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ocupar altura total */
-    position: relative; /* Para footer fixo */
-}
-
-/* Variáveis */
+/* Variáveis (herda de global.css) */
 :root {
     --button-sair-red: #dc3545; /* Vermelho perigo */
     --button-sair-hover: #bb2d3b; /* Vermelho mais escuro */
     --link-card-hover-bg: #f8f9fa; /* Fundo cinza claro */
-    --modal-overlay-bg: rgba(0, 0, 0, 0.5);
-    --toast-success-bg: #198754; /* Verde sucesso */
 }
 
 /* Conteúdo da página */
 .content-area.sobremim-content {
-    padding: 20px 15px;
-    background-color: var(--card-background); /* Fundo branco */
+    padding: 0; /* Remove padding para o cartão de perfil encostar no topo */
+    background-color: var(--background-grey); /* Fundo cinza */
     flex-grow: 1;
 }
 
-.content-header {
-    margin-bottom: 25px;
+/* --- Cartão de Informação do Usuário (COMO LINK) --- */
+.user-info-card-link {
+    text-decoration: none;
+    display: block;
+}
+.user-info-card {
+    background-color: var(--sigo-blue);
+    color: #fff;
+    padding: 25px 20px;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 36, 66, 0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.user-info-card-link:hover .user-info-card {
+    background-color: #001a2f; /* Mais escuro no hover */
+}
+.user-info-card-link:active .user-info-card {
+    transform: scale(0.98); /* Efeito de clique */
 }
 
-.page-title {
-    font-size: 1.5em;
+.user-avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+#user-name-large {
+    color: #fff;
+    font-size: 1.6em;
     font-weight: 700;
     margin-bottom: 2px;
 }
 
-.page-subtitle {
+#user-unit-large {
+    color: rgba(255,255,255,0.7);
+    margin: 0;
     font-size: 0.9em;
-    color: var(--text-color-light);
 }
 
-/* Card Link para Perfil */
-.profile-link-card {
+/* NOVO: Prompt "Ver Perfil" */
+.view-profile-prompt {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 6px 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    transition: background-color 0.2s ease;
+}
+.user-info-card-link:hover .view-profile-prompt {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+.view-profile-prompt .fa-chevron-right {
+    font-size: 0.7rem;
+    margin-left: 5px;
+}
+
+/* --- Título "Opções" --- */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color-light);
+    margin-bottom: 10px; /* Menos espaço */
+    padding-left: 5px;
+}
+
+/* --- NOVA LISTA DE AÇÕES --- */
+.action-list-wrapper {
+    margin: 25px 15px; /* Espaço acima e nas laterais */
+}
+
+.action-list {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    overflow: hidden; /* Para cantos arredondados funcionarem */
+}
+
+.action-list-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 12px 15px;
-    background-color: var(--card-background);
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 25px;
-    cursor: pointer;
+    padding: 16px 20px;
     text-decoration: none;
     color: var(--text-color-dark);
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    border: none; /* Reset do botão */
+    background-color: transparent; /* Reset do botão */
+    width: 100%; /* Reset do botão */
+    font-family: 'Roboto', Arial, sans-serif; /* Herdado */
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid var(--list-border-color);
 }
-.profile-link-card:hover {
+.action-list-item:last-child {
+    border-bottom: none;
+}
+.action-list-item:hover {
     background-color: var(--link-card-hover-bg);
 }
-.profile-link-card:active {
-    transform: scale(0.99);
-}
 
-.profile-link-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 15px;
-    border: 1px solid var(--border-color);
-}
-
-.profile-link-text {
-    flex-grow: 1; /* Ocupa espaço */
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.profile-link-arrow {
-    color: var(--text-color-light);
-    font-size: 0.9rem;
-}
-
-/* Botão Sair */
-.btn-logout-action {
-    display: flex; /* Alinhar ícone e texto */
+.action-list-item div {
+    display: flex;
     align-items: center;
-    justify-content: center; /* Centralizar conteúdo */
-    gap: 8px; /* Espaço entre ícone e texto */
-    width: 100%;
-    padding: 12px;
-    background-color: var(--button-sair-red);
-    color: #fff;
-    font-size: 1rem; /* Tamanho ajustado */
-    font-weight: 500;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-}
-.btn-logout-action:hover {
-    background-color: var(--button-sair-hover);
-}
-.btn-logout-action:active {
-    transform: translateY(1px); /* Efeito de clique */
-}
-.btn-logout-action i {
-    font-size: 1.1em; /* Tamanho do ícone */
+    gap: 15px; /* Espaço entre ícone e texto */
 }
 
+.action-icon {
+    font-size: 1.1em;
+    width: 20px; /* Alinhamento */
+    text-align: center;
+    color: var(--primary-blue); /* Cor padrão do ícone */
+}
+
+.arrow-icon {
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+
+/* Estilo para item de "Sair" */
+.action-list-item.danger .action-icon,
+.action-list-item.danger span {
+    color: var(--danger-color);
+}
+ .action-list-item.danger:hover {
+    background-color: #fff8f8;
+}
 
 /* --- Modal de Confirmação --- */
 .modal-overlay {
-    display: flex; /* Usar flex para centralizar */
+    display: flex;
     position: fixed;
-    inset: 0; /* top, right, bottom, left = 0 */
+    inset: 0;
     background-color: var(--modal-overlay-bg);
     justify-content: center;
     align-items: center;
@@ -139,192 +165,79 @@ body {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
-.modal-overlay.hidden { /* Classe para esconder */
+.modal-overlay.hidden {
     opacity: 0;
-    pointer-events: none; /* Não interagir quando escondido */
+    pointer-events: none;
 }
-
 .modal-content {
     background-color: #fff;
     padding: 25px;
     border-radius: 8px;
-    width: 90%; /* Responsivo */
-    max-width: 350px; /* Largura máxima */
+    width: 90%;
+    max-width: 350px;
     text-align: center;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transform: scale(1);
     transition: transform 0.3s ease;
 }
-.modal-overlay.hidden .modal-content { /* Animação ao esconder */
+.modal-overlay.hidden .modal-content {
     transform: scale(0.95);
 }
-
 .modal-title {
     font-size: 1.25em;
     margin-bottom: 15px;
     color: var(--text-color-dark);
     font-weight: 600;
 }
-
 .modal-text {
     margin-bottom: 20px;
     color: var(--text-color-light);
     font-size: 0.95rem;
 }
-
 .modal-actions {
     display: flex;
-    justify-content: space-between; /* Botões nas pontas */
-    gap: 10px; /* Espaço entre botões */
+    justify-content: space-between;
+    gap: 10px;
 }
-
-.btn-modal { /* Estilo base para botões do modal */
-    flex-grow: 1; /* Ocupar espaço igual */
-    padding: 10px 15px; /* Padding interno */
+.btn-modal {
+    flex-grow: 1;
+    padding: 10px 15px;
     border: none;
     border-radius: 6px;
     font-weight: 500;
     cursor: pointer;
     font-size: 0.95rem;
 }
-
 .btn-cancel {
-    background-color: #e2e8f0; /* Cinza claro */
+    background-color: #e2e8f0;
     color: var(--text-color-dark);
 }
-.btn-cancel:hover {
-    background-color: #cbd5e1; /* Cinza mais escuro */
-}
-
+.btn-cancel:hover { background-color: #cbd5e1; }
 .btn-confirm {
     background-color: var(--button-sair-red);
     color: #fff;
 }
-.btn-confirm:hover {
-    background-color: var(--button-sair-hover);
-}
-
+.btn-confirm:hover { background-color: var(--button-sair-hover); }
 
 /* --- Toast/Snackbar de Sucesso --- */
 .toast-message {
-    visibility: hidden; /* Controlado pelo JS */
+    visibility: hidden;
     min-width: 250px;
     background-color: var(--toast-success-bg);
     color: #fff;
     text-align: center;
     border-radius: 4px;
     padding: 16px;
-    position: fixed; /* Fixo na tela */
-    z-index: 110; /* Acima do overlay */
+    position: fixed;
+    z-index: 110;
     left: 50%;
-    bottom: calc(var(--footer-height) + 20px); /* Acima do footer */
-    transform: translateX(-50%) translateY(20px); /* Começa abaixo */
+    bottom: calc(var(--footer-height) + 20px);
+    transform: translateX(-50%) translateY(20px);
     opacity: 0;
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .toast-message.show {
     visibility: visible;
     opacity: 1;
-    transform: translateX(-50%) translateY(0); /* Sobe para a posição */
+    transform: translateX(-50%) translateY(0);
 }
-/* Adicionar no fim do arquivo */
-
-/* Footer de Navegação */
-.footer-nav {
-    position: fixed; /* Fixo na base */
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 20;
-    height: var(--footer-height);
-    display: flex;
-    justify-content: center; /* Centralizar itens dentro */
-}
-
-.nav-items {
-    display: flex;
-    justify-content: space-around; /* Distribuir espaço igualmente */
-    align-items: stretch; /* Esticar itens verticalmente */
-    width: 100%;
-    max-width: 500px; /* Limitar largura no centro */
-    height: 100%;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1; /* Ocupar espaço igual */
-    padding: 5px 0; /* Padding vertical */
-    text-decoration: none;
-    cursor: pointer;
-    color: var(--nav-text-inactive, #6b7280);
-    transition: color 0.2s ease;
-}
-
-.nav-icon-wrapper {
-    margin-bottom: 3px; /* Espaço entre ícone e texto */
-    color: var(--nav-icon-inactive, #6b7280); /* Cor do ícone */
-    font-size: 1.5rem; /* Tamanho do ícone */
-    line-height: 1;
-    transition: color 0.2s ease;
-}
-.nav-icon-wrapper svg {
-    display: block; /* Remover espaço extra abaixo do SVG */
-    width: 28px; /* Tamanho SVG */
-    height: 28px;
-}
-
-.nav-text {
-    font-size: 0.7rem; /* Texto pequeno */
-    font-weight: 500;
-}
-
-/* Estilo do Item Ativo */
-.nav-item.active .nav-icon-wrapper {
-    color: var(--nav-icon-active, #2563eb);
-}
-.nav-item.active .nav-icon-wrapper svg path {
-    fill: var(--nav-icon-active, #2563eb); /* Mudar fill do SVG */
-}
-.nav-item.active .nav-text {
-    color: var(--nav-text-active, #2563eb);
-}
-
-/* Efeito Hover (opcional) */
-.nav-item:hover .nav-icon-wrapper {
-    color: var(--nav-icon-active, #2563eb);
-}
-.nav-item:hover .nav-icon-wrapper svg path {
-    fill: var(--nav-icon-active, #2563eb);
-}
-.nav-item:hover .nav-text {
-    color: var(--nav-text-active, #2563eb);
-}
-
-
-/* Media Query para telas maiores */
-@media (min-width: 500px) { /* A partir da largura máxima */
-     body {
-         padding-bottom: 0; /* Remover padding se não for mobile */
-     }
-    .container.mobile-view {
-         margin: 20px auto; /* Centralizar container */
-         min-height: calc(100vh - 40px);
-         border-radius: 10px; /* Borda arredondada */
-    }
-     .footer-nav {
-         position: static; /* Footer deixa de ser fixo */
-         box-shadow: none;
-         height: auto;
-         max-width: none;
-         margin: 0 auto;
-         padding: 10px 0;
-         border-top: 1px solid var(--border-color, #ddd);
-     }
-      .nav-items { max-width: 600px; } /* Limitar largura do nav */
-}
-/* Fim do bloco final */

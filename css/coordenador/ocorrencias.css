@@ -1,0 +1,8 @@
+/* css/coordenador/ocorrencias.css */
+
+/* Reutiliza estilos de 'solicitacoes.css' para filtros e tabela */
+/* Reutiliza estilos de 'prelecoes.css' para o modal */
+
+/* Estilos específicos podem ser adicionados aqui se necessário */
+@import '../coordenador/solicitacoes.css';
+@import '../coordenador/prelecoes.css';

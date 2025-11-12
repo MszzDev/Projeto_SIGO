@@ -1,153 +1,137 @@
-/* unit-detail.css - Estilos específicos para a tela de Detalhes da Unidade */
+/* css/coordenador/unit-detail.css */
 
-/* Layout de detalhes da unidade */
-.row-details {
+/* --- NOVO: Estilo para o header com botão de voltar --- */
+.page-header-actions {
     display: flex;
-    flex-wrap: wrap;
-    margin-left: calc(-1 * var(--spacing-md) / 2); /* Ajuste para gap */
-    margin-right: calc(-1 * var(--spacing-md) / 2);
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+.page-header-actions .welcome-section {
+    margin-bottom: 0; /* Remove margem, pois o wrapper já tem */
+}
+.page-header-actions .actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* --- LAYOUT EM GRID (2 Colunas) --- */
+.details-grid {
+    display: grid;
+    /* 2 colunas, com tamanho mínimo de 300px */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
 }
 
-.col-unit-info,
-.col-supervisor-info {
-    padding-left: calc(var(--spacing-md) / 2);
-    padding-right: calc(var(--spacing-md) / 2);
-    margin-bottom: var(--spacing-md); /* Espaçamento vertical */
-    display: flex; /* Para o card ocupar altura total */
-    flex-direction: column;
+.details-grid .card {
+    margin-bottom: 0; /* Remove margem, o grid cuida do espaçamento */
+    height: 100%; /* Faz os cards terem a mesma altura */
 }
 
-.col-unit-info {
-    flex: 1; /* Ocupa mais espaço */
-    min-width: 300px; /* Largura mínima */
+.details-grid .card-body p {
+    margin-bottom: 0.5rem;
 }
-
-.col-supervisor-info {
-    flex: 0 0 320px; /* Largura fixa */
-}
-
-.col-unit-info .card,
-.col-supervisor-info .card {
-    height: 100%; /* Fazer o card ocupar a altura da coluna */
-}
-.col-unit-info .card-body p {
-    margin-bottom: 0.5rem; /* Espaçamento entre parágrafos */
-}
-.col-unit-info .card-body p:last-child {
+.details-grid .card-body p:last-child {
     margin-bottom: 0;
 }
+/* --- FIM DO NOVO LAYOUT EM GRID --- */
 
 
+/* Card do Supervisor (agora fica separado) */
+.supervisor-card {
+    margin-bottom: var(--spacing-lg);
+}
 .supervisor-card .card-body {
     display: flex;
     align-items: center;
 }
-
-.supervisor-card img { /* Estilo da imagem do supervisor */
+.supervisor-card img {
     width: 50px;
     height: 50px;
     object-fit: cover;
     margin-right: var(--spacing-md);
 }
-
 .supervisor-card h6 {
-    margin-bottom: 0.1rem; /* Menos espaço abaixo do nome */
+    margin-bottom: 0.1rem;
     font-weight: 500;
 }
-
 .supervisor-card small {
     color: var(--text-muted);
     font-size: 0.85rem;
 }
 
-/* Estilos para abas de colaboradores */
-.collaborators-card .card-header button { /* Estilo botão adicionar */
-    font-size: 0.85rem;
+/* Link wrapper (copiado do CSS do gerente) */
+.supervisor-link-wrapper {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color-dark);
+    border-radius: 6px;
+    padding: 10px;
+    margin: -10px;
+    transition: background-color 0.2s ease;
+}
+.supervisor-link-wrapper:hover {
+    background-color: var(--light-color);
+}
+.supervisor-card img {
+    object-fit: cover;
+    border: 1px solid var(--border-color);
 }
 
-/* Estilos Abas (Nav Tabs) */
+
+/* Estilos para abas de colaboradores */
+.collaborators-card .card-header button {
+    font-size: 0.85rem;
+}
 .nav-tabs-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin-bottom: var(--spacing-md);
-    border-bottom: 1px solid var(--border-color); /* Linha abaixo das abas */
+    border-bottom: 1px solid var(--border-color);
 }
-
 .nav-tabs {
     display: flex;
-    flex-wrap: nowrap; /* Não quebrar linha */
+    flex-wrap: nowrap;
     padding-left: 0;
-    margin-bottom: -1px; /* Para sobrepor a borda do container */
+    margin-bottom: -1px;
     list-style: none;
-    border-bottom: none; /* Remover borda padrão */
+    border-bottom: none;
 }
-
 .nav-tabs .nav-link {
-    background: none; /* Sem fundo padrão */
+    background: none;
     border: 1px solid transparent;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     color: var(--text-muted);
-    padding: 0.6rem 1rem; /* Padding ajustado */
+    padding: 0.6rem 1rem;
     cursor: pointer;
     font-weight: 500;
-    margin-right: 2px; /* Pequeno espaço entre abas */
-    white-space: nowrap; /* Não quebrar texto */
+    margin-right: 2px;
+    white-space: nowrap;
 }
-
 .nav-tabs .nav-link:hover {
-    border-color: transparent; /* Evitar borda no hover */
+    border-color: transparent;
     color: var(--primary-color);
 }
-
 .nav-tabs .nav-link.active {
     color: var(--primary-color);
-    background-color: var(--card-bg); /* Fundo branco */
-    border-color: var(--border-color) var(--border-color) var(--card-bg); /* Bordas que se conectam */
+    background-color: var(--card-bg);
+    border-color: var(--border-color) var(--border-color) var(--card-bg);
 }
-
-/* Conteúdo das Abas */
 .tab-content {
-    margin-top: var(--spacing-md); /* Espaço acima do conteúdo da aba */
+    margin-top: var(--spacing-md);
 }
 .tab-pane { display: none; }
-.tab-pane.fade { transition: opacity .15s linear; } /* Transição suave */
+.tab-pane.fade { transition: opacity .15s linear; }
 .tab-pane.show.active { display: block; }
 
 /* Ações na tabela */
-.table td button {
-    margin-right: 5px; /* Espaço entre botões */
-}
-.table td button:last-child {
-    margin-right: 0;
-}
-
-/* Responsividade */
-@media (max-width: 992px) {
-    .col-supervisor-info {
-        flex: 0 0 100%; /* Ocupa linha inteira */
-        max-width: 400px; /* Limitar largura máxima */
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-@media (max-width: 768px) {
-    .row-details {
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .col-unit-info,
-    .col-supervisor-info {
-        padding-left: 0;
-        padding-right: 0;
-        flex: 0 0 100%; /* Garantir largura total */
-    }
-}
-/* Ajuste para múltiplos botões de ação */
+.table td button,
 .table td .btn {
-    margin-right: 5px; /* Adiciona espaço entre os botões */
+    margin-right: 5px;
 }
 .table td .btn:last-child {
     margin-right: 0;

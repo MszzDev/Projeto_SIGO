@@ -6,34 +6,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const allUsers = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
     const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
-    const registeredUnidades = allUnidades.map(u => u.nome);
-    const staffUnidades = allUsers.map(u => u.unidade).filter(u => u && u !== 'N/A');
-    const allUnitNames = [...new Set([...registeredUnidades, ...staffUnidades])];
-    allUnitNames.sort();
+
+    allUnidades.sort((a, b) => a.nome.localeCompare(b.nome));
 
     let htmlFinal = '';
 
-    if (allUnitNames.length === 0) {
+    if (allUnidades.length === 0) {
         htmlFinal = `<p class="no-users-message" style="width: 100%;">Nenhuma unidade encontrada. Comece clicando em "Adicionar Unidade".</p>`;
         container.innerHTML = htmlFinal;
         return;
     }
 
-    allUnitNames.forEach(unitName => {
-        const unitData = allUnidades.find(u => u.nome === unitName);
+    allUnidades.forEach(unitData => {
+        const unitName = unitData.nome;
+        // Conta supervisores e colaboradores da forma antiga (pelo cadastro do colaborador)
         const supervisores = allUsers.filter(u => u.unidade === unitName && u.cargo === 'Supervisor').length;
         const colaboradores = allUsers.filter(u => u.unidade === unitName && u.cargo === 'Colaborador').length;
 
-        // *** CORREÇÃO DO LINK ***
-        // Aponta para 'unidade-detalhe.html' dentro da pasta 'gerente/'
+        // --- LÓGICA ATUALIZADA ---
+        let localizacao = 'Não informado';
+        
+        // Define a localização
+        if (unitData.cidade && unitData.uf) {
+            localizacao = `${unitData.cidade} - ${unitData.uf}`;
+        } else if (unitData.bairro) {
+            localizacao = unitData.bairro;
+        } else if (unitData.cep) {
+            localizacao = unitData.cep;
+        }
+
+        // Conta o coordenador
+        const coordCount = (unitData.coordenadorId && unitData.coordenadorId !== "Nenhum") ? 1 : 0;
+        // --- FIM DA LÓGICA ATUALIZADA ---
+
+        // ATUALIZADO: Link agora usa ?id=
         htmlFinal += `
-            <a href="unidade-detalhe.html?unidade=${encodeURIComponent(unitName)}" class="col-card">
+            <a href="unidade-detalhe.html?id=${unitData.id}" class="col-card">
                 <div class="unit-card">
                     <h3 class="unit-card-title">${unitName}</h3>
-                    <span class="unit-card-code">#${unitData?.codigo || 'N/A'}</span>
+                    <span class="unit-card-code">${localizacao}</span> 
                     
                     <div class="unit-card-staff">
-                        <span>${supervisores}</span> Sup. / <span>${colaboradores}</span> Colab.
+                        <span>${coordCount}</span> Coord. / <span>${supervisores}</span> Sup. / <span>${colaboradores}</span> Colab.
                     </div>
                 </div>
             </a>

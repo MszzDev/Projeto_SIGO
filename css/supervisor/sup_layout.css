@@ -1,0 +1,74 @@
+/* css/supervisor/sup_layout.css */
+/* Este é o arquivo MESTRE para o layout do supervisor. */
+/* Ele garante que o header e o footer sejam fixos e o conteúdo role. */
+
+/* (REMOVIDO o :root daqui) */
+
+/* 1. Trava o body e o html */
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* Impede o scroll da página inteira */
+    background-color: var(--background-grey); /* Variavel do global.css */
+}
+
+/* 2. Define o container do "celular" */
+.container.mobile-view {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; /* Centraliza em telas maiores */
+    background-color: var(--card-background);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupa 100% da altura da tela */
+    overflow: hidden; /* Garante que nada vaze */
+    position: relative;
+}
+
+/* 3. Header Fixo */
+.header {
+    height: var(--header-height);
+    flex-shrink: 0; /* Impede que o header encolha */
+    position: sticky; /* Fica fixo no topo do container */
+    top: 0;
+    z-index: 10;
+    /* (Estilos de cor, etc. vêm do global.css) */
+}
+
+/* 4. Área de Conteúdo Rolável */
+.content-area {
+    flex-grow: 1; /* Ocupa todo o espaço restante */
+    overflow-y: auto; /* ADICIONA O SCROLL SÓ AQUI */
+    overflow-x: hidden;
+    padding: 15px; /* Padding padrão do conteúdo */
+    background-color: var(--background-grey); /* Fundo cinza padrão */
+}
+/* Ajustes para telas que controlam o próprio padding */
+.content-area.profile-page,
+.content-area.collaborators-page,
+.content-area.sobremim-content {
+    padding: 0;
+}
+/* Fundo branco para telas de formulário/lista */
+.content-area.solicitacao-content,
+.content-area.relatorio-content,
+.content-area.historico-page,
+.content-area.collaborators-page,
+.content-area.profile-page,
+.content-area.sobremim-content {
+     background-color: var(--card-background);
+}
+
+
+/* 5. Footer Fixo */
+.footer-nav {
+    height: var(--footer-height);
+    flex-shrink: 0; /* Impede que o footer encolha */
+    position: static; /* Não é 'fixed' na tela, mas no 'mobile-view' */
+    bottom: 0;
+    width: 100%;
+    z-index: 20;
+    /* (Estilos de cor, etc. vêm do global.css e sup_dashboard.css) */
+}

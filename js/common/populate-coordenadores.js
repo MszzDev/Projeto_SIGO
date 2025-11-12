@@ -1,25 +1,24 @@
 // js/common/populate-coordenadores.js
 document.addEventListener('DOMContentLoaded', () => {
-    const selectCoordenador = document.getElementById('coordenadorId');
-    if (!selectCoordenador) return; // Se não houver dropdown, não faz nada
+    // ATUALIZADO: Procura por todos os selects com a classe
+    const selectCoordenadores = document.querySelectorAll('.coordenador-select');
+    if (selectCoordenadores.length === 0) return; // Se não houver dropdown, não faz nada
 
     const users = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
     const coordenadores = users.filter(u => u.cargo === 'Coordenador');
 
-    // Guarda as opções originais (ex: "Selecione..." e "Nenhum")
-    const originalOptions = Array.from(selectCoordenador.options);
-
-    // Limpa o select, mas mantém as opções originais
-    selectCoordenador.innerHTML = originalOptions.map(op => op.outerHTML).join('');
-
-    if (coordenadores.length === 0) {
-        selectCoordenador.options[1].disabled = true; // Desativa "Nenhum" se houver
-    } else {
-        selectCoordenador.options[1].disabled = false; // Ativa "Nenhum"
+    // Cria o HTML das opções
+    let optionsHtml = '';
+    if (coordenadores.length > 0) {
         coordenadores.forEach(cood => {
             // Adiciona o ID no value e o Nome no texto
-            const option = new Option(cood.nome, cood.id); 
-            selectCoordenador.add(option);
+            optionsHtml += `<option value="${cood.id}">${cood.nome}</option>`;
         });
     }
+
+    // ATUALIZADO: Itera sobre cada dropdown encontrado e adiciona as opções
+    selectCoordenadores.forEach(select => {
+        const originalOption = select.innerHTML; // Salva o "Nenhum" ou "Selecione..."
+        select.innerHTML = originalOption + optionsHtml;
+    });
 });
