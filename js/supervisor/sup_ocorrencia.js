@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const descricao = document.getElementById('ocorrencia_descricao').value.trim();
 
         try {
-            // --- LÓGICA DE NOTIFICAÇÃO (INÍCIO) ---
+            
             const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
             const estaUnidade = allUnidades.find(u => u.nome === userLogado.unidade);
             const targetCoordenadorId = estaUnidade ? estaUnidade.coordenadorId : null;
@@ -105,12 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     texto: `Nova ocorrência (${tipo}) registrada por ${userLogado.nome.split(' ')[0]}.`,
                     coordenadorId: targetCoordenadorId,
                     lida: false,
-                    link: 'ocorrencias.html' // Leva para a nova pág. de ocorrências
+                    link: 'ocorrencias.html' // Leva para a nova pag de ocorrencias
                 };
                 notificacoes.unshift(novaNotificacao);
                 localStorage.setItem('sigo_notificacoes', JSON.stringify(notificacoes));
             }
-            // --- LÓGICA DE NOTIFICAÇÃO (FIM) ---
+           
             
             const ocorrenciasSalvas = localStorage.getItem('sigo_ocorrencias');
             const listaOcorrencias = ocorrenciasSalvas ? JSON.parse(ocorrenciasSalvas) : [];

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Duração da animação (em milissegundos), deve ser igual ao CSS
+    // Duração da animação
     const animationDuration = 400; 
 
     // Pega todos os links da página
@@ -10,12 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const href = link.getAttribute('href');
 
         // Ignora links que não são de navegação interna
-        // (links externos, âncoras, javascript, email, etc.)
         if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('http') || href.startsWith('tel:') || link.target === '_blank') {
             return;
         }
 
-        // Adiciona o listener de clique
+        // Adiciona o movimento de clique
         link.addEventListener('click', (event) => {
             // 1. Impede o navegador de navegar imediatamente
             event.preventDefault(); 

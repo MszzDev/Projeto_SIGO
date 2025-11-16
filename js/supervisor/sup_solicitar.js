@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const successToast = document.getElementById('success-message');
     const errorToast = document.getElementById('error-message');
 
-    // --- 1. PEGAR DADOS DO SUPERVISOR LOGADO ---
+    //  1. pega dados do sup logado
     const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
     
     const inputUnidade = document.getElementById('unidade');
@@ -20,13 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast(errorToast, 'Erro: Perfil de supervisor não encontrado.');
         if(triggerBtn) triggerBtn.disabled = true;
     } else {
-        // --- 2. PREENCHER O FORMULÁRIO (READONLY) ---
+        //  2. preenche o formulário com dados do sup
         if (inputUnidade) inputUnidade.value = userLogado.unidade || 'N/A';
         if (inputSupervisor) inputSupervisor.value = userLogado.nome || 'N/A';
         if (inputTurno) inputTurno.value = userLogado.periodo || 'N/A';
     }
 
-    // --- Funções de Toast ---
     function showToast(element, message, duration = 3000) {
         if (!element) return;
         element.textContent = message;
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(element) element.classList.remove('visible');
     }
     
-    // --- Funções do Modal ---
+    // Funções do Modal 
     function showModal() {
         if(modal) modal.classList.add('visible');
     }
@@ -47,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(modal) modal.classList.remove('visible');
     }
     
-    // --- Validação e Coleta de Dados ---
+    //  Validação e coleta dos dados do formulário
     function getFormData() {
         const data = {
             unidade: inputUnidade.value,
@@ -85,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return data; 
     }
 
-    // --- Handlers de Eventos ---
+    // Handlers de Eventos 
     if(triggerBtn) triggerBtn.addEventListener('click', () => {
         if (!userLogado) return; // Bloqueia se não houver usuário
         const data = getFormData();
@@ -99,11 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if(confirmBtn) confirmBtn.addEventListener('click', () => {
         const data = getFormData(); 
         
-        // A verificação '&& userLogado' é crucial
+        // verificação 
         if (data && userLogado) {
             hideModal();
             try {
-                // --- LÓGICA DE NOTIFICAÇÃO (INÍCIO) ---
+                //  lógica de notificação 
                 const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
                 const estaUnidade = allUnidades.find(u => u.nome === userLogado.unidade);
                 const targetCoordenadorId = estaUnidade ? estaUnidade.coordenadorId : null;
@@ -122,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     notificacoes.unshift(novaNotificacao);
                     localStorage.setItem('sigo_notificacoes', JSON.stringify(notificacoes));
                 }
-                // --- LÓGICA DE NOTIFICAÇÃO (FIM) ---
+                //  lógica de notificação 
 
                 const solicitacoesSalvas = localStorage.getItem('sigo_solicitacoes');
                 const listaSolicitacoes = solicitacoesSalvas ? JSON.parse(solicitacoesSalvas) : [];
@@ -146,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showToast(errorToast, 'Erro ao salvar solicitação.');
             }
             
-            // Limpa o formulário e repõe os dados do supervisor
+            // Limpa o formulário 
             setTimeout(() => {
                 if(form) form.reset(); 
                 if (userLogado) {
@@ -157,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500); 
 
         } else {
-             // Se falhar (ex: userLogado não existe), apenas fecha o modal
+             // Se falhar ,apenas fecha
              hideModal(); 
              if (!userLogado) {
                 showToast(errorToast, 'Erro de sessão. Faça login novamente.');

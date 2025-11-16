@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelBtn = document.getElementById('cancel-btn');
     const successToast = document.getElementById('success-toast');
 
-    // Pega o usuário logado DA SESSÃO para saber qual unidade limpar
+    // Pega o usuário logado para saber qual unidade limpar
     const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
 
     function showModal() { if(exitModal) exitModal.classList.remove('hidden'); }
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Mostrar o Modal
     if (logoutBtn) { 
         logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault(); // Impede o envio do formulário (embora seja um botão tipo 'button')
+            e.preventDefault(); 
             showModal();
         }); 
     }
@@ -34,23 +34,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Processar Saída (Confirmar)
+    // 3. confirmação de saída 
     if (confirmBtn) {
         confirmBtn.addEventListener('click', () => {
             hideModal();
             showToast();
 
-            // *** LÓGICA DE LOGOUT ATUALIZADA E CORRIGIDA ***
-            // Define que a unidade deste supervisor ficou INATIVA
+            //  lógica de logout 
+            // Define que unidade ficou inativa  
             if (userLogado && userLogado.unidade && userLogado.cargo === 'Supervisor') {
                 const statusKey = `sigo_status_unidade_${userLogado.unidade.replace(/\s/g, '')}`;
                 localStorage.removeItem(statusKey);
                 console.log(`Status da ${userLogado.unidade} foi limpo.`);
             }
             
-            // Limpa os dados da sessão
+            // Limpa os dados 
             sessionStorage.removeItem('sigo_user_logado');
-            // *** FIM DA LÓGICA ATUALIZADA ***
+
+        
 
             // Redireciona após o toast
             setTimeout(() => {

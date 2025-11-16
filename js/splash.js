@@ -1,10 +1,8 @@
 // js/splash.js
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Define o destino do redirecionamento
     const targetURL = 'login.html';
     
-    // Define o tempo em milissegundos (5 segundos)
     const delay = 5000;
 
     let redirected = false; // Trava para evitar cliques duplos

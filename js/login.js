@@ -13,11 +13,10 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     usernameInput.classList.remove('input-error');
     passwordInput.classList.remove('input-error');
 
-    // --- LÓGICA MESTRE TEMPORÁRIA ---
-    // Permite o login G123 mesmo se o banco de dados estiver vazio
+    // Login do Gerente sem bd
     if (username === 'G123' && password === '123') {
         
-        // Cria um usuário Gerente FALSO na sessão SÓ para esta vez
+        // Gerente falso
         const tempGerente = {
             id: "master",
             nome: "Gerente ADM",
@@ -26,12 +25,10 @@ document.getElementById('login-form').addEventListener('submit', function(event)
         };
         sessionStorage.setItem('sigo_user_logado', JSON.stringify(tempGerente));
         window.location.href = 'telas/gerente/dashboard.html';
-        return; // Pula o resto da verificação
+        return; 
     }
-    // --- FIM DA LÓGICA MESTRE ---
 
-
-    // Lógica Padrão (para todos os outros usuários)
+    // Lógica Padrão de Login
     const allUsers = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
     const user = allUsers.find(u => u.id_usuario === username);
 

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const responsavelSelect = document.getElementById('responsavel');
     const tempMessage = document.getElementById('temp-message');
 
-    // --- 1. PEGAR DADOS DO SUPERVISOR LOGADO ---
+    //  1. pega dados do sup logado
     const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
     
     const inputUnidade = document.getElementById('unidade');
@@ -21,18 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('Erro: Perfil de supervisor não encontrado.', 'error');
         if(openModalButton) openModalButton.disabled = true;
     } else {
-        // --- 2. PREENCHER O FORMULÁRIO (READONLY) ---
+        //  2. preenche o formulário 
         if (inputUnidade) inputUnidade.value = userLogado.unidade || 'N/A';
         if (inputSupervisor) inputSupervisor.value = userLogado.nome || 'N/A';
         if (inputTurno) inputTurno.value = userLogado.periodo || 'N/A';
     }
     
-    // --- 3. PREENCHER DROPDOWN DE RESPONSÁVEIS (DINÂMICO) ---
+    //  3. preenche o dropdown de responsáveis 
     (function carregarEquipe() {
         if (!responsavelSelect || !userLogado) return;
 
         const allColaboradores = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
-        // Pega a equipe (Supervisores + Colaboradores) da mesma unidade
+        // Pega a equipe da mesma unidade
         const minhaEquipe = allColaboradores.filter(c => 
             c.unidade === userLogado.unidade && (c.cargo === 'Supervisor' || c.cargo === 'Colaborador')
         );
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
 
-    // --- Funções de Toast ---
+    //  Funções de Toast 
     function showToast(message, type = 'success', duration = 3000) {
         if (!tempMessage) return;
         if (type === 'error') {
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(tempMessage) tempMessage.classList.remove('visible');
     }
     
-    // --- Funções de Modal ---
+    // Funções de Modal
     function showModal() {
         if(modalOverlay) modalOverlay.classList.add('visible');
     }

@@ -22,7 +22,7 @@ html, body {
     
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Ocupa 100% da altura da tela */
+    height: 100%; /* <-- FAÇA ESSA MUDANÇA */
     overflow: hidden; /* Garante que nada vaze */
     position: relative;
 }

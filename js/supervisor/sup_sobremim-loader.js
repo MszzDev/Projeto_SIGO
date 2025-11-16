@@ -3,18 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
     
     // Referências aos NOVOS elementos do HTML
-    const avatarImg = document.getElementById('user-avatar');
+    const avatarImg = document.getElementById('user-avatar');  
     const userNameEl = document.getElementById('user-name-large');
     const userUnitEl = document.getElementById('user-unit-large');
 
     if (userLogado) {
-        // Preenche o avatar
+        // Preenche a foto de perfil geral  
         if (avatarImg) {
             if (userLogado.foto_url) {
                 avatarImg.src = userLogado.foto_url;
                 avatarImg.style.objectFit = 'cover';
             } else {
-                avatarImg.src = '../../img/perf.png'; // Fallback para perf.png
+                avatarImg.src = '../../img/perf.png'; // img default
             }
         }
 
