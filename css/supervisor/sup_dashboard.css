@@ -100,11 +100,9 @@
     gap: 15px; /* Espaço entre elas */
     margin-top: 0;
 }
-.card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    margin-bottom: 0; 
+/* Faz o último card ocupar a linha inteira se for ímpar (ex: 3º card) */
+.card-link:last-child:nth-child(odd) {
+    grid-column: 1 / -1; /* Ocupa do início ao fim do grid */
 }
 
 /* Card de Ação */
