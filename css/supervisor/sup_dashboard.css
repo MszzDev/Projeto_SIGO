@@ -94,11 +94,8 @@
 
 
 /* Grid de Ações (2 Colunas) */
-.card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Duas colunas */
-    gap: 15px; /* Espaço entre elas */
-    margin-top: 0;
+.card-grid .card-link:last-child:nth-child(odd) {
+    grid-column: span 2; /* Faz o item ocupar 2 colunas (largura total) */
 }
 /* Faz o último card ocupar a linha inteira se for ímpar (ex: 3º card) */
 .card-link:last-child:nth-child(odd) {

@@ -6,7 +6,7 @@
 
 /* 1. Trava o body e o html */
 html, body {
-    height: 100%;
+    height: 100dvh; /* <-- CORREÇÃO APLICADA AQUI */
     margin: 0;
     overflow: hidden; /* Impede o scroll da página inteira */
     background-color: var(--background-grey); /* Variavel do global.css */
