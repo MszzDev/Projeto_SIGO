@@ -6,24 +6,23 @@
 
 /* 1. Trava o body e o html */
 html, body {
-    height: 100dvh; /* <-- CORREÇÃO APLICADA AQUI */
+    height: 100vh; /* <-- MODIFICADO para usar 100vh como base */
+    height: 100dvh; /* Usa o valor dinâmico (melhor compatibilidade futura) */
     margin: 0;
-    overflow: hidden; /* Impede o scroll da página inteira */
-    background-color: var(--background-grey); /* Variavel do global.css */
+    overflow: hidden;
+    background-color: var(--background-grey);
 }
 
 /* 2. Define o container do "celular" */
 .container.mobile-view {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto; /* Centraliza em telas maiores */
-    background-color: var(--card-background);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    
+    /* ...outras propriedades... */
     display: flex;
     flex-direction: column;
-    height: 100%; /* <-- CORREÇÃO APLICADA AQUI */
-    overflow: hidden; /* Garante que nada vaze */
+    height: 100%;
+    min-height: 100vh; /* Fallback */
+    min-height: -webkit-fill-available; /* O hack que corrige iOS/Mobile */
+    min-height: 100dvh; /* Outro fallback */
+    overflow: hidden; 
     position: relative;
 }
 

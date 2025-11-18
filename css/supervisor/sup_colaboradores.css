@@ -3,10 +3,11 @@
 
 /* Variáveis (herda de global.css) */
 :root {
-    --list-header-bg: #f8f9fa;
+    --list-header-bg: #f0f2f5; /* Cinza suave de background-grey (MODIFICADO) */
     --list-border-color: #e5e7eb;
     --icon-view-color: #6b7280;
     --icon-view-hover-color: var(--nav-icon-active);
+    --search-bg: #f8f9fa; /* Fundo mais claro para busca (NOVO) */
 }
 
 /* Estrutura da Página Principal (main) */
@@ -44,9 +45,22 @@
     position: relative;
 }
 
-.search-input { /* Usa .form-control de global.css */
+/* Estilização aprimorada do input de busca */
+.search-input {
+    border-radius: 8px; /* Mais arredondado */
+    background-color: var(--search-bg); /* Fundo mais claro para destaque */
+    border-color: var(--list-border-color);
+    padding: 10px 12px; /* Ajuste de padding vertical */
     padding-left: 40px; /* Espaço para ícone */
 }
+
+.search-input:focus {
+    /* Efeito de foco com a cor primária do Supervisor */
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    background-color: var(--card-background); /* Fundo branco no foco */
+}
+
 
 .search-icon {
     position: absolute;
@@ -63,8 +77,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
-    background-color: var(--list-header-bg);
+    padding: 12px 15px; /* Aumentado o padding vertical (MODIFICADO) */
+    background-color: var(--list-header-bg); /* Cinza suave (MODIFICADO) */
     border-bottom: 1px solid var(--list-border-color);
     color: var(--text-color-light);
     font-weight: 500;
@@ -89,7 +103,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
+    padding: 12px 15px; /* Ajustado para 12px vertical (MODIFICADO) */
     border-bottom: 1px solid var(--list-border-color);
     text-decoration: none;
     color: var(--text-color-dark);
@@ -99,7 +113,7 @@
     border-bottom: none;
 }
 .collaborator-item:hover {
-    background-color: #f9fafb;
+    background-color: #f9fafb; /* Cinza de hover sutil (MODIFICADO) */
 }
 
 .collaborator-name {
