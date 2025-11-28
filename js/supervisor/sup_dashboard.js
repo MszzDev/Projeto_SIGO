@@ -16,23 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (greetingEl) greetingEl.textContent = `Olá, ${userLogado.nome.split(' ')[0]}`;
     if (unitNameEl) unitNameEl.textContent = `Unidade ${userLogado.unidade} - Supervisor`;
 
-    // 3. (LÓGICA ATUALIZADA) Conta os colaboradores NA ESCALA DE HOJE
-    const sigoEscalas = JSON.parse(localStorage.getItem('sigo_escalas')) || {};
-    let contagemHoje = 0;
-    
-    const dias = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
-    const diaKey = dias[new Date().getDay()]; // 'seg', 'ter', etc.
-
-    // MODIFICADO: Verificação de fim de semana REMOVIDA
-    const escalaDaUnidade = sigoEscalas[userLogado.unidade] || {};
-    const idsManha = escalaDaUnidade[`${diaKey}-manha`] || [];
-    const idsTarde = escalaDaUnidade[`${diaKey}-tarde`] || [];
-    const idsNoite = escalaDaUnidade[`${diaKey}-noite`] || [];
-    contagemHoje = idsManha.length + idsTarde.length + idsNoite.length;
-    
+    // 3. ATUALIZA O CARD DE ESTATÍSTICAS (Escala Removida)
+    // O sistema de escalas foi removido. A contagem é definida como 0.
     const countEl = document.querySelector('.header-card-stats .count');
-    if (countEl) countEl.textContent = contagemHoje;
-
+    if (countEl) countEl.textContent = '0'; // Define a contagem como 0 ou placeholder.
+    
     // 4. Preenche a Data
     const infoDateEl = document.getElementById('info-date-js');
     if (infoDateEl) {

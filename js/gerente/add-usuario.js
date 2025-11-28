@@ -24,13 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
             
             localStorage.setItem('sigo_colaboradores', JSON.stringify(listaColaboradores));
             
-            alert(`Usuário [${novoUsuario.cargo}] adicionado com sucesso!`);
+            window.globalAlert(`Usuário [${novoUsuario.cargo}] adicionado com sucesso!`, "Usuário Criado");
             
             window.location.href = 'colaboradores.html';
 
         } catch (error) {
             console.error('Erro ao salvar usuário:', error);
-            alert('Houve um erro ao salvar o usuário.');
+            window.globalAlert('Houve um erro ao salvar o usuário.', "Erro");
         }
     });
 });

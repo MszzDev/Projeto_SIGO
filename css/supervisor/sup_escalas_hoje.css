@@ -1,0 +1,40 @@
+/* css/supervisor/sup_escalas_hoje.css */
+@import url('sup_layout.css'); /* IMPORTA O LAYOUT MESTRE */
+/* Reutiliza a lista e o header do sup_colaboradores */
+@import url('sup_colaboradores.css'); 
+
+.content-area.escala-hoje-page {
+    padding: 15px;
+    background-color: var(--background-grey);
+}
+
+.turno-group {
+    background-color: var(--card-background);
+    border: 1px solid var(--list-border-color);
+    border-radius: 12px;
+    margin-bottom: 25px;
+    overflow: hidden; /* Para garantir bordas arredondadas */
+}
+
+/* Reajuste do header para o novo container */
+.turno-group .list-header {
+    position: static; /* Desativa o sticky dentro do grupo */
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    border-bottom: 1px solid var(--list-border-color);
+    background-color: var(--list-header-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Garante que o conteúdo da lista não tenha borda inferior do lado de fora do grupo */
+.turno-group .collaborator-list {
+    overflow-y: visible; /* A lista de colaboradores não precisa de scroll interno */
+    flex-grow: 0;
+}
+
+/* Remove a borda do último item dentro do grupo */
+.turno-group .collaborator-list .collaborator-item:last-child {
+    border-bottom: none;
+}

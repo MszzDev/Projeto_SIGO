@@ -78,36 +78,40 @@ document.addEventListener('DOMContentLoaded', () => {
         const nomeColaborador = selectedOption.dataset.nome;
 
         if (!colabId || !novaUnidade) {
-            alert("Por favor, selecione o colaborador e a nova unidade.");
+            window.globalAlert("Por favor, selecione o colaborador e a nova unidade.", "Campos Faltando");
             return;
         }
 
         // Procura em TODOS os colaboradores (não apenas na minha equipe)
         const colabIndex = allColaboradores.findIndex(c => c.id === colabId);
         if (colabIndex === -1) {
-            alert("Erro: Colaborador não encontrado.");
+            window.globalAlert("Erro: Colaborador não encontrado.", "Erro de Busca");
             return;
         }
         
-        // Atualiza o colaborador
-        allColaboradores[colabIndex].unidade = novaUnidade;
-        localStorage.setItem('sigo_colaboradores', JSON.stringify(allColaboradores));
+        window.globalConfirm(`Confirma a transferência do colaborador **${nomeColaborador}** da unidade **${unidadeAntiga}** para a unidade **${novaUnidade}**?`, (result) => {
+            if (result) {
+                // Atualiza o colaborador
+                allColaboradores[colabIndex].unidade = novaUnidade;
+                localStorage.setItem('sigo_colaboradores', JSON.stringify(allColaboradores));
 
-        // Salva o log da transferência
-        const logTransferencia = {
-            id: Date.now(),
-            colaboradorId: colabId,
-            colaboradorNome: nomeColaborador,
-            unidadeAntiga: unidadeAntiga,
-            unidadeNova: novaUnidade,
-            data: new Date().toLocaleDateString('pt-BR'),
-            coordenadorId: userLogado.id // Salva quem fez a transferência
-        };
-        listaTransferencias.unshift(logTransferencia);
-        localStorage.setItem('sigo_transferencias', JSON.stringify(listaTransferencias));
+                // Salva o log da transferência
+                const logTransferencia = {
+                    id: Date.now(),
+                    colaboradorId: colabId,
+                    colaboradorNome: nomeColaborador,
+                    unidadeAntiga: unidadeAntiga,
+                    unidadeNova: novaUnidade,
+                    data: new Date().toLocaleDateString('pt-BR'),
+                    coordenadorId: userLogado.id // Salva quem fez a transferência
+                };
+                listaTransferencias.unshift(logTransferencia);
+                localStorage.setItem('sigo_transferencias', JSON.stringify(listaTransferencias));
 
-        alert(`O colaborador "${nomeColaborador}" foi transferido para a unidade "${novaUnidade}"!`);
-        window.location.href = 'colaboradores.html';
+                window.globalAlert(`O colaborador "${nomeColaborador}" foi transferido para a unidade "${novaUnidade}"!`, "Transferência Concluída");
+                window.location.href = 'colaboradores.html';
+            }
+        }, "Confirmar Transferência", "Cancelar", "Confirmação de Transferência");
     });
 
     // --- Inicialização ---

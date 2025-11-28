@@ -3,41 +3,43 @@
 .schedule-card > .card-body {
     /* Adicionado: Permite scroll horizontal se a grade de 7 dias não couber */
     overflow-x: auto;
+    padding: var(--spacing-md); /* Reduzir o padding geral para o grid */
 }
 
 .schedule-grid {
     display: grid;
     /* Modificado: 7 colunas (dias), com largura mínima de 200px cada */
     grid-template-columns: repeat(7, minmax(200px, 1fr)); 
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm); /* Reduzir gap entre colunas */
     min-height: 400px;
 }
 
 .day-column {
-    background-color: var(--light-color);
+    background-color: var(--white-color); /* Fundo Branco (Melhor Contraste) */
     border: 1px solid var(--border-color);
     border-radius: 6px;
     overflow: hidden;
-    display: flex; /* Adicionado: Para os turnos crescerem */
-    flex-direction: column; /* Adicionado */
+    display: flex; 
+    flex-direction: column; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Sombra suave */
 }
 
 .day-header {
-    padding: var(--spacing-sm) var(--spacing-md);
-    background-color: var(--white-color);
-    border-bottom: 1px solid var(--border-color);
+    padding: var(--spacing-md); /* Aumentar o padding do header */
+    background-color: var(--primary-color); /* Cor principal */
+    color: var(--white-color); /* Texto branco */
     text-align: center;
     font-weight: 600;
-    color: var(--dark-color);
-    flex-shrink: 0; /* Adicionado */
+    font-size: 0.95rem; /* Fonte um pouco menor */
+    flex-shrink: 0; 
 }
 
 .shift-box {
-    padding: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
     border-bottom: 1px solid var(--border-color);
-    flex-grow: 1; /* Adicionado: Faz o turno crescer */
-    display: flex; /* Adicionado */
-    flex-direction: column; /* Adicionado */
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
 }
 .day-column .shift-box:last-child {
     border-bottom: none;
@@ -46,11 +48,11 @@
 .shift-title {
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--dark-color); /* Mudar para cor escura */
     margin-bottom: var(--spacing-sm);
     text-transform: uppercase;
-    padding-left: 5px;
-    flex-shrink: 0; /* Adicionado */
+    padding-left: 0;
+    flex-shrink: 0; 
 }
 
 .shift-select {
@@ -60,8 +62,8 @@
     border-radius: 4px;
     padding: 5px;
     font-size: 0.9rem;
-    background-color: var(--white-color);
-    flex-grow: 1; /* Adicionado: Faz o select crescer */
+    background-color: var(--light-color); /* Fundo claro para o seletor */
+    flex-grow: 1; 
 }
 
 .shift-select:focus {

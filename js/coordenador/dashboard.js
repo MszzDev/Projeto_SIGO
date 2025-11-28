@@ -24,24 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const minhasSolicitacoes = allSolicitacoes.filter(s => minhasUnidadesNomes.includes(s.unidade));
     const minhasPrelecoes = allPrelecoes.filter(p => minhasUnidadesNomes.includes(p.unidade));
 
-    // --- 4. PREENCHER SAUDAÇÕES ---
+    // --- 4. PREENCHER SAUDAÇÕES (Apenas o welcome section da página) ---
     (function preencherSaudacoes() {
         document.getElementById('welcome-container').querySelector('h2').textContent = `Olá, ${userLogado.nome.split(' ')[0]}`;
         document.getElementById('welcome-container').querySelector('p').textContent = userLogado.cargo;
-        
-        document.getElementById('sidebar-user-name').textContent = `Olá, ${userLogado.nome.split(' ')[0]}`;
-        
-        const userProfile = document.querySelector('.user-profile .user-info');
-        userProfile.querySelector('.user-name').textContent = userLogado.nome;
-        userProfile.querySelector('.user-role').textContent = userLogado.cargo;
-
-        // --- PADRONIZAÇÃO DA FOTO ---
-        const avatarHeader = document.getElementById('header-user-avatar');
-        if (userLogado.foto_url) {
-            avatarHeader.src = userLogado.foto_url;
-        } else {
-            avatarHeader.src = '../../img/perf.png'; // Fallback padrão
-        }
     })();
 
     // --- 5. PREENCHER CARDS DE ESTATÍSTICA ---

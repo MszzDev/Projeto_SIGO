@@ -131,12 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             const id = Number(e.currentTarget.dataset.id);
             const name = e.currentTarget.dataset.name;
-            if (confirm(`Tem certeza que deseja remover o coordenador "${name}"? Esta ação não pode ser desfeita.`)) {
-                const listaAtual = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
-                const novaLista = listaAtual.filter(user => user.id !== id);
-                localStorage.setItem('sigo_colaboradores', JSON.stringify(novaLista));
-                window.location.reload();
-            }
+            
+            // Substitui confirm() por globalConfirm()
+            window.globalConfirm(`Tem certeza que deseja remover o coordenador **${name}**? Esta ação não pode ser desfeita.`, (result) => {
+                if (result) {
+                    const listaAtual = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
+                    const novaLista = listaAtual.filter(user => user.id !== id);
+                    localStorage.setItem('sigo_colaboradores', JSON.stringify(novaLista));
+                    window.location.reload();
+                }
+            }, 'Remover', 'Cancelar', 'Excluir Coordenador');
         });
     });
     

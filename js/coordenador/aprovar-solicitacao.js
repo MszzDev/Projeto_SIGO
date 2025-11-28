@@ -1,4 +1,3 @@
-
 // js/coordenador/aprovar-solicitacao.js
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function carregarDetalhes(idSolicitacao) {
         if (!idSolicitacao) {
             console.error("ID não encontrado na URL.");
-            alert("Erro: ID da solicitação não encontrado.");
+            window.globalAlert("Erro: ID da solicitação não encontrado.", "Erro de Carregamento");
             return;
         }
 
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!solicitacao) {
             console.error("Solicitação não encontrada no localStorage.");
-            alert("Erro: Solicitação não encontrada.");
+            window.globalAlert("Erro: Solicitação não encontrada.", "Erro de Busca");
             return;
         }
 
@@ -72,10 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('sigo_solicitacoes', JSON.stringify(listaSolicitacoes));
             
             // Redireciona de volta para a lista de solicitações
-            alert(`Solicitação ${novoStatus.toLowerCase()}!`);
+            window.globalAlert(`Solicitação ${novoStatus.toLowerCase()}!`, "Status Atualizado");
             window.location.href = 'solicitacoes.html';
         } else {
-            alert("Erro ao atualizar status: solicitação não encontrada.");
+            window.globalAlert("Erro ao atualizar status: solicitação não encontrada.", "Erro");
         }
     }
 
@@ -91,14 +90,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnAprovar) {
         btnAprovar.addEventListener('click', (e) => {
             e.preventDefault(); // Impede o link de navegar
-            atualizarStatus(idAtual, 'Aprovado');
+            window.globalConfirm("Deseja realmente **aprovar** esta solicitação? Esta ação é irreversível.", (result) => {
+                if (result) {
+                    atualizarStatus(idAtual, 'Aprovado');
+                }
+            }, "Aprovar", "Cancelar", "Confirmar Aprovação");
         });
     }
 
     if (btnRecusar) {
         btnRecusar.addEventListener('click', (e) => {
             e.preventDefault(); // Impede o link de navegar
-            atualizarStatus(idAtual, 'Recusado');
+            window.globalConfirm("Deseja realmente **recusar** esta solicitação? Esta ação é irreversível.", (result) => {
+                if (result) {
+                    atualizarStatus(idAtual, 'Recusado');
+                }
+            }, "Recusar", "Cancelar", "Confirmar Recusa");
         });
     }
 

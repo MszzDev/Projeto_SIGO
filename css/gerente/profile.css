@@ -1,0 +1,4 @@
+/* css/gerente/profile.css */
+
+/* Reutiliza todos os estilos do perfil do Coordenador */
+@import url('../../css/coordenador/profile.css');

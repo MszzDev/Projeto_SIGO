@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userId = Number(params.get('id'));
 
     if (!userId) {
-        alert("Erro: ID de usuário não fornecido.");
+        window.globalAlert("Erro: ID de usuário não fornecido.", "Erro");
         window.location.href = 'colaboradores.html';
         return;
     }
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuarioParaEditar = listaColaboradores.find(c => c.id === userId);
 
     if (!usuarioParaEditar) {
-        alert("Erro: Usuário não encontrado.");
+        window.globalAlert("Erro: Usuário não encontrado.", "Erro");
         window.location.href = 'colaboradores.html';
         return;
     }
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const index = listaColaboradores.findIndex(c => c.id === userId);
             if (index === -1) {
-                alert("Erro ao salvar: usuário não encontrado.");
+                window.globalAlert("Erro ao salvar: usuário não encontrado.", "Erro");
                 return;
             }
 
@@ -57,13 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
             listaColaboradores[index] = usuarioAtualizado;
             localStorage.setItem('sigo_colaboradores', JSON.stringify(listaColaboradores));
 
-            alert("Usuário atualizado com sucesso!");
+            window.globalAlert("Usuário atualizado com sucesso!", "Sucesso");
             
             window.location.href = 'colaboradores.html'; 
 
         } catch (error) {
             console.error('Erro ao salvar usuário:', error);
-            alert('Houve um erro ao salvar as alterações.');
+            window.globalAlert('Houve um erro ao salvar as alterações.', "Erro");
         }
     });
 });

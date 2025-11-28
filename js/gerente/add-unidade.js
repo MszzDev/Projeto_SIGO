@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             if (!novaUnidade.nome || !novaUnidade.codigo) {
-                alert('Nome e Código são obrigatórios.');
+                window.globalAlert('Nome e Código são obrigatórios.', "Campos Faltando");
                 return;
             }
 
@@ -63,12 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
             listaUnidades.push(novaUnidade);
             localStorage.setItem('sigo_unidades', JSON.stringify(listaUnidades));
             
-            alert(`Unidade "${novaUnidade.nome}" adicionada com sucesso!`);
+            window.globalAlert(`Unidade "${novaUnidade.nome}" adicionada com sucesso!`, "Unidade Criada");
             window.location.href = 'unidades.html';
 
         } catch (error) {
             console.error('Erro ao salvar unidade:', error);
-            alert('Houve um erro ao salvar a unidade.');
+            window.globalAlert('Houve um erro ao salvar a unidade.', "Erro");
         }
     });
 });

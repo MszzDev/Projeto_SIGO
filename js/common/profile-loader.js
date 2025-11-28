@@ -6,50 +6,58 @@ document.addEventListener('DOMContentLoaded', () => {
     const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
 
     if (!userLogado) {
-        alert('Erro: Nenhum usuário logado.');
         return;
     }
 
-    // 2. Função para preencher
+    const nomeCurto = userLogado.nome.split(' ')[0];
+    let avatarSrc = userLogado.foto_url ? userLogado.foto_url : '../../img/perf.png';
+
+    // --- FUNÇÃO DE ATUALIZAÇÃO DO HEADER/SIDEBAR (COM FALLBACK) ---
+    (function updateHeader() {
+        // Elementos de ID (Método preferido)
+        let headerName = document.getElementById('header-user-name');
+        let headerRole = document.getElementById('header-user-role');
+        let sidebarName = document.getElementById('sidebar-user-name');
+        let headerAvatar = document.getElementById('header-user-avatar');
+
+        // FALLBACK: Se o elemento ID não for encontrado, tenta usar o seletor de classe/tag
+        if (!headerName) headerName = document.querySelector('.user-profile .user-info .user-name');
+        if (!headerRole) headerRole = document.querySelector('.user-profile .user-info .user-role');
+        
+        // Aplica o conteúdo
+        if (headerName) headerName.textContent = userLogado.nome;
+        if (headerRole) headerRole.textContent = userLogado.cargo;
+        if (sidebarName) {
+            sidebarName.textContent = `Olá, ${nomeCurto}`;
+        }
+        
+        // Atualiza Avatar
+        if (headerAvatar) {
+            headerAvatar.src = avatarSrc;
+            if (userLogado.foto_url) headerAvatar.style.objectFit = 'cover';
+        }
+    })();
+    
+    // 2. Função para preencher a página de perfil (prof-campos)
     function preencherCampo(id, valor) {
         const campo = document.getElementById(id);
         if (campo) {
-            // Se for um input (página do supervisor)
             if (campo.tagName === 'INPUT') {
                 campo.value = valor || 'Não informado';
             } 
-            // Se for um span (página do coordenador/gerente)
             else {
                 campo.textContent = valor || 'Não informado';
             }
         }
     }
 
-    // 3. Preencher Avatar
-    const avatar = document.getElementById('prof-avatar'); // ID do card
-    const headerAvatar = document.getElementById('header-user-avatar'); // ID do header
-    const sidebarName = document.getElementById('sidebar-user-name'); // ID da sidebar
-
-    if (userLogado.nome) {
-        let avatarSrc = userLogado.foto_url ? userLogado.foto_url : '../../img/perf.png';
-
-        // Atualiza o avatar do header
-        if (headerAvatar) {
-            headerAvatar.src = avatarSrc;
-            if (userLogado.foto_url) headerAvatar.style.objectFit = 'cover';
-        }
-
-        // Atualiza o avatar grande da página de perfil
-        if (avatar) {
-            avatar.src = avatarSrc;
-            if (userLogado.foto_url) avatar.style.objectFit = 'cover';
-        }
-        
-        // Atualiza nome na sidebar
-        if(sidebarName) {
-            sidebarName.textContent = `Olá, ${userLogado.nome.split(' ')[0]}`;
-        }
+    // 3. Preencher Avatar Grande do Perfil (se estiver na página de perfil)
+    const avatar = document.getElementById('prof-avatar'); 
+    if (avatar && userLogado.nome) {
+        avatar.src = avatarSrc;
+        if (userLogado.foto_url) avatar.style.objectFit = 'cover';
     }
+
 
     // 4. Preencher Campos (com base nos IDs do HTML)
     
@@ -68,15 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
     preencherCampo('prof-telefone', userLogado.telefone);
     preencherCampo('prof-email', userLogado.email);
     
-    // Endereço (Novos campos)
+    // Endereço 
     preencherCampo('prof-cep', userLogado.cep);
     preencherCampo('prof-bairro', userLogado.bairro);
     preencherCampo('prof-logradouro', userLogado.logradouro);
     preencherCampo('prof-complemento', userLogado.complemento);
     preencherCampo('prof-numero', userLogado.numero);
     
-    // Bancários (Novos campos)
-    preencherCampo('prof-banco_nome', userLogado.banco_nome); // <- Nome do banco
+    // Bancários 
+    preencherCampo('prof-banco_nome', userLogado.banco_nome); 
     preencherCampo('prof-agencia', userLogado.agencia);
     preencherCampo('prof-conta', userLogado.conta);
     preencherCampo('prof-tipo_conta', userLogado.tipo_conta);

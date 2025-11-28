@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const unidadeId = Number(params.get('id'));
 
     if (!unidadeId) {
-        alert("Erro: ID da unidade não fornecido.");
+        window.globalAlert("Erro: ID da unidade não fornecido.", "Erro");
         window.location.href = 'unidades.html';
         return;
     }
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const unidadeParaEditar = listaUnidades.find(u => u.id === unidadeId);
 
     if (!unidadeParaEditar) {
-        alert("Erro: Unidade não encontrada.");
+        window.globalAlert("Erro: Unidade não encontrada.", "Erro");
         window.location.href = 'unidades.html';
         return;
     }
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Encontra o índice da unidade antiga na lista
             const index = listaUnidades.findIndex(u => u.id === unidadeId);
             if (index === -1) {
-                alert("Erro ao salvar: unidade não encontrada.");
+                window.globalAlert("Erro ao salvar: unidade não encontrada.", "Erro");
                 return;
             }
 
@@ -89,12 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
             listaUnidades[index] = unidadeAtualizada;
             localStorage.setItem('sigo_unidades', JSON.stringify(listaUnidades));
 
-            alert("Unidade atualizada com sucesso!");
+            window.globalAlert("Unidade atualizada com sucesso!", "Sucesso");
             window.location.href = 'unidades.html'; 
 
         } catch (error) {
             console.error('Erro ao salvar unidade:', error);
-            alert('Houve um erro ao salvar as alterações.');
+            window.globalAlert('Houve um erro ao salvar as alterações.', "Erro");
         }
     });
 });
