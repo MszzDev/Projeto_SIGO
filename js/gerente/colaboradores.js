@@ -28,6 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
             minhasUnidadesNomes.includes(u.unidade) && (u.cargo === 'Supervisor' || u.cargo === 'Colaborador')
         );
 
+        // Agrupa a equipe por Unidade para a próxima iteração
+        const equipePorUnidade = minhasUnidades.map(unit => {
+            return {
+                ...unit,
+                equipe: minhaEquipe.filter(c => c.unidade === unit.nome)
+            };
+        }).filter(unit => unit.equipe.length > 0); // Mostra só unidades com equipe
+
         htmlFinal += `
             <details class="coordenador-card">
                 <summary class="coordenador-summary">
@@ -59,66 +67,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="coordenador-details">
         `;
 
-        // Leque aninhado para UNIDADES
-        htmlFinal += `
-            <details class="sub-leque">
-                <summary class="sub-leque-summary">
-                    <span><i class="fas fa-building fa-fw"></i> Ver Unidades (${minhasUnidades.length})</span>
-                    <i class="fas fa-chevron-right leque-icon"></i>
-                </summary>
-                <div class="sub-leque-content">
-        `;
-        if (minhasUnidades.length > 0) {
-            htmlFinal += '<ul class="unidade-lista">';
-            minhasUnidades.forEach(unit => {
-                htmlFinal += `<li><i class="fas fa-dot-circle fa-xs"></i> <strong>${unit.nome}</strong> (Cód: ${unit.codigo})</li>`;
-            });
-            htmlFinal += '</ul>';
-        } else {
-            htmlFinal += '<p class="no-data-message" style="padding: 10px 0;">Nenhuma unidade atribuída a este coordenador.</p>';
-        }
-        htmlFinal += `</div></details>`;
+        // Leque aninhado para UNIDADES (Agora com o formato visual solicitado)
+        if (equipePorUnidade.length > 0) {
+            equipePorUnidade.forEach(unit => {
+                const supervisores = unit.equipe.filter(u => u.cargo === 'Supervisor');
+                const colaboradores = unit.equipe.filter(u => u.cargo === 'Colaborador');
 
-        // Leque aninhado para EQUIPE
-        htmlFinal += `
-            <details class="sub-leque">
-                <summary class="sub-leque-summary">
-                    <span><i class="fas fa-user-group fa-fw"></i> Ver Equipe (${minhaEquipe.length})</span>
-                    <i class="fas fa-chevron-right leque-icon"></i>
-                </summary>
-                <div class="sub-leque-content">
-        `;
-        if (minhaEquipe.length > 0) {
-            htmlFinal += `
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead> <tr> <th>Nome</th> <th>Cargo</th> <th>Unidade</th> <th>Turno</th> </tr> </thead>
-                        <tbody>
-            `;
-            minhaEquipe.forEach(user => {
-                // --- PADRONIZAÇÃO DA FOTO (Equipe) ---
-                const avatarSrcEquipe = user.foto_url 
-                    ? user.foto_url 
-                    : '../../img/perf.png'; // Fallback para perf.png
-                
-                const badgeClass = user.cargo === 'Supervisor' ? 'badge-supervisor' : 'badge-colaborador';
                 htmlFinal += `
-                    <tr>
-                        <td>
-                            <img src="${avatarSrcEquipe}" alt="Avatar" class="user-avatar">
-                            <span>${user.nome}</span>
-                        </td>
-                        <td><span class="badge ${badgeClass}">${user.cargo}</span></td>
-                        <td>${user.unidade}</td>
-                        <td>${user.periodo}</td>
-                    </tr>
+                    <details class="unidade-leque">
+                        <summary class="unidade-summary">
+                            <span><i class="fas fa-building"></i> ${unit.nome}</span>
+                            <span>${supervisores.length} Supervisores | ${colaboradores.length} Colaboradores <i class="fas fa-chevron-right leque-icon"></i></span>
+                        </summary>
+                        <div class="unidade-registros">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead> <tr> <th>Nome</th> <th>Cargo</th> <th>Turno</th> <th>Ações</th> </tr> </thead>
+                                <tbody>
                 `;
+                // Junta Supervisores e Colaboradores para a tabela
+                [...supervisores, ...colaboradores].forEach(user => {
+                    const avatarSrcEquipe = user.foto_url ? user.foto_url : '../../img/perf.png';
+                    const badgeClass = user.cargo === 'Supervisor' ? 'badge-supervisor' : 'badge-colaborador';
+                    
+                    htmlFinal += `
+                        <tr>
+                            <td>
+                                <img src="${avatarSrcEquipe}" alt="Avatar" class="user-avatar">
+                                <span>${user.nome}<small class="d-block text-muted">${user.email || ''}</small></span>
+                            </td>
+                            <td><span class="badge ${badgeClass}">${user.cargo}</span></td>
+                            <td>${user.periodo || 'N/A'}</td>
+                            <td>
+                                <a href="editar-usuario.html?id=${user.id}" class="btn btn-sm btn-outline-primary" title="Editar">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <a href="../common/perfil-colaborador.html?id=${user.id}" class="btn btn-sm btn-outline-secondary" title="Ver Perfil">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    `;
+                });
+                htmlFinal += `</tbody></table></div></div></details>`;
             });
-            htmlFinal += `</tbody></table></div>`;
         } else {
-            htmlFinal += '<p class="no-data-message" style="padding: 10px 0;">Nenhum supervisor ou colaborador encontrado.</p>';
+            htmlFinal += '<p class="no-data-message" style="padding: 10px 0;">Nenhuma unidade com equipe atribuída a este coordenador.</p>';
         }
-        htmlFinal += `</div></details>`;
+        
         htmlFinal += `</div></details>`;
     });
 

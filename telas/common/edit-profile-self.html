@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIGO - Editar Meu Perfil</title>
+    <link rel="stylesheet" href="../../css/common/global.css" />
+    <link rel="stylesheet" href="../../css/gerente/form-layouts.css" />
+    <link rel="stylesheet" href="../../css/gerente/editar-usuario.css" />
+    <link rel="stylesheet" href="../../css/common/accessibility.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="main-content" style="min-height: 100vh; display: flex; flex-direction: column;"> 
+        <header class="main-header" style="background-color: var(--sidebar-bg); border-bottom: none;">
+            <div class="header-left">
+                 <a href="javascript:history.back()" class="btn btn-icon" title="Voltar" style="color: var(--white-color);">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h3 style="color: var(--white-color); margin-left: 10px;">Editar Perfil</h3>
+            </div>
+             <button id="logout-button" class="btn btn-logout" title="Sair" style="color: var(--white-color);">
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </header>
+
+        <section class="content-area" style="flex-grow: 1;">
+          <div class="welcome-section">
+            <h2 id="page-title">Atualizar Meus Dados</h2>
+            <p>Os campos marcados são obrigatórios.</p>
+          </div>
+
+          <div class="card form-card">
+            <form class="card-body" id="edit-profile-form"> 
+              <input type="hidden" id="user-id" name="id" value="" /> 
+
+              <h4 class="form-section-title">Dados de Posição</h4>
+              <div class="form-grid-container">
+                <div class="form-group grid-col-2">
+                  <label for="cargo">Cargo</label>
+                  <input type="text" id="cargo" name="cargo" class="form-control" disabled />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="id_usuario">ID de Login</label>
+                  <input type="text" id="id_usuario" name="id_usuario" class="form-control" disabled />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="unidade">Unidade</label>
+                  <input type="text" id="unidade" name="unidade" class="form-control" disabled />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="periodo">Turno</label>
+                  <input type="text" id="periodo" name="periodo" class="form-control" disabled />
+                </div>
+              </div>
+
+              <h4 class="form-section-title">Dados Pessoais</h4>
+              <div class="form-grid-container">
+                <div class="form-group grid-col-3">
+                  <label for="nome">Nome Completo</label>
+                  <input type="text" id="nome" name="nome" class="form-control" required />
+                </div>
+                <div class="form-group grid-col-3">
+                  <label for="nome_social">Nome Social (Opcional)</label>
+                  <input type="text" id="nome_social" name="nome_social" class="form-control" />
+                </div>
+                <div class="form-group grid-col-6">
+                  <label for="foto_url">URL da Foto (Opcional)</label>
+                  <input type="text" id="foto_url" name="foto_url" class="form-control" placeholder="https://exemplo.com/foto.png" />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="rg">RG <span class="cep-error">(apenas números)</span></label>
+                  <input type="text" id="rg" name="rg" class="form-control" required maxlength="12" />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="cpf">CPF <span class="cep-error">(000.000.000-00)</span></label>
+                  <input type="text" id="cpf" name="cpf" class="form-control" required />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="data_nascimento">Data de Nascimento</label>
+                  <input type="date" id="data_nascimento" name="data_nascimento" class="form-control" required />
+                </div>
+                <div class="form-group grid-col-3">
+                  <label for="telefone">Telefone <span class="cep-error">((00) 00000-0000)</span></label>
+                  <input type="tel" id="telefone" name="telefone" class="form-control" required />
+                </div>
+                <div class="form-group grid-col-3">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" class="form-control" required />
+                </div>
+              </div>
+
+              <h4 class="form-section-title">Endereço</h4>
+              <div class="form-grid-container">
+                <div class="form-group grid-col-2">
+                  <label for="cep">CEP <span class="cep-error">(00000-000)</span>
+                    <span class="cep-loading"><i class="fas fa-spinner fa-spin"></i></span>
+                    <span class="cep-error"></span>
+                  </label>
+                  <input type="text" id="cep" name="cep" class="form-control" placeholder="Digite o CEP" maxlength="9" required />
+                </div>
+                <div class="form-group grid-col-4">
+                  <label for="logradouro">Logradouro</label>
+                  <input type="text" id="logradouro" name="logradouro" class="form-control" placeholder="Ex: Rua das Flores" readonly />
+                </div>
+                <div class="form-group grid-col-1">
+                  <label for="numero">Nº</label>
+                  <input type="text" id="numero" name="numero" class="form-control" placeholder="123" required />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="bairro">Bairro</label>
+                  <input type="text" id="bairro" name="bairro" class="form-control" placeholder="Ex: Centro" readonly />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="cidade">Cidade</label>
+                  <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Ex: São Paulo" readonly />
+                </div>
+                <div class="form-group grid-col-1">
+                  <label for="uf">UF</label>
+                  <input type="text" id="uf" name="uf" class="form-control" placeholder="Ex: SP" readonly />
+                </div>
+                <div class="form-group grid-col-6">
+                  <label for="complemento">Complemento (Opcional)</label>
+                  <input type="text" id="complemento" name="complemento" class="form-control" placeholder="Ex: Apto 101" />
+                </div>
+              </div>
+
+              <h4 class="form-section-title">Dados Bancários</h4>
+              <div class="form-grid-container">
+                <div class="form-group grid-col-1">
+                  <label for="banco_codigo">Banco <span class="cep-error">(cód. 3 dígitos)</span>
+                    <span class="cep-loading"><i class="fas fa-spinner fa-spin"></i></span>
+                    <span class="cep-error"></span>
+                  </label>
+                  <input type="text" id="banco_codigo" name="banco_codigo" class="form-control" placeholder="001" maxlength="3" required />
+                </div>
+                <div class="form-group grid-col-3">
+                  <label for="banco_nome">Nome do Banco</label>
+                  <input type="text" id="banco_nome" name="banco_nome" class="form-control" placeholder="Busca automática..." readonly />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="agencia">Agência (com dígito) <span class="cep-error">(apenas números)</span></label>
+                  <input type="text" id="agencia" name="agencia" class="form-control" placeholder="Ex: 12345" required maxlength="10" />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="conta">Conta (com dígito) <span class="cep-error">(apenas números)</span></label>
+                  <input type="text" id="conta" name="conta" class="form-control" placeholder="Ex: 12345-6" required maxlength="12" />
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="tipo_conta">Tipo de Conta</label>
+                  <select id="tipo_conta" name="tipo_conta" class="form-control" required>
+                    <option value="Corrente">Conta Corrente</option>
+                    <option value="Poupança">Conta Poupança</option>
+                  </select>
+                </div>
+                <div class="form-group grid-col-2">
+                  <label for="chave_pix">Chave PIX (Opcional)</label>
+                  <input type="text" id="chave_pix" name="chave_pix" class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  Salvar Alterações
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../../js/common/mask-and-validation.js" defer></script>
+    <script src="../../js/common/edit-profile-self.js" defer></script>
+    <script src="../../js/common/via-cep.js" defer></script>
+    <script src="../../js/common/bank-lookup.js" defer></script>
+    <script src="../../js/common/logout.js" defer></script>
+    <script src="../../js/common/transitions.js" defer></script>
+    <script src="../../js/common/accessibility.js" defer></script>
+  </body>
+</html>

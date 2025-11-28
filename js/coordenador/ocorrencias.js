@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeBtn = modal.querySelector('.close-btn');
     const btnMarcarResolvida = document.getElementById('btn-marcar-resolvida');
+    const btnFechar = document.getElementById('btn-fechar-ocorrencias'); // Novo elemento Fechar
     
     // 1. Pega o Coordenador logado
     const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
@@ -66,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${ocorrencia.supervisor}</td>
                 <td>${statusBadge}</td>
                 <td>
-                    <button class="btn btn-sm btn-outline-primary ver-detalhes" data-id="${ocorrencia.id}">
-                       Ver Detalhes
+                    <button class="btn btn-sm btn-outline-secondary ver-detalhes" data-id="${ocorrencia.id}">
+                       Detalhes
                     </button>
                 </td>
             `;
@@ -100,11 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? `<span class="badge badge-danger">Aberta</span>`
                     : `<span class="badge badge-success">Resolvida</span>`;
                 
-                // Mostra ou esconde o botão de "Resolver"
+                // Mostra/esconde botões
                 if (ocorrencia.status === 'Aberta') {
-                    btnMarcarResolvida.style.display = 'block';
+                    btnMarcarResolvida.style.display = 'inline-block';
+                    btnFechar.style.display = 'none'; // Esconde o Fechar secundário
                 } else {
                     btnMarcarResolvida.style.display = 'none';
+                    btnFechar.style.display = 'inline-block'; // Mostra o Fechar como única ação
                 }
                 
                 modal.classList.add('show');
@@ -113,27 +116,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const fecharModal = () => modal.classList.remove('show');
     closeBtn.addEventListener('click', fecharModal);
+    btnFechar.addEventListener('click', fecharModal); // Adiciona listener para o novo botão 'Fechar'
     window.addEventListener('click', e => { if (e.target === modal) fecharModal(); });
     
     // --- LÓGICA PARA MARCAR COMO RESOLVIDA ---
     btnMarcarResolvida.addEventListener('click', () => {
         if (!ocorrenciaIdAtual) return;
         
-        // Atualiza a lista principal (allOcorrencias)
-        const indexGlobal = allOcorrencias.findIndex(o => o.id === ocorrenciaIdAtual);
-        if (indexGlobal > -1) {
-            allOcorrencias[indexGlobal].status = 'Resolvida';
-            localStorage.setItem('sigo_ocorrencias', JSON.stringify(allOcorrencias));
-        }
-        
-        // Atualiza a lista local (minhasOcorrencias)
-        const indexLocal = minhasOcorrencias.findIndex(o => o.id === ocorrenciaIdAtual);
-         if (indexLocal > -1) {
-            minhasOcorrencias[indexLocal].status = 'Resolvida';
-        }
+        window.globalConfirm('Tem certeza que deseja marcar esta ocorrência como **Resolvida**?', (result) => {
+            if (result) {
+                // Atualiza a lista principal (allOcorrencias)
+                const indexGlobal = allOcorrencias.findIndex(o => o.id === ocorrenciaIdAtual);
+                if (indexGlobal > -1) {
+                    allOcorrencias[indexGlobal].status = 'Resolvida';
+                    localStorage.setItem('sigo_ocorrencias', JSON.stringify(allOcorrencias));
+                }
+                
+                // Atualiza a lista local (minhasOcorrencias)
+                const indexLocal = minhasOcorrencias.findIndex(o => o.id === ocorrenciaIdAtual);
+                 if (indexLocal > -1) {
+                    minhasOcorrencias[indexLocal].status = 'Resolvida';
+                }
 
-        fecharModal();
-        carregarOcorrencias(filterContainer.querySelector('.filter-button.active').dataset.unidade);
+                fecharModal();
+                const filtroAtivo = filterContainer.querySelector('.filter-button.active').dataset.unidade;
+                carregarOcorrencias(filtroAtivo);
+            }
+        }, 'Marcar Resolvida', 'Cancelar', 'Confirmação');
     });
     
     // --- LÓGICA DOS FILTROS DINÂMICOS ---

@@ -585,7 +585,11 @@ textarea.form-control {
 	transition: transform 0.3s ease;
 }
 .sidebar-footer .accessibility-menu {
-	display: none;
+	/* Mantenha o estilo de container externo */
+	display: flex;
+	flex-wrap: wrap; 
+	justify-content: space-between; /* Novo: Para separar o bloco de ícones do Reset */
+	
 	position: absolute;
 	bottom: 100%;
 	left: var(--spacing-md);
@@ -594,40 +598,92 @@ textarea.form-control {
 	background-color: var(--card-bg, #fff);
 	border-radius: 8px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-	padding: 8px;
-	display: flex;
-	gap: 8px;
+	padding: 8px; /* Reduzido o padding geral para controle interno */
+	
 	transform: translateY(10px);
 	opacity: 0;
 	transition: all 0.2s ease-out;
 	pointer-events: none;
 }
+/* NOVO: Wrapper para o grupo de ícones */
+.acc-icon-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap; /* Para telas menores */
+    flex-grow: 1;
+}
+
 .acc-option-btn {
+	/* NOVO: Força o ícone e tamanho fixo */
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex-grow: 1;
+	flex-grow: 0; /* Remove o crescimento */
+	flex-shrink: 0;
+	width: 44px; /* Tamanho fixo */
 	height: 44px;
+	
 	background-color: transparent;
-	border: 1px solid var(--border-color, #e0e0e0);
+	border: 1px solid var(--border-color, #dee2e6);
 	border-radius: 6px;
 	color: var(--text-color-dark, #333);
 	font-size: 1.2rem;
 	cursor: pointer;
-	transition: background-color 0.2s ease;
+	transition: all 0.2s ease;
 }
 .acc-option-btn:hover {
 	background-color: var(--light-color, #f4f4f4);
+	border-color: var(--primary-color);
+	color: var(--primary-color);
 }
+/* NOVO: Estilo para estado ATIVO */
+.acc-option-btn.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white-color);
+}
+/* Remove o ajuste de + / - que o HTML original tinha */
 .acc-option-btn .fa-font { position: relative; }
 .acc-option-btn .fa-plus,
 .acc-option-btn .fa-minus {
-	position: absolute;
-	font-size: 0.5rem;
-	top: -2px;
-	right: -5px;
-	font-weight: bold;
+	display: none;
 }
+
+/* NOVO: Estilo para o Botão Resetar (Personalizado) */
+.acc-reset-button {
+    /* Não é mais um acc-option-btn padrão */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px; 
+    height: 44px; 
+    margin-left: 10px; /* Espaço para separar do grid */
+    flex-shrink: 0;
+    
+    background-color: var(--light-color); /* Fundo claro e suave */
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--danger-color);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.acc-reset-button i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+.acc-reset-button:hover {
+    background-color: #f4e9ea; /* Fundo mais suave para hover */
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+
 .sidebar-footer.active .accessibility-menu {
 	display: flex;
 	transform: translateY(0);
@@ -637,6 +693,24 @@ textarea.form-control {
 .sidebar-footer.active .acc-toggle-btn .acc-icon {
 	transform: rotate(180deg);
 }
+
+
+/* NOVO: Classes para o BODY */
+body.high-contrast {
+    filter: contrast(1.5) grayscale(1);
+}
+body.large-cursor {
+    /* Exemplo de cursor grande, precisa de um arquivo de imagem customizado para funcionar no navegador */
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M10 21l-7-7 1.41-1.41L10 18.17V3h2v15.17l5.59-5.58L19 14l-7 7z'/%3E%3C/svg%3E") 12 12, auto !important;
+}
+body.large-font {
+    font-size: 18px !important;
+}
+body.text-spacing {
+    letter-spacing: 0.15em;
+    line-height: 1.8;
+}
+
 
 /* Footer Nav (Supervisor) */
 .footer-nav {

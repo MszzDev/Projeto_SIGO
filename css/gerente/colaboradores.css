@@ -164,7 +164,6 @@ details[open] > .coordenador-summary .leque-icon,
 details[open] > .sub-leque-summary .leque-icon {
     transform: rotate(90deg);
 }
-/* (Removido o ::after do .coordenador-summary, vamos usar o .leque-icon) */
 
 /* 8. Estilos de Tabela (para a Equipe) */
 .table .user-avatar {
@@ -199,4 +198,56 @@ details[open] > .sub-leque-summary .leque-icon {
     padding: var(--spacing-lg);
     text-align: center;
     color: var(--text-muted);
+}
+
+/* NOVO: Estilo para o Leque de UNIDADE (detalhes dentro do Coordenador) */
+.unidade-leque {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-bottom: var(--spacing-md);
+    background-color: #fcfcfc; /* Fundo mais claro que o .coordenador-details */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.unidade-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    font-weight: 500;
+    color: var(--dark-color);
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 6px;
+}
+details[open] > .unidade-summary {
+     border-bottom: 1px solid var(--border-color);
+     border-bottom-left-radius: 0;
+     border-bottom-right-radius: 0;
+}
+.unidade-summary i {
+    margin-right: 5px;
+    color: var(--primary-color);
+}
+.unidade-registros {
+    padding: var(--spacing-md);
+    padding-top: 0;
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+     .coordenador-summary {
+        grid-template-columns: auto 1fr auto; /* Remove estatísticas no mobile */
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md);
+     }
+     .coordenador-stats {
+        display: none; /* Esconde estatísticas no mobile */
+     }
+     .coordenador-actions {
+        padding-left: 0;
+     }
+     .coordenador-details {
+        padding: var(--spacing-md);
+     }
 }

@@ -4,12 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const tbody = document.getElementById('prelecoes-tbody');
     const tableTitle = document.getElementById('table-title');
     const filterContainer = document.getElementById('unidades-filter-container');
-    const modal = document.getElementById('modal-detalhes');
+    const modal = document.getElementById('modal-detalhes'); // Mantém o ID original (modal-detalhes)
     if (!modal) return; 
 
     const closeBtn = modal.querySelector('.close-btn');
-    const btnFechar = modal.querySelector('.btn-fechar');
+    const btnFechar = document.getElementById('btn-fechar-prelecoes'); // NOVO ID
     
+    let prelecaoIdAtual = null;
+
     // 1. Pega o Coordenador logado
     const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
     
@@ -60,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${prelecao.data}</td>
                 <td>${statusBadge}</td>
                 <td>
-                    <button class="btn btn-sm btn-outline-primary ver-detalhes" data-id="${prelecao.id}">
-                       Ver Detalhes
+                    <button class="btn btn-sm btn-outline-secondary ver-detalhes" data-id="${prelecao.id}">
+                       Detalhes
                     </button>
                 </td>
             `;
@@ -71,16 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
         adicionarEventosModal();
     }
 
-    // --- LÓGICA DO MODAL (sem alterações) ---
+    // --- LÓGICA DO MODAL ---
     function adicionarEventosModal() {
         const detalhesBtns = document.querySelectorAll('.ver-detalhes');
         detalhesBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const prelecaoId = Number(btn.dataset.id);
-                if (!prelecaoId) return;
+                prelecaoIdAtual = Number(btn.dataset.id);
+                if (!prelecaoIdAtual) return;
 
-                const prelecao = allPrelecoes.find(p => p.id === prelecaoId); // Busca na lista geral
+                const prelecao = allPrelecoes.find(p => p.id === prelecaoIdAtual); // Busca na lista geral
                 if (!prelecao) {
                     alert("Erro: não foi possível encontrar os detalhes da preleção.");
                     return;
@@ -95,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('det-unidade').innerText = prelecao.unidade;
                 document.getElementById('det-supervisor').innerText = prelecao.supervisor;
                 document.getElementById('det-turno').innerText = prelecao.turno;
-                document.getElementById('det-selecao').innerText = prelecao.responsavel; // (Revisar esta lógica se 'selecao' for diferente)
+                document.getElementById('det-selecao').innerText = prelecao.responsavel; // Reutilizado
                 document.getElementById('det-funcoes').innerText = prelecao.funcoes;
 
                 modal.classList.add('show');
@@ -104,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const fecharModal = () => modal.classList.remove('show');
     closeBtn.addEventListener('click', fecharModal);
-    btnFechar.addEventListener('click', fecharModal);
+    btnFechar.addEventListener('click', fecharModal); // Adiciona listener para o novo botão 'Fechar'
     window.addEventListener('click', e => { if (e.target === modal) fecharModal(); });
     
     // --- LÓGICA DOS FILTROS DINÂMICOS ---

@@ -1,124 +1,213 @@
-/* Conteúdo de: css/coordenador/colaboradores.css */
-.unit-section {
-    margin-bottom: 40px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
-}
+/* css/gerente/colaboradores.css */
 
-.unit-section h3 {
-    margin-bottom: 15px;
-    color: var(--primary-color);
-    font-size: 1.3rem;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th {
-    text-align: left;
-    padding: 10px;
-    background-color: var(--light-bg, #f5f5f5);
-    font-weight: 600;
-}
-
-td {
-    padding: 10px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-tr:last-child td {
-    border-bottom: none;
-}
-
-tbody tr:hover {
-    background-color: #f9f9f9;
-}
-
-.content-area {
-    padding-bottom: 50px;
-}
-.container {
-    width: 90%;
-    margin: 40px auto;
-}
-
-h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 5px;
-}
-
-.colaborador {
+/* Cabeçalho da página com o botão "Adicionar" */
+.page-header-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f9f9f9;
-    padding: 10px 15px;
-    margin-bottom: 6px;
-    border-radius: 6px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: var(--spacing-lg);
 }
 
-.colaborador span {
-    flex: 1;
+.accordion {
+    width: 100%;
+    max-width: 1000px; /* Limita a largura na tela */
+    margin: 0 auto;
 }
 
-.ativo-btn {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: default;
-    font-size: 14px;
-    margin-right: 50px;
-}
-
-.unidade {
-    margin-bottom: 60px;
-}
-        
-/* Ajusta o contêiner principal */
-.d-flex {
-    display: flex;
-    height: 100vh;
+/* 1. O Card do Coordenador (o item principal do "leque") */
+.coordenador-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+.coordenador-card:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
 }
 
-/* Sidebar */
-.sidebar {
-    position: relative;
-    overflow-y: auto;
+/* 2. O Título Clicável (Coordenador) */
+.coordenador-summary {
+    display: grid;
+    /* Colunas: Avatar | Informações | Estatísticas | Ações | Ícone Leque */
+    grid-template-columns: auto 1fr auto auto auto;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    background-color: var(--card-bg); /* Fundo branco */
+    transition: background-color 0.2s ease;
+}
+.coordenador-summary:hover {
+    background-color: #fcfcfc;
+}
+/* Adiciona borda SÓ quando o 'leque' está aberto */
+details[open] > .coordenador-summary {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.coordenador-avatar {
+    width: 48px; /* Avatar maior */
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover; /* Garante que perf.png cubra o espaço */
     flex-shrink: 0;
+    border: 1px solid var(--border-color);
 }
-
-/* Main Content: Permite a rolagem apenas no conteúdo principal */
-.main-content {
-    flex-grow: 1;
-    overflow-y: auto;
-}
-
-body {
+.coordenador-nome {
+    font-size: 1.1rem; /* Fonte maior */
+    font-weight: 600;
+    color: var(--dark-color);
     margin: 0;
-    padding: 0;
+}
+.coordenador-info {
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }
 
-.colaborador .ativo-btn {
-    margin-right: 20px;
+/* 3. Bloco de Estatísticas no Cabeçalho */
+.coordenador-stats {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-left: auto; /* Empurra para a esquerda (antes das ações) */
+    padding: 0 var(--spacing-md);
 }
-/* --- Estilo do Ícone de Perfil (Olho) --- */
-.colaborador .view-profile-link {
-    flex-shrink: 0;
-    margin-left: 15px;
+.coordenador-stats .stat-item {
+    text-align: right;
+}
+.coordenador-stats .stat-value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    line-height: 1;
+}
+.coordenador-stats .stat-label {
+    display: block;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    font-size: 1.1rem;
-    text-decoration: none;
-    transition: color 0.2s ease;
+    margin-top: 2px;
 }
-.colaborador .view-profile-link:hover {
+
+/* 4. Ações (Botões) */
+.coordenador-actions {
+    padding-left: var(--spacing-md);
+    display: flex;
+    gap: 8px;
+}
+.coordenador-actions .btn {
+    z-index: 2; /* Fica acima do 'summary' clicável */
+    position: relative; /* Garante o z-index */
+}
+
+/* 5. O Conteúdo (Unidades e Equipe) */
+.coordenador-details {
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    background-color: var(--light-color); /* Fundo cinza para contraste */
+}
+
+/* NOVO: Estilos para os botões de filtro */
+.details-filters {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.details-filters .filter-btn {
+    flex-grow: 1;
+    font-weight: 500;
+    /* Estilo de botão "outline" com cor primaria */
+    background-color: var(--card-bg);
     color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.details-filters .filter-btn i {
+    margin-right: 5px;
+}
+
+.details-filters .filter-btn.active,
+.details-filters .filter-btn:hover {
+    /* Estilo de botão "solid" com cor primaria */
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+}
+.details-filters .filter-btn.active:hover {
+    background-color: #00265e; /* Cor escura para hover no ativo */
+}
+
+/* NOVO: Controle de visibilidade do conteúdo */
+.details-content {
+    padding-top: var(--spacing-md); /* Espaçamento após os botões */
+    display: none;
+}
+.details-content.active {
+    display: block;
+}
+
+/* NOVO: Lista de unidades (Substitui o estilo 'leque') */
+.unidade-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.unidade-lista li {
+    padding: 10px;
+    border-radius: 4px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    margin-bottom: 5px;
+    transition: background-color 0.2s ease;
+    font-size: 0.95rem;
+}
+.unidade-lista li:hover {
+    background-color: #fcfcfc;
+}
+.unidade-lista li i {
+    margin-right: 8px;
+    color: var(--text-muted);
+}
+
+/* Tabela da equipe dentro do novo wrapper */
+.details-content .table-responsive {
+    margin: 0;
+}
+
+/* Estilos de Tabela (para a Equipe) - Mantidos e limpos */
+.table .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+    object-fit: cover; /* Garante que perf.png preencha */
+    border: 2px solid var(--white-color);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.table td span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.table td .d-block {
+    display: block;
+    font-size: 0.8em;
+    line-height: 1.2;
+    color: var(--text-muted);
+}
+.badge.badge-supervisor {
+    background-color: var(--info-color);
+    color: var(--white-color);
+}
+.badge.badge-colaborador {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+}
+.no-data-message {
+    padding: var(--spacing-lg);
+    text-align: center;
+    color: var(--text-muted);
 }

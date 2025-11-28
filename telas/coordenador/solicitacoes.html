@@ -6,7 +6,7 @@
     <title>SIGO - Solicitações</title>
     <link rel="stylesheet" href="../../css/common/global.css">
     <link rel="stylesheet" href="../../css/coordenador/solicitacoes.css">
-    <link rel="stylesheet" href="../../css/common/accessibility.css">
+    <link rel="stylesheet" href="../../css/coordenador/prelecoes.css"> <link rel="stylesheet" href="../../css/common/accessibility.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../../css/common/notificacoes.css"> </head>
 <body>
@@ -48,17 +48,21 @@
                 </nav>
             </div> 
             <div class="sidebar-footer">
-                <div class="accessibility-menu">
-                    <button class="acc-option-btn" title="Aumentar fonte"><i class="fas fa-font"><i class="fas fa-plus"></i></i></button>
-                    <button class="acc-option-btn" title="Diminuir fonte"><i class="fas fa-font"><i class="fas fa-minus"></i></i></button>
-                    <button class="acc-option-btn" title="Alto contraste"><i class="fas fa-adjust"></i></button>
-                    <button class="acc-option-btn" title="Leitor de tela"><i class="fas fa-volume-up"></i></button>
-                </div>
-                <button id="acc-toggle-button" class="acc-toggle-btn">
-                    <span>ACESSIBILIDADE</span>
-                    <i class="fas fa-chevron-up acc-icon"></i>
-                </button>
-            </div>
+    <div class="accessibility-menu">
+        <button id="acc-font-plus" class="acc-option-btn" data-action="font-plus" title="Aumentar Fonte"><i class="fas fa-font"></i></button>
+        <button id="acc-font-minus" class="acc-option-btn" data-action="font-minus" title="Diminuir/Normalizar Fonte"><i class="fas fa-font"></i></button>
+        <button id="acc-contrast" class="acc-option-btn" data-action="contrast" title="Alto Contraste"><i class="fas fa-adjust"></i></button>
+        <button id="acc-read" class="acc-option-btn" data-action="read" title="Leitor em Voz Alta"><i class="fas fa-volume-up"></i></button>
+        <button id="acc-spacing" class="acc-option-btn" data-action="spacing" title="Espaçamento de Texto"><i class="fas fa-text-height"></i></button>
+        <button id="acc-cursor" class="acc-option-btn" data-action="cursor" title="Cursor Grande"><i class="fas fa-mouse-pointer"></i></button>
+        <button id="acc-libras" class="acc-option-btn" data-action="libras" title="Tradução em Libras"><i class="fas fa-sign-language"></i></button>
+        <button id="acc-reset" class="acc-option-btn" data-action="reset" title="Resetar Acessibilidade"><i class="fas fa-undo"></i></button>
+    </div>
+    <button id="acc-toggle-button" class="acc-toggle-btn">
+        <span>ACESSIBILIDADE</span>
+        <i class="fas fa-chevron-up acc-icon"></i>
+    </button>
+</div>
 
         </aside>
 
@@ -110,7 +114,7 @@
                                 <thead>
                                     <tr>
                                         <th>Solicitante</th>
-                                        <th>Turno</th>
+                                        <th>Unidade</th>
                                         <th>Data</th>
                                         <th>Status/Ação</th>
                                     </tr>
@@ -125,7 +129,30 @@
         </main>
     </div>
 
-<script src="../../js/coordenador/solicitacoes.js" defer></script>
+    <div id="modal-solicitacoes" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Analisar Solicitação</h3>
+            
+            <p><strong>Unidade:</strong> <span id="det-unidade"></span></p>
+            <p><strong>Solicitante:</strong> <span id="det-solicitante"></span></p>
+            <p><strong>Turno:</strong> <span id="det-turno"></span></p>
+            <p><strong>Data:</strong> <span id="det-data"></span></p>
+            <p><strong>Status:</strong> <span id="det-status"></span></p>
+            <p><strong>Qtd. Colaboradores:</strong> <span id="det-qtd"></span></p>
+            <p><strong>Período Solicitado:</strong> <span id="det-periodo"></span></p>
+
+            <h4 style="margin-top: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Motivo:</h4>
+            <div id="det-motivo" style="background: #f8f8f8; padding: 10px; border-radius: 4px; min-height: 50px; line-height: 1.5; white-space: pre-wrap; word-break: break-word;"></div>
+            
+            <div id="modal-actions" style="margin-top: 20px; text-align: right;">
+                <button class="btn btn-danger me-2" id="btn-recusar-modal">Recusar</button>
+                <button class="btn btn-primary" id="btn-aprovar-modal">Aprovar</button>
+                <button class="btn-fechar" id="btn-fechar-solicitacoes" style="display: none;">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/coordenador/solicitacoes.js" defer></script>
 <script src="../../js/common/notificacoes.js" defer></script> 
 <script src="../../js/common/profile-loader.js" defer></script>
 <script src="../../js/common/logout.js" defer></script>
@@ -134,4 +161,4 @@
 
 <script src="../../js/common/responsive-sidebar.js" defer></script>
 </body>
-</html> 
+</html>

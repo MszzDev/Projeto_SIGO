@@ -177,17 +177,18 @@
                   />
                 </div>
                 <div class="form-group grid-col-2">
-                  <label for="rg">RG</label>
+                  <label for="rg">RG <span class="cep-error">(apenas números)</span></label>
                   <input
                     type="text"
                     id="rg"
                     name="rg"
                     class="form-control"
                     required
+                    maxlength="12"
                   />
                 </div>
                 <div class="form-group grid-col-2">
-                  <label for="cpf">CPF</label>
+                  <label for="cpf">CPF <span class="cep-error">(000.000.000-00)</span></label>
                   <input
                     type="text"
                     id="cpf"
@@ -207,7 +208,7 @@
                   />
                 </div>
                 <div class="form-group grid-col-3">
-                  <label for="telefone">Telefone</label>
+                  <label for="telefone">Telefone <span class="cep-error">((00) 00000-0000)</span></label>
                   <input
                     type="tel"
                     id="telefone"
@@ -232,7 +233,7 @@
               <div class="form-grid-container">
                 <div class="form-group grid-col-2">
                   <label for="cep"
-                    >CEP
+                    >CEP <span class="cep-error">(00000-000)</span>
                     <span class="cep-loading"
                       ><i class="fas fa-spinner fa-spin"></i
                     ></span>
@@ -245,6 +246,7 @@
                     class="form-control"
                     placeholder="Digite o CEP"
                     maxlength="9"
+                    required
                   />
                 </div>
                 <div class="form-group grid-col-4">
@@ -266,6 +268,7 @@
                     name="numero"
                     class="form-control"
                     placeholder="123"
+                    required
                   />
                 </div>
                 <div class="form-group grid-col-2">
@@ -317,7 +320,7 @@
               <div class="form-grid-container">
                 <div class="form-group grid-col-1">
                   <label for="banco_codigo"
-                    >Banco
+                    >Banco <span class="cep-error">(cód. 3 dígitos)</span>
                     <span class="cep-loading"
                       ><i class="fas fa-spinner fa-spin"></i
                     ></span>
@@ -330,6 +333,7 @@
                     class="form-control"
                     placeholder="001"
                     maxlength="3"
+                    required
                   />
                 </div>
                 <div class="form-group grid-col-3">
@@ -344,23 +348,27 @@
                   />
                 </div>
                 <div class="form-group grid-col-2">
-                  <label for="agencia">Agência (com dígito)</label>
+                  <label for="agencia">Agência (com dígito) <span class="cep-error">(apenas números)</span></label>
                   <input
                     type="text"
                     id="agencia"
                     name="agencia"
                     class="form-control"
-                    placeholder="Ex: 1234-5"
+                    placeholder="Ex: 12345"
+                    required
+                    maxlength="10"
                   />
                 </div>
                 <div class="form-group grid-col-2">
-                  <label for="conta">Conta (com dígito)</label>
+                  <label for="conta">Conta (com dígito) <span class="cep-error">(apenas números)</span></label>
                   <input
                     type="text"
                     id="conta"
                     name="conta"
                     class="form-control"
                     placeholder="Ex: 12345-6"
+                    required
+                    maxlength="12"
                   />
                 </div>
                 <div class="form-group grid-col-2">
@@ -369,6 +377,7 @@
                     id="tipo_conta"
                     name="tipo_conta"
                     class="form-control"
+                    required
                   >
                     <option value="Corrente">Conta Corrente</option>
                     <option value="Poupança">Conta Poupança</option>
@@ -399,6 +408,7 @@
       </main>
     </div>
 
+    <script src="../../js/common/mask-and-validation.js" defer></script>
     <script src="../../js/gerente/editar-usuario.js" defer></script>
     <script src="../../js/common/populate-units.js" defer></script>
     <script src="../../js/common/via-cep.js" defer></script>
