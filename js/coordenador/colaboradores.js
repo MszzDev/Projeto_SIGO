@@ -1,73 +1,114 @@
 // js/coordenador/colaboradores.js
 document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('colaboradores-container');
+
+    const container = document.getElementById('colaboradores-unidades-container');
     if (!container) return;
 
-    // 1. Pega o usuário logado
+    // 1. Identificar o Coordenador logado
     const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
+    
+    // Se não for um coordenador, ou se o script de injeção não tiver sido rodado
     if (!userLogado || userLogado.cargo !== 'Coordenador') {
-        container.innerHTML = '<p class="text-muted" style="padding: 20px;">Erro: Usuário não é um coordenador.</p>';
+        container.innerHTML = '<p class="text-muted">Acesso negado ou usuário não é um Coordenador.</p>';
         return;
     }
-
-    // 2. Carrega todos os dados
-    const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
+    
+    // 2. Carregar todos os dados
     const allColaboradores = JSON.parse(localStorage.getItem('sigo_colaboradores')) || [];
+    const allUnidades = JSON.parse(localStorage.getItem('sigo_unidades')) || [];
 
-    // 3. Filtra as unidades deste coordenador
-    const minhasUnidades = allUnidades.filter(u => u.coordenadorId == userLogado.id);
-    const minhasUnidadesNomes = minhasUnidades.map(u => u.nome);
+    // 3. Filtrar Unidades gerenciadas por este Coordenador
+    // (Usa '==' para comparar ID que pode ser string ou número)
+    const unidadesDoCoordenador = allUnidades.filter(u => u.coordenadorId == userLogado.id);
 
-    container.innerHTML = ''; // Limpa o "Carregando..."
-
-    if (minhasUnidades.length === 0) {
-        container.innerHTML = '<p class="text-muted" style="padding: 20px;">Você não tem unidades associadas.</p>';
+    let htmlFinal = `<h2 class="user-list-title">Colaboradores por Unidade (${userLogado.nome})</h2>`;
+    
+    if (unidadesDoCoordenador.length === 0) {
+        htmlFinal += `<p class="text-muted">Nenhuma unidade associada à sua coordenação.</p>`;
+        container.innerHTML = htmlFinal;
         return;
     }
 
-    // 4. Renderiza os blocos
-    minhasUnidades.forEach(unidade => {
-        // Pega a equipe (Supervisores + Colaboradores) DESSA unidade
-        const equipeDaUnidade = allColaboradores.filter(c => 
-            c.unidade === unidade.nome && (c.cargo === 'Supervisor' || c.cargo === 'Colaborador')
-        );
-
-        let htmlColaboradores = '';
-        if (equipeDaUnidade.length > 0) {
-            equipeDaUnidade.forEach(colab => {
-                let statusBtn = '<button class="ativo-btn">Ativo</button>';
-                
-                htmlColaboradores += `
-                    <div class="colaborador">
-                        <span>${colab.nome}</span>
-                        <span>Cargo: ${colab.cargo}</span>
-                        <span>Turno: ${colab.periodo}</span>
-                        ${statusBtn}
-                        <span>ID: ${colab.id_usuario}</span>
-                        
-                        <a href="../common/perfil-colaborador.html?id=${colab.id}" class="view-profile-link" title="Ver Perfil">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                    </div>
-                `;
-            });
-        } else {
-            htmlColaboradores = '<p class="text-muted" style="padding: 10px 15px;">Nenhum colaborador nesta unidade.</p>';
-        }
-
-        // Adiciona o bloco da unidade ao container
-        container.innerHTML += `
-            <div class="unidade">
-                <h2>Unidade ${unidade.nome}</h2>
-                ${htmlColaboradores}
-            </div>
+    // 4. Agrupar colaboradores por Unidade
+    unidadesDoCoordenador.forEach(unidade => {
+        const staffDaUnidade = allColaboradores.filter(c => c.unidade === unidade.nome);
+        
+        // 5. Separar Supervisores e Colaboradores
+        const supervisores = staffDaUnidade.filter(c => c.cargo === 'Supervisor');
+        const colaboradores = staffDaUnidade.filter(c => c.cargo === 'Colaborador');
+        
+        // --- Renderiza a seção da Unidade ---
+        htmlFinal += `
+            <div class="user-list-section">
+                <h3 class="unit-section-header">
+                    <i class="fas fa-building fa-fw"></i> ${unidade.nome} (${staffDaUnidade.length} Pessoas)
+                </h3>
         `;
+        
+        // --- Renderiza a Tabela de Supervisores ---
+        htmlFinal += renderizarTabela(supervisores, "Supervisores", "Supervisor");
+
+        // --- Renderiza a Tabela de Colaboradores ---
+        htmlFinal += renderizarTabela(colaboradores, "Colaboradores", "Colaborador");
+        
+        htmlFinal += `</div>`; // Fecha .user-list-section
     });
 
-    // 5. Adiciona colaboradores "perdidos" (em unidades que não estão mais com este coordenador)
-    const equipeOrfa = allColaboradores.filter(c => 
-        !minhasUnidadesNomes.includes(c.unidade) && // Não está na minha lista de unidades
-        (c.cargo === 'Supervisor' || c.cargo === 'Colaborador') // Mas é um subalterno
-    );
-    // (Esta seção pode ser removida se não for desejada)
+    container.innerHTML = htmlFinal;
+
+    // --- Função Auxiliar para criar a tabela ---
+    function renderizarTabela(lista, titulo, cargo) {
+        if (lista.length === 0) {
+            return `<p class="text-muted" style="margin-left: 20px;">Nenhum ${cargo.toLowerCase()} nesta unidade.</p>`;
+        }
+        
+        const badgeClass = cargo === 'Supervisor' ? 'badge-supervisor' : 'badge-colaborador';
+        
+        let tabelaHtml = `
+            <div class="card" style="margin-bottom: 20px;">
+                <div class="card-body">
+                    <h4 class="mb-3">${titulo} (${lista.length})</h4>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Cargo</th>
+                                    <th>ID</th>
+                                    <th>Turno</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+        `;
+
+        lista.forEach(user => {
+            const avatar = user.nome ? user.nome.substring(0, 2).toUpperCase() : '??';
+            tabelaHtml += `
+                <tr>
+                    <td>
+                        <img src="https://via.placeholder.com/32/1a3a52/ffffff?text=${avatar}" alt="Avatar" class="user-avatar" style="border-radius: 50%; width: 32px; height: 32px; margin-right: 10px;">
+                        ${user.nome || 'N/A'}
+                    </td>
+                    <td><span class="badge ${badgeClass}">${user.cargo}</span></td>
+                    <td>${user.id_usuario || 'N/A'}</td>
+                    <td>${user.periodo || 'N/A'}</td>
+                    <td>
+                        <a href="../common/perfil-colaborador.html?id=${user.id}" class="btn btn-sm btn-outline-primary" title="Ver Perfil">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+            `;
+        });
+
+        tabelaHtml += `
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        `;
+        return tabelaHtml;
+    }
 });
