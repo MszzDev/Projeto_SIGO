@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const targetURL = 'login.html';
     
-    const delay = 5000;
+    const delay = 50000000;
 
     let redirected = false; // Trava para evitar cliques duplos
 

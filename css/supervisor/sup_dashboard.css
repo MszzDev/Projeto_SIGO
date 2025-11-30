@@ -1,4 +1,4 @@
-/* css/supervisor/sup_dashboard.css (Atualizado) */
+/* css/supervisor/sup_dashboard.css (Atualizado com Estilos de Notificação) */
 @import url('sup_layout.css'); /* IMPORTA O LAYOUT MESTRE */
 
 /* Variáveis específicas */
@@ -10,7 +10,7 @@
 .dashboard-content {
     padding: 20px 15px;
     flex-grow: 1;
-    overflow-y: auto; /* Garante o scroll (redundante com layout, mas seguro) */
+    overflow-y: auto; 
 }
 
 .info-header {
@@ -25,12 +25,12 @@
 
 /* Card Principal do Dashboard */
 .card.dashboard-header-card {
-    background-color: var(--sigo-blue); /* Fundo azul escuro */
+    background-color: var(--sigo-blue); 
     color: #fff;
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 4px 12px rgba(0, 36, 66, 0.4);
-    margin-bottom: 30px; /* Mais espaço abaixo */
+    margin-bottom: 30px; 
 }
 .header-card-greeting {
     margin-bottom: 20px;
@@ -69,14 +69,13 @@
     font-weight: 700;
     line-height: 1;
     color: #fff;
-    flex-basis: 50px; /* Espaço para o número */
+    flex-basis: 50px; 
 }
 .header-card-stats .label {
-    flex-grow: 1; /* Ocupa o espaço do meio */
+    flex-grow: 1; 
     font-size: 0.9em;
     color: rgba(255, 255, 255, 0.7);
-    font-weight: 500;
-    margin-left: 10px; /* Espaço após o número */
+    margin-left: 10px; 
 }
 .header-card-stats .fa-arrow-right-long {
     font-size: 1.5rem;
@@ -95,11 +94,10 @@
 
 /* Grid de Ações (2 Colunas) */
 .card-grid .card-link:last-child:nth-child(odd) {
-    grid-column: span 2; /* Faz o item ocupar 2 colunas (largura total) */
+    grid-column: span 2; 
 }
-/* Faz o último card ocupar a linha inteira se for ímpar (ex: 3º card) */
 .card-link:last-child:nth-child(odd) {
-    grid-column: 1 / -1; /* Ocupa do início ao fim do grid */
+    grid-column: 1 / -1; 
 }
 
 /* Card de Ação */
@@ -146,4 +144,74 @@
     color: var(--text-color-dark);
     font-size: 1rem;
     line-height: 1.3;
+}
+
+/* NOVO: Estilos da Seção de Notificações */
+.notification-card {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 30px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden; 
+}
+.notification-header {
+    background-color: var(--warning-color); /* Amarelo para destaque */
+    color: var(--dark-color);
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.notification-header i {
+    color: var(--dark-color);
+    font-size: 1.2em;
+}
+.notification-count {
+    background-color: var(--card-background);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    font-weight: 700;
+}
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--list-border-color);
+    text-decoration: none;
+    color: var(--text-color-dark);
+    transition: background-color 0.2s ease;
+}
+.notification-item:last-child {
+    border-bottom: none;
+}
+.notification-item:hover {
+    background-color: var(--background-grey);
+}
+.notification-icon {
+    font-size: 1.2em;
+    margin-right: 15px;
+    width: 25px;
+    text-align: center;
+    color: var(--primary-blue);
+}
+.notification-text {
+    font-size: 0.9em;
+    font-weight: 500;
+    line-height: 1.3;
+}
+.notification-empty-state {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-color-light);
+    font-size: 0.9em;
 }
