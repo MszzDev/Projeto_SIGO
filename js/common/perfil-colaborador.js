@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const colaboradorId = Number(params.get('id'));
 
+    // NOVO: Pega o usuário logado
+    const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
+    
+    const editLink = document.getElementById('edit-profile-link');
+    
     if (!colaboradorId) {
         alert('Erro: ID do colaborador não fornecido.');
         history.back(); // Volta para a página anterior
@@ -19,6 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Erro: Colaborador não encontrado.');
         history.back(); // Volta para a página anterior
         return;
+    }
+
+    // NOVO: Lógica para mostrar o botão de edição se for o próprio usuário
+    if (editLink && userLogado && userLogado.id == colaboradorId) {
+         editLink.classList.remove('hidden');
     }
 
     // --- FUNÇÃO ATUALIZADA ---

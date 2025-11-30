@@ -4,6 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('add-unidade-form');
     if (!form) return;
 
+    // NOVO: Função para gerar Código da Unidade (Ex: 1001, 1002)
+    function generateUnitCode(listaUnidades) {
+        // Gera um número sequencial simples, a partir de 1000
+        const baseCode = 1000;
+        const nextCode = baseCode + listaUnidades.length; 
+        return nextCode.toString();
+    }
+
+
     form.addEventListener('submit', (e) => {
         e.preventDefault(); 
         
@@ -26,10 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const supTarde = getSelectInfo('supervisorTardeId');
             const supNoite = getSelectInfo('supervisorNoiteId');
 
+            // 1. Geração de Código
+            const unidadesSalvas = localStorage.getItem('sigo_unidades');
+            const listaUnidades = unidadesSalvas ? JSON.parse(unidadesSalvas) : [];
+            const unitCode = generateUnitCode(listaUnidades); // NOVO
+
             const novaUnidade = {
-                id: Date.now(), // ID automático
+                id: Date.now(), // ID automático (para operações internas)
                 nome: formData.get('nome'),
-                codigo: formData.get('codigo'),
+                codigo: unitCode, // USADO CÓDIGO GERADO
                 
                 // Coordenador Responsável
                 coordenadorId: coord.id,
@@ -52,18 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 uf: formData.get('uf')
             };
 
-            if (!novaUnidade.nome || !novaUnidade.codigo) {
-                window.globalAlert('Nome e Código são obrigatórios.', "Campos Faltando");
+            if (!novaUnidade.nome || !unitCode) {
+                window.globalAlert('Nome da Unidade é obrigatório e o Código deve ser gerado.', "Campos Faltando");
                 return;
             }
-
-            const unidadesSalvas = localStorage.getItem('sigo_unidades');
-            const listaUnidades = unidadesSalvas ? JSON.parse(unidadesSalvas) : [];
             
             listaUnidades.push(novaUnidade);
             localStorage.setItem('sigo_unidades', JSON.stringify(listaUnidades));
             
-            window.globalAlert(`Unidade "${novaUnidade.nome}" adicionada com sucesso!`, "Unidade Criada");
+            window.globalAlert(`Unidade "${novaUnidade.nome}" (Código: **${novaUnidade.codigo}**) adicionada com sucesso!`, "Unidade Criada");
             window.location.href = 'unidades.html';
 
         } catch (error) {

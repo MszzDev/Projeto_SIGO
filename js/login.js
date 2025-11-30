@@ -1,4 +1,4 @@
-// js/login.js (Versão MESTRE TEMPORÁRIA)
+// mszzdev/projeto_sigo/Projeto_SIGO-6cfac3251b9ada9a0b333c00ca1cccf1b37dbb40/js/login.js
 document.getElementById('login-form').addEventListener('submit', function(event) {
     event.preventDefault(); 
 
@@ -17,11 +17,34 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     if (username === 'G123' && password === '123') {
         
         // Gerente falso
+        // CORRIGIDO: Adicionado todos os campos necessários para o profile-loader e edit-profile-self
         const tempGerente = {
             id: "master",
-            nome: "Gerente ADM",
+            nome: "Gerente",
             cargo: "Gerente",
-            id_usuario: "G123"
+            id_usuario: "G123",
+            foto_url: '../../img/perf.png',
+            unidade: "N/A",
+            periodo: "N/A",
+            nome_social: "",
+            rg: "000000000", 
+            cpf: "000.000.000-00",
+            data_nascimento: "1980-01-01",
+            telefone: "(00) 00000-0000",
+            email: "gerente@sigo.com.br",
+            cep: "00000-000",
+            logradouro: "Rua Falsa Gerencial",
+            numero: "1",
+            bairro: "Centro",
+            cidade: "São Paulo",
+            uf: "SP",
+            complemento: "Escritório Central",
+            banco_codigo: "001",
+            banco_nome: "Banco do Brasil",
+            agencia: "1234",
+            conta: "567890",
+            tipo_conta: "Corrente",
+            chave_pix: "gerente@pix.com"
         };
         sessionStorage.setItem('sigo_user_logado', JSON.stringify(tempGerente));
         window.location.href = 'telas/gerente/dashboard.html';

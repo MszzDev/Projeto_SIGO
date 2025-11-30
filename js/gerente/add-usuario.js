@@ -4,14 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('add-user-form');
     if (!form) return;
 
+    // NOVO: Função para gerar ID baseado no cargo e tamanho da lista
+    function generateUserId(cargo, listaColaboradores) {
+        let prefix = '';
+        if (cargo === 'Coordenador') prefix = 'C';
+        else if (cargo === 'Supervisor') prefix = 'S';
+        else if (cargo === 'Colaborador') prefix = 'E';
+        else return null;
+
+        // Gera um número sequencial simples, a partir de 100
+        const baseId = 100 + listaColaboradores.length; 
+        
+        return prefix + baseId.toString();
+    }
+
+
     form.addEventListener('submit', (e) => {
         e.preventDefault(); 
         
         // --- 1. VALIDAÇÃO DOS CAMPOS OBRIGATÓRIOS E FORMATOS ---
-        
-        // Expressões Regulares para Formato
         const REGEX = {
-            LOGIN_ID: /^[A-Z]\d{3,}$/, 
             CPF: /^\d{3}\.\d{3}\.\d{3}-\d{2}$/,
             PHONE: /^\(\d{2}\) \d{4,5}-\d{4}$/,
             CEP: /^\d{5}-\d{3}$/,
@@ -21,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Posição
         if (!window.validateField(form.elements['cargo'], null, null)) return;
-        if (!window.validateField(form.elements['id_usuario'], REGEX.LOGIN_ID, 'ID de Login deve começar com uma letra maiúscula e ter no mínimo 3 números (Ex: C123).')) return;
         
         // Dados Pessoais
         if (!window.validateField(form.elements['nome'], null, null)) return;
@@ -50,17 +61,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 novoUsuario[key] = value;
             });
             
-            // Adiciona um ID automático
-            novoUsuario.id = Date.now();
-            
+            // 2. Lógica para Persistência e Geração de ID
             const colaboradoresSalvos = localStorage.getItem('sigo_colaboradores');
             const listaColaboradores = colaboradoresSalvos ? JSON.parse(colaboradoresSalvos) : [];
+
+            // Adiciona um ID numérico único (Para operações de busca/update)
+            novoUsuario.id = Date.now(); 
+            
+            // NOVO: Gera ID de Login (id_usuario) e adiciona senha/flag temporária
+            const cargo = novoUsuario.cargo;
+            novoUsuario.id_usuario = generateUserId(cargo, listaColaboradores); 
+            
+            if (cargo !== 'Gerente') {
+                novoUsuario.senha = '123'; // Senha padrão inicial
+                novoUsuario.must_change_password = true; // Força a troca no login
+            } else {
+                 novoUsuario.senha = '123'; // Gerente usa a senha padrão e não troca
+                 novoUsuario.must_change_password = false; 
+            }
             
             listaColaboradores.unshift(novoUsuario);
             
             localStorage.setItem('sigo_colaboradores', JSON.stringify(listaColaboradores));
             
-            window.globalAlert(`Usuário [${novoUsuario.cargo}] adicionado com sucesso!`, "Usuário Criado");
+            window.globalAlert(`Usuário [${novoUsuario.cargo}] com ID de Login **${novoUsuario.id_usuario}** adicionado com sucesso!`, "Usuário Criado");
             
             window.location.href = 'colaboradores.html';
 

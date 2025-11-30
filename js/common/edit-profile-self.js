@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Pega o usuário logado
     const userLogado = JSON.parse(sessionStorage.getItem('sigo_user_logado'));
     
-    if (!userLogado || userLogado.cargo === 'Colaborador') {
-        window.globalAlert("Erro: Apenas perfis de Coordenador e Supervisor podem editar seus próprios dados.", "Acesso Negado");
+    // ATUALIZADO: Apenas verifica se o usuário está logado
+    if (!userLogado) {
+        window.globalAlert("Erro: Perfil não encontrado.", "Acesso Negado");
         window.location.href = '../../login.html';
         return;
     }
@@ -86,8 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 window.globalAlert("Perfil atualizado com sucesso!", "Sucesso");
                 
-                // 7. Redireciona de volta para a tela de visualização (ou dashboard)
-                const targetPage = userLogado.cargo === 'Coordenador' ? '../coordenador/profile.html' : '../supervisor/sup_perfil_supervisor.html';
+                // 7. Redireciona de volta para a tela de visualização correta
+                const targetPage = userLogado.cargo === 'Gerente' ? '../gerente/profile.html' :
+                                   userLogado.cargo === 'Coordenador' ? '../coordenador/profile.html' :
+                                   userLogado.cargo === 'Supervisor' ? '../supervisor/sup_perfil_supervisor.html' :
+                                   userLogado.cargo === 'Colaborador' ? `../common/perfil-colaborador.html?id=${userLogado.id}` :
+                                   '../../login.html';
+
                 setTimeout(() => {
                     window.location.href = targetPage;
                 }, 500);
@@ -100,4 +106,39 @@ document.addEventListener('DOMContentLoaded', () => {
             window.globalAlert('Houve um erro ao salvar as alterações.', "Erro");
         }
     });
+
+    // NOVO: Adiciona o listener para Cancelar Edição
+    const cancelEditBtn = document.getElementById('cancel-edit-btn');
+    if (cancelEditBtn) {
+        cancelEditBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            let dashboardPath = '';
+            const cargo = userLogado.cargo;
+
+            // Mapeamento de rotas para Cancelar
+            if (cargo === 'Gerente') {
+                dashboardPath = '../gerente/dashboard.html';
+            } else if (cargo === 'Coordenador') {
+                dashboardPath = '../coordenador/dashboard.html';
+            } else if (cargo === 'Supervisor') {
+                dashboardPath = '../supervisor/sup_dashboard.html';
+            } else if (cargo === 'Colaborador') {
+                // Redireciona para a página de perfil do colaborador (sua tela principal de visualização)
+                dashboardPath = `../common/perfil-colaborador.html?id=${userLogado.id}`;
+            } else {
+                dashboardPath = '../../login.html';
+            }
+
+            // Usa o modal de confirmação global
+            window.globalConfirm('Tem certeza que deseja cancelar? Todas as alterações não salvas serão perdidas.', (result) => {
+                if (result) {
+                    document.body.classList.add('page-fade-out');
+                    setTimeout(() => {
+                        window.location.href = dashboardPath;
+                    }, 400);
+                }
+            }, 'Sim, Cancelar', 'Não, Continuar Editando', 'Cancelar Edição');
+        });
+    }
 });
