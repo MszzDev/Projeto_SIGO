@@ -6,7 +6,8 @@ O Sistema Integrado de Gerenciamento Operacional (SIGO) é uma aplicação web d
 
 ## Tecnologias
 
-* **Frontend:** HTML5, CSS3 (Puro), JavaScript (ES6)
+* **Frontend:** HTML5, CSS3, JavaScript. 
+* **Backtend:** Python Django.
 * **Ícones:** Font Awesome (via CDN nos arquivos HTML que necessitam)
 * **Fontes:** Google Fonts (Roboto - via CSS)
 
@@ -105,7 +106,6 @@ SIGO_Projeto/
 3.  Você será redirecionado automaticamente para `login.html`.
 4.  Use as seguintes credenciais para testar os perfis:
     * **Coordenador:** ID `C123`, Senha `123`
-    * **Supervisor:** ID `S123`, Senha `123`
 5.  Qualquer outra combinação exibirá uma mensagem de erro.
 6.  Navegue pelas funcionalidades usando a sidebar (Coordenador) ou o menu inferior (Supervisor).
 
