@@ -22,7 +22,7 @@ html, body {
     min-height: 100vh; /* Fallback */
     min-height: -webkit-fill-available; /* O hack que corrige iOS/Mobile */
     min-height: 100dvh; /* Outro fallback */
-    overflow: hidden; 
+    /* Removido 'overflow: hidden' e baseamos o layout no viewport */
     position: relative;
 }
 
@@ -41,7 +41,9 @@ html, body {
     flex-grow: 1; /* Ocupa todo o espaço restante */
     overflow-y: auto; /* ADICIONA O SCROLL SÓ AQUI */
     overflow-x: hidden;
+    /* CORREÇÃO AQUI: Adiciona o padding-bottom de compensação */
     padding: 15px; /* Padding padrão do conteúdo */
+    padding-bottom: calc(var(--footer-height) + 15px);
     background-color: var(--background-grey); /* Fundo cinza padrão */
 }
 /* Ajustes para telas que controlam o próprio padding */
@@ -49,6 +51,8 @@ html, body {
 .content-area.collaborators-page,
 .content-area.sobremim-content {
     padding: 0;
+    /* CORREÇÃO AQUI: Garante o espaço para o footer fixo, mantendo os outros paddings como 0 */
+    padding-bottom: var(--footer-height);
 }
 /* Fundo branco para telas de formulário/lista */
 .content-area.solicitacao-content,
@@ -65,8 +69,10 @@ html, body {
 .footer-nav {
     height: var(--footer-height);
     flex-shrink: 0; /* Impede que o footer encolha */
-    position: static; /* Não é 'fixed' na tela, mas no 'mobile-view' */
+    /* CORREÇÃO PRINCIPAL: Torna o footer fixo em relação ao viewport */
+    position: fixed; 
     bottom: 0;
+    left: 0;
     width: 100%;
     z-index: 20;
     /* (Estilos de cor, etc. vêm do global.css e sup_dashboard.css) */
