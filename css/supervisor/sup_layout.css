@@ -22,7 +22,7 @@ html, body {
     min-height: 100vh; /* Fallback */
     min-height: -webkit-fill-available; /* O hack que corrige iOS/Mobile */
     min-height: 100dvh; /* Outro fallback */
-    /* CORREÇÃO: REMOVIDO overflow: hidden; para não recortar o footer fixo */
+    /* CORREÇÃO: Removido 'overflow: hidden' para não recortar o footer fixo */
     position: relative;
 }
 
@@ -45,7 +45,7 @@ html, body {
     /* Mantém o padding padrão de 15px (Top, Right, Left) */
     padding: 15px; 
     
-    /* CORREÇÃO: Sobrescreve o padding-bottom com alta prioridade para compensar o footer (72px + 15px) */
+    /* CORREÇÃO AGRESSIVA: Garante o padding inferior para compensar o footer (72px + 15px) */
     padding-bottom: calc(var(--footer-height) + 15px) !important; 
     
     background-color: var(--background-grey); /* Fundo cinza padrão */
@@ -63,14 +63,15 @@ html, body {
 }
 
 
-/* CORREÇÃO ADICIONAL: Para as páginas que anulam o padding para 0 (Perfil, Colaboradores, etc.) */
+/* CORREÇÃO AGRESSIVA: Para as páginas que anulam o padding para 0 (Perfil, Colaboradores, Histórico) */
+/* Esta regra garante que o padding-bottom seja aplicado APÓS o 'padding: 0;' que anula todas as margens. */
 .content-area.profile-page,
 .content-area.collaborators-page,
 .content-area.sobremim-content,
-.content-area.escala-hoje-page { 
-    padding: 0;
-    /* Força o padding-bottom a ser APENAS a altura do footer (72px), compensando a anulação do padding: 0. */
-    padding-bottom: var(--footer-height) !important; 
+.content-area.escala-hoje-page,
+.content-area.historico-page { /* Incluindo historico-page, que também usa layout sem padding de 15px */
+    /* O padding: 0; vem de outros arquivos, aqui garantimos a compensação: */
+    padding-bottom: var(--footer-height) !important; /* Apenas 72px de espaço para o footer */
 }
 
 
