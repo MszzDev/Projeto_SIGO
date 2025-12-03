@@ -22,7 +22,7 @@ html, body {
     min-height: 100vh; /* Fallback */
     min-height: -webkit-fill-available; /* O hack que corrige iOS/Mobile */
     min-height: 100dvh; /* Outro fallback */
-    /* Removido 'overflow: hidden' e baseamos o layout no viewport */
+    /* CORREÇÃO: REMOVIDO overflow: hidden; para não recortar o footer fixo */
     position: relative;
 }
 
@@ -41,34 +41,43 @@ html, body {
     flex-grow: 1; /* Ocupa todo o espaço restante */
     overflow-y: auto; /* ADICIONA O SCROLL SÓ AQUI */
     overflow-x: hidden;
-    /* CORREÇÃO AQUI: Adiciona o padding-bottom de compensação */
-    padding: 15px; /* Padding padrão do conteúdo */
-    padding-bottom: calc(var(--footer-height) + 15px);
+    
+    /* Mantém o padding padrão de 15px (Top, Right, Left) */
+    padding: 15px; 
+    
+    /* CORREÇÃO: Sobrescreve o padding-bottom com alta prioridade para compensar o footer (72px + 15px) */
+    padding-bottom: calc(var(--footer-height) + 15px) !important; 
+    
     background-color: var(--background-grey); /* Fundo cinza padrão */
 }
-/* Ajustes para telas que controlam o próprio padding */
-.content-area.profile-page,
-.content-area.collaborators-page,
-.content-area.sobremim-content {
-    padding: 0;
-    /* CORREÇÃO AQUI: Garante o espaço para o footer fixo, mantendo os outros paddings como 0 */
-    padding-bottom: var(--footer-height);
-}
+
 /* Fundo branco para telas de formulário/lista */
 .content-area.solicitacao-content,
 .content-area.relatorio-content,
 .content-area.historico-page,
 .content-area.collaborators-page,
 .content-area.profile-page,
-.content-area.sobremim-content {
+.content-area.sobremim-content,
+.content-area.escala-hoje-page {
      background-color: var(--card-background);
+}
+
+
+/* CORREÇÃO ADICIONAL: Para as páginas que anulam o padding para 0 (Perfil, Colaboradores, etc.) */
+.content-area.profile-page,
+.content-area.collaborators-page,
+.content-area.sobremim-content,
+.content-area.escala-hoje-page { 
+    padding: 0;
+    /* Força o padding-bottom a ser APENAS a altura do footer (72px), compensando a anulação do padding: 0. */
+    padding-bottom: var(--footer-height) !important; 
 }
 
 
 /* 5. Footer Fixo */
 .footer-nav {
     height: var(--footer-height);
-    flex-shrink: 0; /* Impede que o footer encolha */
+    flex-shrink: 0;
     /* CORREÇÃO PRINCIPAL: Torna o footer fixo em relação ao viewport */
     position: fixed; 
     bottom: 0;
