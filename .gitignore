@@ -1,9 +1,0 @@
-# Ignorar pastas de JDK
-oraclejdk-25/
-Files/gerente/oraclejdk-25/
-
-# Ignorar libs grandes
-*.exe
-*.zip
-*.jar
-*.iso
